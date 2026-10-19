@@ -1,156 +1,123 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kiraz Nails Studio | Prenota il tuo appuntamento</title>
-  <meta name="description" content="Prenota il tuo appuntamento da Kiraz Nails Studio.">
-  <style>
-    :root {
-      --pink: #d99aaa;
-      --dark: #382832;
-      --cream: #fff9f7;
-      --muted: #826e78;
-      --border: #ecdde2;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--cream);
-      color: var(--dark);
-    }
-    header {
-      text-align: center;
-      padding: 42px 18px 30px;
-      background: #f7e8ec;
-    }
-    header h1 {
-      font-family: Georgia, serif;
-      font-weight: normal;
-      font-size: clamp(30px, 6vw, 46px);
-      margin: 0 0 10px;
-    }
-    header p { margin: 0; color: var(--muted); }
-    main {
-      max-width: 760px;
-      margin: 30px auto;
-      padding: 0 16px 50px;
-    }
-    .panel {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 24px;
-      margin-bottom: 22px;
-      box-shadow: 0 8px 30px #5833450a;
-    }
-    h2 {
-      font-family: Georgia, serif;
-      font-weight: normal;
-      margin-top: 0;
-    }
-    label {
-      display: block;
-      font-size: 14px;
-      margin: 14px 0 7px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #fffdfd;
-      color: var(--dark);
-      font: inherit;
-    }
-    textarea { min-height: 85px; resize: vertical; }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    button {
-      border: 0;
-      border-radius: 9px;
-      padding: 13px 17px;
-      background: var(--pink);
-      color: white;
-      font: inherit;
-      cursor: pointer;
-      margin-top: 18px;
-    }
-    button:hover { filter: brightness(.96); }
-    button:disabled { opacity: .45; cursor: not-allowed; }
-    .primary { width: 100%; }
-    .secondary {
-      background: #f4e9ed;
-      color: var(--dark);
-    }
-    .danger { background: #a94d62; }
-    .status {
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 9px;
-      background: #f8edf0;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-    .hidden { display: none !important; }
-    .admin-toggle {
-      display: block;
-      margin: 22px auto 0;
-      background: transparent;
-      color: var(--muted);
-      text-decoration: underline;
-      padding: 8px;
-    }
-    .booking {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 15px;
-      margin: 12px 0;
-      overflow-wrap: anywhere;
-    }
-    .booking p { margin: 7px 0; }
-    .booking-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-    .booking-actions button { margin-top: 8px; }
-    .muted { color: var(--muted); font-size: 13px; line-height: 1.5; }
-    footer { text-align: center; padding: 20px; color: var(--muted); font-size: 13px; }
-    @media (max-width: 520px) {
-      .grid { grid-template-columns: 1fr; }
-      .panel { padding: 18px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7e8ec">
+<title>Prenota | Kiraz Nails Studio</title>
+<style>
+:root{--rose:#b85f7a;--dark:#813d55;--pale:#fff7f9;--ink:#382a30;--muted:#786b70;--line:#ead8de;--busy:#eee8eb}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(145deg,#fff9fa,#f7e8ec);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:900px;margin:auto;padding:24px 15px 46px}
+header{text-align:center;padding:20px 10px 25px}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--dark);font-size:.75rem;font-weight:750}
+h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,7vw,3.2rem);margin:.45rem 0;color:#633647}
+.sub{color:var(--muted);max-width:580px;margin:auto;line-height:1.6}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(16px,4vw,27px);box-shadow:0 12px 35px #7c3d5010;margin:16px 0}
+h2{font-family:Georgia,serif;font-size:1.45rem;font-weight:500;margin:0 0 9px}
+.note{font-size:.85rem;color:var(--muted);line-height:1.55}
+label{display:block;font-weight:650;font-size:.92rem;margin:14px 0 7px}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid #dcc7ce;border-radius:12px;background:#fff;color:var(--ink);font:inherit}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #d9a2b3;outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:16px 0}
+.day{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 2px;text-align:center;font-size:.82rem;cursor:pointer;color:var(--ink)}
+.day small{display:block;color:var(--muted);margin-top:4px}
+.day.active{background:var(--rose);border-color:var(--rose);color:#fff}
+.day.active small{color:#fff}
+.day:disabled{opacity:.4;cursor:not-allowed;background:#f3eef0}
+.times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.slot{border:1px solid var(--line);border-radius:11px;background:#fff;padding:14px 5px;font:inherit;cursor:pointer}
+.slot.selected{background:var(--rose);border-color:var(--rose);color:#fff}
+.slot:disabled{background:var(--busy);color:#a49a9f;text-decoration:line-through;cursor:not-allowed}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.check{display:flex;align-items:flex-start;gap:9px;padding:12px;border:1px solid var(--line);border-radius:12px;font-size:.9rem;font-weight:500}
+.check input{width:auto;margin-top:4px;accent-color:var(--rose)}
+.btn{width:100%;border:0;border-radius:13px;background:var(--rose);color:white;font:inherit;font-weight:750;padding:14px;cursor:pointer;margin-top:16px}
+.btn:hover{background:var(--dark)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.secondary{background:#fff;color:var(--dark);border:1px solid var(--line)}
+.btn.danger{background:#a94d62;color:#fff}
+.status{padding:12px 14px;border-radius:12px;background:#fff4f6;color:#633647;line-height:1.5;margin-top:14px;display:none;overflow-wrap:anywhere}
+.status.show{display:block}
+.footer{text-align:center;font-size:.82rem;color:var(--muted);padding:16px}
+.hidden{display:none!important}
+.modal{position:fixed;inset:0;background:#29151dbb;z-index:10;overflow:auto;padding:16px;display:flex;justify-content:center;align-items:flex-start}
+.document{background:white;width:min(820px,100%);padding:clamp(18px,4vw,38px);margin:10px auto;border-radius:14px;color:#30252a;box-shadow:0 15px 50px #0003}
+.document h2,.document h3{font-family:Georgia,serif;color:#633647}
+.doc-head{text-align:center;border-bottom:1px solid #e5d3da;padding-bottom:14px}
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.doc-field{padding:8px 0;border-bottom:1px solid #eee;overflow-wrap:anywhere}
+.signature{border:1px solid #d9c6ce;border-radius:10px;width:100%;height:150px;touch-action:none;background:#fff;display:block}
+.doc-actions{display:flex;gap:10px;flex-wrap:wrap}
+.doc-actions .btn{flex:1;min-width:150px}
+.smallprint{font-size:.82rem;line-height:1.5;color:#665961}
+.booking-card{border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0;overflow-wrap:anywhere}
+.booking-card h3{margin:0 0 10px;font-family:Georgia,serif;color:var(--dark)}
+.booking-card p{margin:7px 0;font-size:.9rem}
+.admin-actions{display:flex;flex-wrap:wrap;gap:8px}
+.admin-actions .btn{width:auto;flex:1;min-width:140px;margin-top:10px}
+.admin-toggle{background:transparent;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;display:block;margin:16px auto;padding:10px;font:inherit}
+@media(max-width:560px){
+ .row,.doc-grid{grid-template-columns:1fr}
+ .days{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .day{padding:11px 3px}
+ .checks{grid-template-columns:1fr}
+ .modal{padding:5px}
+ .document{padding:16px}
+}
+@media print{
+ body *{visibility:hidden!important}
+ .modal,.modal *{visibility:visible!important}
+ .modal{position:absolute;inset:0;background:white;padding:0;display:block!important;overflow:visible}
+ .document{box-shadow:none;border-radius:0;margin:0;width:100%;padding:10mm}
+ .doc-actions,.close-doc,.signature-hint{display:none!important}
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Kiraz Nails Studio</h1>
-    <p>La bellezza delle tue mani, con cura e delicatezza ✨</p>
-  </header>
+<div class="wrap">
 
-  <main>
-    <section class="panel">
-      <h2>Prenota il tuo appuntamento</h2>
-      <p class="muted">Seleziona il trattamento, la data e un orario disponibile. Gli appuntamenti sono disponibili alle 10:00 e alle 15:00. La domenica siamo chiusi.</p>
+<header>
+  <div class="eyebrow">Nail studio · Prenotazioni online</div>
+  <h1>Kiraz Nails Studio</h1>
+  <p class="sub">Prenota il tuo momento di bellezza. Seleziona una data, uno dei due orari disponibili e il trattamento desiderato.</p>
+</header>
 
-      <form id="bookingForm">
-        <label for="customer_name">Nome e cognome *</label>
-        <input id="customer_name" name="customer_name" required maxlength="100" autocomplete="name">
+<section class="panel">
+  <h2>Scegli un appuntamento</h2>
+  <p class="note">Apertura dal lunedì al sabato. Domenica chiuso. Gli orari disponibili sono le 10:00 e le 15:00.</p>
+  <label for="month">Mese</label>
+  <input id="month" type="month">
+  <div id="days" class="days" aria-label="Giorni del mese"></div>
+  <h3 style="font-family:Georgia,serif;font-weight:500">Orari disponibili</h3>
+  <div id="chosenDate" class="note">Seleziona una data disponibile.</div>
+  <div id="times" class="times"></div>
+</section>
 
-        <div class="grid">
-          <div>
-            <label for="email">Email *</label>
-            <input id="email" name="email" type="email" required maxlength="254" autocomplete="email">
-          </div>
-          <div>
-            <label for="phone">Telefono *</label>
-            <input id="phone" name="phone" type="tel" required maxlength="30" autocomplete="tel">
-          </div>
-        </div>
-
-        <label for="service">Trattamento *</label>
+<section class="panel">
+  <h2>Dati per la prenotazione</h2>
+  <form id="bookingForm">
+    <div class="row">
+      <div>
+        <label for="name">Nome e cognome *</label>
+        <input id="name" name="name" autocomplete="name" required maxlength="100" placeholder="Nome e cognome">
+      </div>
+      <div>
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@email.com">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="phone">Numero di cellulare *</label>
+        <input id="phone" name="phone" autocomplete="tel" type="tel" required maxlength="30" placeholder="Numero di cellulare">
+      </div>
+      <div>
+        <label for="service">Trattamento richiesto *</label>
         <select id="service" name="service" required>
           <option value="">Seleziona un trattamento</option>
           <option>Soft Gel</option>
@@ -159,372 +126,620 @@
           <option>Baby boomer</option>
           <option>Poly Gel</option>
         </select>
+      </div>
+    </div>
 
-        <div class="grid">
-          <div>
-            <label for="appointment_date">Data *</label>
-            <input id="appointment_date" name="appointment_date" type="date" required>
-          </div>
-          <div>
-            <label for="appointment_time">Orario *</label>
-            <select id="appointment_time" name="appointment_time" required disabled>
-              <option value="">Prima scegli la data</option>
-            </select>
-          </div>
-        </div>
+    <label for="notes">Note (facoltative)</label>
+    <textarea id="notes" name="notes" maxlength="1500" placeholder="Scrivi qui eventuali richieste o dettagli utili…"></textarea>
 
-        <label for="notes">Note (facoltative)</label>
-        <textarea id="notes" name="notes" maxlength="1000" placeholder="Scrivi qui eventuali richieste..."></textarea>
+    <label class="check" style="margin-top:14px">
+      <input type="checkbox" id="privacy" required>
+      Confermo di aver letto l'informativa privacy dello studio e acconsento al trattamento dei dati necessari per gestire la richiesta di appuntamento. *
+    </label>
+    <p class="note">Prima di pubblicare il sito per clienti reali, inserisci un'informativa privacy completa e verifica gli adempimenti applicabili.</p>
 
-        <button class="primary" id="bookButton" type="submit">Conferma prenotazione</button>
-        <div id="bookingMessage" class="status hidden" role="status"></div>
-      </form>
-    </section>
+    <button class="btn" id="submit" type="submit">Continua alla presa visione e firma</button>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+  </form>
+</section>
 
-    <button class="admin-toggle" id="showAdminButton" type="button">Accesso amministratrice</button>
+<section class="panel">
+  <h2>Area studio</h2>
+  <p class="note">Accesso riservato all'amministratrice per consultare e gestire gli appuntamenti.</p>
 
-    <section class="panel hidden" id="adminLogin">
-      <h2>Area amministratrice</h2>
-      <p class="muted">Accedi con l'email e la password dell'utente amministratore creato in Supabase Authentication.</p>
-      <form id="loginForm">
-        <label for="adminEmail">Email amministratrice</label>
-        <input id="adminEmail" type="email" required autocomplete="username">
-        <label for="adminPassword">Password</label>
-        <input id="adminPassword" type="password" required autocomplete="current-password">
-        <button class="primary" type="submit" id="loginButton">Accedi</button>
-        <div id="loginMessage" class="status hidden" role="status"></div>
-      </form>
-    </section>
+  <div id="adminLogin">
+    <form id="loginForm">
+      <label for="adminEmail">Email amministratrice</label>
+      <input id="adminEmail" type="email" autocomplete="username" required placeholder="Email amministratrice">
+      <label for="adminPassword">Password</label>
+      <input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Password">
+      <button class="btn" id="loginButton" type="submit">Accedi all'area amministratrice</button>
+    </form>
+    <div id="loginStatus" class="status" role="status" aria-live="polite"></div>
+  </div>
 
-    <section class="panel hidden" id="adminPanel">
-      <h2>Gestione appuntamenti</h2>
-      <p class="muted">Da qui puoi consultare le prenotazioni e segnare un appuntamento come completato o annullato.</p>
-      <button type="button" id="refreshButton">Aggiorna appuntamenti</button>
-      <button type="button" class="secondary" id="logoutButton">Esci</button>
-      <div id="adminMessage" class="status hidden" role="status"></div>
-      <div id="appointmentsList"></div>
-    </section>
-  </main>
+  <div id="adminPanel" class="hidden">
+    <p class="note">Sei entrata nell'area amministratrice.</p>
+    <button class="btn secondary" id="refreshButton" type="button">Aggiorna appuntamenti</button>
+    <button class="btn secondary" id="logoutButton" type="button">Esci</button>
+    <div id="adminStatus" class="status" role="status" aria-live="polite"></div>
+    <div id="appointmentsList"></div>
+  </div>
+</section>
 
-  <footer>Kiraz Nails Studio</footer>
+<p class="footer">Kiraz Nails Studio · Prenotazioni online</p>
+</div>
 
-  <script>
-    // Configurazione del progetto Supabase
-    const SUPABASE_URL = "https://bcfytgwaurczkntjofal.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
-    const FUNCTION_URL = SUPABASE_URL + "/functions/v1/manage-bookings";
+<div id="docModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="docTitle">
+  <div class="document">
+    <div class="doc-head">
+      <div class="eyebrow">Kiraz Nails Studio</div>
+      <h2 id="docTitle">Scheda appuntamento e presa visione</h2>
+      <p class="smallprint">Riepilogo dei dati prima di inviare la richiesta di prenotazione.</p>
+    </div>
+    <h3>Riepilogo prenotazione</h3>
+    <div class="doc-grid">
+      <div class="doc-field"><b>Studio</b><div>Kiraz Nails Studio</div></div>
+      <div class="doc-field"><b>Cliente</b><div id="docName"></div></div>
+      <div class="doc-field"><b>Email</b><div id="docEmail"></div></div>
+      <div class="doc-field"><b>Cellulare</b><div id="docPhone"></div></div>
+      <div class="doc-field"><b>Trattamento scelto</b><div id="docService"></div></div>
+      <div class="doc-field"><b>Appuntamento richiesto</b><div id="docWhen"></div></div>
+      <div class="doc-field" style="grid-column:1/-1"><b>Note</b><div id="docNotes"></div></div>
+    </div>
+    <h3>Presa visione</h3>
+    <p class="smallprint">Controlla che i dati siano corretti. L'invio del modulo trasmette una richiesta di appuntamento allo studio. La prenotazione è registrata solo se il server conferma che l'orario è ancora disponibile.</p>
+    <h3>Firma della cliente</h3>
+    <p class="smallprint signature-hint">Firma con il dito o il mouse nel riquadro.</p>
+    <canvas id="signature" class="signature" aria-label="Riquadro per firma"></canvas>
+    <div class="doc-actions">
+      <button type="button" class="btn secondary" id="clearSig">Cancella firma</button>
+      <button type="button" class="btn" id="confirmBooking">Invia prenotazione</button>
+      <button type="button" class="btn secondary close-doc" id="closeDoc">Torna indietro</button>
+    </div>
+    <div id="confirmStatus" class="status" role="status" aria-live="polite"></div>
+  </div>
+</div>
 
-    const slots = ["10:00", "15:00"];
-    let accessToken = null;
+<div id="confirmationModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle">
+  <div class="document">
+    <div class="doc-head">
+      <div class="eyebrow">Kiraz Nails Studio</div>
+      <h2 id="confirmationTitle">Richiesta inviata</h2>
+      <p class="smallprint">Riepilogo della prenotazione</p>
+    </div>
+    <h3>Appuntamento</h3>
+    <div class="doc-grid">
+      <div class="doc-field"><b>Cliente</b><div id="finalName"></div></div>
+      <div class="doc-field"><b>Email</b><div id="finalEmail"></div></div>
+      <div class="doc-field"><b>Cellulare</b><div id="finalPhone"></div></div>
+      <div class="doc-field"><b>Trattamento</b><div id="finalService"></div></div>
+      <div class="doc-field"><b>Data</b><div id="finalDate"></div></div>
+      <div class="doc-field"><b>Ora</b><div id="finalTime"></div></div>
+    </div>
+    <p id="finalMessage" class="smallprint"></p>
+    <div class="doc-actions">
+      <button type="button" class="btn" id="downloadPdf">Stampa riepilogo / Salva PDF</button>
+      <button type="button" class="btn secondary" id="closeFinal">Chiudi</button>
+    </div>
+  </div>
+</div>
 
-    const $ = (id) => document.getElementById(id);
+<script>
+"use strict";
 
-    function showMessage(id, message) {
-      const el = $(id);
-      el.textContent = message;
-      el.classList.remove("hidden");
+/* CONFIGURAZIONE SUPABASE */
+const SUPABASE_URL = "https://bcfytgwaurczkntjofal.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
+const FUNCTION_URL = SUPABASE_URL + "/functions/v1/manage-bookings";
+
+const times = ["10:00", "15:00"];
+let selectedDate = null;
+let selectedTime = null;
+let accessToken = null;
+let pendingBooking = null;
+
+const $ = id => document.getElementById(id);
+const monthInput = $("month");
+
+function localDate(y, m, d) {
+  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+}
+function todayString() {
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0,10);
+}
+function say(id, message) {
+  $(id).textContent = message;
+  $(id).classList.add("show");
+}
+function clearSay(id) {
+  $(id).textContent = "";
+  $(id).classList.remove("show");
+}
+function isClosed(date) {
+  return new Date(`${date}T12:00:00`).getDay() === 0;
+}
+
+async function apiRequest(url, options = {}) {
+  const headers = {
+    "apikey": SUPABASE_ANON_KEY,
+    ...options.headers
+  };
+  const response = await fetch(url, { ...options, headers });
+  const raw = await response.text();
+  let data = {};
+  try { data = raw ? JSON.parse(raw) : {}; }
+  catch { data = { message: raw }; }
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || `Errore HTTP ${response.status}`);
+  }
+  return data;
+}
+
+/* DISPONIBILITÀ E CALENDARIO */
+monthInput.value = todayString().slice(0,7);
+monthInput.min = todayString().slice(0,7);
+
+async function getOccupiedSlots(date) {
+  const result = await apiRequest(
+    FUNCTION_URL + "?action=availability&from=" +
+    encodeURIComponent(date) + "&to=" + encodeURIComponent(date)
+  );
+
+  const rows = Array.isArray(result) ? result :
+    (result.appointments || result.bookings || result.occupied || result.data || []);
+
+  const occupied = new Set();
+
+  for (const row of rows) {
+    const rowDate = row.appointment_date || row.date;
+    const rowTime = row.appointment_time || row.time;
+    const status = row.status;
+
+    if (rowDate === date && rowTime && status !== "cancelled") {
+      occupied.add(String(rowTime).slice(0,5));
+    }
+  }
+  return occupied;
+}
+
+async function renderTimes() {
+  $("chosenDate").textContent = selectedDate
+    ? `Data selezionata: ${selectedDate}`
+    : "Seleziona una data disponibile.";
+
+  const container = $("times");
+  container.innerHTML = "";
+
+  if (!selectedDate) {
+    times.forEach(time => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "slot";
+      b.textContent = time;
+      b.disabled = true;
+      container.appendChild(b);
+    });
+    return;
+  }
+
+  if (isClosed(selectedDate) || selectedDate < todayString()) {
+    $("chosenDate").textContent = isClosed(selectedDate)
+      ? "La domenica lo studio è chiuso."
+      : "Seleziona una data futura.";
+    return;
+  }
+
+  times.forEach(time => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "slot" + (time === selectedTime ? " selected" : "");
+    b.textContent = time;
+    b.disabled = true;
+    b.title = "Controllo disponibilità...";
+    container.appendChild(b);
+  });
+
+  try {
+    const occupied = await getOccupiedSlots(selectedDate);
+    container.innerHTML = "";
+
+    times.forEach(time => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "slot" + (time === selectedTime ? " selected" : "");
+      b.textContent = occupied.has(time) ? `${time} · Occupato` : time;
+      b.disabled = occupied.has(time);
+      b.addEventListener("click", () => {
+        selectedTime = time;
+        renderTimes();
+      });
+      container.appendChild(b);
+    });
+
+    if (selectedTime && occupied.has(selectedTime)) {
+      selectedTime = null;
+      say("status", "L'orario selezionato non è più disponibile. Scegline un altro.");
+    }
+  } catch (error) {
+    container.innerHTML = "";
+    say("status", "Non riesco a controllare la disponibilità. Riprova tra poco.");
+    times.forEach(time => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "slot";
+      b.textContent = time;
+      b.disabled = true;
+      container.appendChild(b);
+    });
+  }
+}
+
+function renderDays() {
+  const parts = monthInput.value.split("-").map(Number);
+  if (parts.length < 2) return;
+
+  const [year, month] = parts;
+  const count = new Date(year, month, 0).getDate();
+  const container = $("days");
+  container.innerHTML = "";
+
+  for (let d = 1; d <= count; d++) {
+    const date = localDate(year, month, d);
+    const past = date < todayString();
+    const closed = isClosed(date);
+    const b = document.createElement("button");
+
+    b.type = "button";
+    b.className = "day" + (date === selectedDate ? " active" : "");
+    b.disabled = past || closed;
+    b.innerHTML = `${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;
+
+    if (closed) b.title = "Domenica: chiuso";
+
+    b.addEventListener("click", () => {
+      selectedDate = date;
+      selectedTime = null;
+      clearSay("status");
+      renderDays();
+      renderTimes();
+    });
+
+    container.appendChild(b);
+  }
+}
+
+monthInput.addEventListener("change", () => {
+  selectedDate = null;
+  selectedTime = null;
+  clearSay("status");
+  renderDays();
+  renderTimes();
+});
+
+/* MODULO E FIRMA */
+const canvas = $("signature");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+let hasSignature = false;
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  if (!rect.width) return;
+
+  const previous = hasSignature ? canvas.toDataURL() : null;
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = rect.width * ratio;
+  canvas.height = rect.height * ratio;
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  ctx.lineWidth = 2;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#39252d";
+
+  if (previous) {
+    const img = new Image();
+    img.onload = () => ctx.drawImage(img,0,0,rect.width,rect.height);
+    img.src = previous;
+  }
+}
+function canvasPoint(event) {
+  const rect = canvas.getBoundingClientRect();
+  return { x:event.clientX-rect.left, y:event.clientY-rect.top };
+}
+
+canvas.addEventListener("pointerdown", event => {
+  drawing = true;
+  hasSignature = true;
+  canvas.setPointerCapture(event.pointerId);
+  const p = canvasPoint(event);
+  ctx.beginPath();
+  ctx.moveTo(p.x,p.y);
+});
+canvas.addEventListener("pointermove", event => {
+  if (!drawing) return;
+  const p = canvasPoint(event);
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
+});
+["pointerup","pointercancel","pointerleave"].forEach(name =>
+  canvas.addEventListener(name, () => drawing = false)
+);
+$("clearSig").addEventListener("click", () => {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  hasSignature = false;
+});
+window.addEventListener("resize", resizeCanvas);
+
+$("bookingForm").addEventListener("submit", event => {
+  event.preventDefault();
+  clearSay("status");
+
+  if (!selectedDate || !selectedTime) {
+    say("status", "Seleziona una data e un orario disponibile prima di continuare.");
+    return;
+  }
+  if (selectedDate < todayString() || isClosed(selectedDate)) {
+    say("status", "La data selezionata non è valida.");
+    return;
+  }
+  if (!$("privacy").checked) {
+    say("status", "Conferma di aver letto l'informativa privacy.");
+    return;
+  }
+
+  pendingBooking = {
+    customer_name: $("name").value.trim(),
+    email: $("email").value.trim(),
+    phone: $("phone").value.trim(),
+    service: $("service").value,
+    appointment_date: selectedDate,
+    appointment_time: selectedTime,
+    notes: $("notes").value.trim()
+  };
+
+  $("docName").textContent = pendingBooking.customer_name;
+  $("docEmail").textContent = pendingBooking.email;
+  $("docPhone").textContent = pendingBooking.phone;
+  $("docService").textContent = pendingBooking.service;
+  $("docWhen").textContent = `${selectedDate} alle ${selectedTime}`;
+  $("docNotes").textContent = pendingBooking.notes || "Nessuna nota";
+
+  clearSay("confirmStatus");
+  $("docModal").classList.remove("hidden");
+  requestAnimationFrame(resizeCanvas);
+});
+
+$("confirmBooking").addEventListener("click", async () => {
+  if (!pendingBooking) {
+    say("confirmStatus", "I dati della prenotazione non sono disponibili. Chiudi e riprova.");
+    return;
+  }
+  if (!hasSignature) {
+    say("confirmStatus", "Prima di inviare, chiedi alla cliente di firmare nel riquadro.");
+    return;
+  }
+
+  const button = $("confirmBooking");
+  button.disabled = true;
+  button.textContent = "Invio in corso...";
+  clearSay("confirmStatus");
+
+  try {
+    // Controlla nuovamente che lo slot sia libero prima dell'invio.
+    const occupied = await getOccupiedSlots(pendingBooking.appointment_date);
+    if (occupied.has(pendingBooking.appointment_time)) {
+      throw new Error("Questo orario è stato appena prenotato. Seleziona un altro orario.");
     }
 
-    function hideMessage(id) {
-      $(id).classList.add("hidden");
-      $(id).textContent = "";
+    // La firma rimane sul dispositivo e non viene inviata al database.
+    await apiRequest(FUNCTION_URL, {
+      method: "POST",
+      headers: { "Content-Type":"application/json" },
+      body: JSON.stringify(pendingBooking)
+    });
+
+    $("finalName").textContent = pendingBooking.customer_name;
+    $("finalEmail").textContent = pendingBooking.email;
+    $("finalPhone").textContent = pendingBooking.phone;
+    $("finalService").textContent = pendingBooking.service;
+    $("finalDate").textContent = pendingBooking.appointment_date;
+    $("finalTime").textContent = pendingBooking.appointment_time;
+    $("finalMessage").textContent = "La prenotazione è stata registrata dal server. Conserva questo riepilogo.";
+
+    $("docModal").classList.add("hidden");
+    $("confirmationModal").classList.remove("hidden");
+
+    $("bookingForm").reset();
+    pendingBooking = null;
+    selectedDate = null;
+    selectedTime = null;
+    hasSignature = false;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    renderDays();
+    renderTimes();
+  } catch (error) {
+    say("confirmStatus", "Non è stato possibile registrare la prenotazione: " + error.message);
+    await renderTimes();
+  } finally {
+    button.disabled = false;
+    button.textContent = "Invia prenotazione";
+  }
+});
+
+$("closeDoc").addEventListener("click", () => {
+  $("docModal").classList.add("hidden");
+});
+$("closeFinal").addEventListener("click", () => {
+  $("confirmationModal").classList.add("hidden");
+});
+$("downloadPdf").addEventListener("click", () => window.print());
+
+/* ACCESSO AMMINISTRATRICE */
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  clearSay("loginStatus");
+  $("loginButton").disabled = true;
+  $("loginButton").textContent = "Accesso in corso...";
+
+  try {
+    const result = await apiRequest(
+      SUPABASE_URL + "/auth/v1/token?grant_type=password",
+      {
+        method: "POST",
+        headers: { "Content-Type":"application/json" },
+        body: JSON.stringify({
+          email: $("adminEmail").value.trim(),
+          password: $("adminPassword").value
+        })
+      }
+    );
+
+    if (!result.access_token) {
+      throw new Error("Supabase non ha restituito un token di accesso.");
     }
 
-    function localToday() {
-      const d = new Date();
-      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-      return d.toISOString().slice(0, 10);
+    accessToken = result.access_token;
+    $("adminPassword").value = "";
+    $("adminLogin").classList.add("hidden");
+    $("adminPanel").classList.remove("hidden");
+    await loadAppointments();
+  } catch (error) {
+    say("loginStatus", "Accesso non riuscito. Controlla le credenziali e che l'utente esista in Supabase Authentication. " + error.message);
+  } finally {
+    $("loginButton").disabled = false;
+    $("loginButton").textContent = "Accedi all'area amministratrice";
+  }
+});
+
+async function loadAppointments() {
+  if (!accessToken) return;
+
+  clearSay("adminStatus");
+  $("appointmentsList").textContent = "Caricamento appuntamenti...";
+
+  try {
+    const result = await apiRequest(FUNCTION_URL, {
+      method: "GET",
+      headers: { "Authorization":"Bearer " + accessToken }
+    });
+
+    const list = Array.isArray(result) ? result :
+      (result.appointments || result.data || []);
+
+    const container = $("appointmentsList");
+    container.innerHTML = "";
+
+    if (!list.length) {
+      container.textContent = "Non ci sono appuntamenti da mostrare.";
+      return;
     }
 
-    $("appointment_date").min = localToday();
+    list.sort((a,b) =>
+      String(a.appointment_date + a.appointment_time)
+        .localeCompare(String(b.appointment_date + b.appointment_time))
+    );
 
-    async function apiRequest(url, options = {}) {
-      const headers = {
-        "apikey": SUPABASE_ANON_KEY,
-        ...options.headers
-      };
+    for (const appointment of list) {
+      const card = document.createElement("article");
+      card.className = "booking-card";
 
-      const response = await fetch(url, { ...options, headers });
-      const text = await response.text();
-      let data = {};
-      try { data = text ? JSON.parse(text) : {}; }
-      catch { data = { message: text }; }
+      const title = document.createElement("h3");
+      title.textContent = `${appointment.customer_name || "Cliente"} — ${appointment.service || "Trattamento"}`;
+      card.appendChild(title);
 
-      if (!response.ok) {
-        throw new Error(data.error || data.message || "Richiesta non riuscita (" + response.status + ").");
-      }
-      return data;
-    }
+      const details = [
+        "Data: " + (appointment.appointment_date || "—"),
+        "Ora: " + (appointment.appointment_time || "—"),
+        "Email: " + (appointment.email || "—"),
+        "Telefono: " + (appointment.phone || "—"),
+        "Stato: " + (appointment.status || "—"),
+        "Note: " + (appointment.notes || "Nessuna")
+      ];
 
-    async function loadAvailability() {
-      const date = $("appointment_date").value;
-      const select = $("appointment_time");
-      select.innerHTML = "";
-      select.disabled = true;
-
-      if (!date) {
-        select.add(new Option("Prima scegli la data", ""));
-        return;
+      for (const detail of details) {
+        const p = document.createElement("p");
+        p.textContent = detail;
+        card.appendChild(p);
       }
 
-      if (date < localToday()) {
-        select.add(new Option("Scegli una data futura", ""));
-        return;
-      }
+      if (appointment.id &&
+          appointment.status !== "completed" &&
+          appointment.status !== "cancelled") {
+        const actions = document.createElement("div");
+        actions.className = "admin-actions";
 
-      // Domenica: nessun appuntamento
-      const weekday = new Date(date + "T12:00:00").getDay();
-      if (weekday === 0) {
-        select.add(new Option("Chiuso la domenica", ""));
-        return;
-      }
-
-      select.add(new Option("Controllo disponibilità...", ""));
-
-      try {
-        const result = await apiRequest(
-          FUNCTION_URL + "?action=availability&from=" +
-          encodeURIComponent(date) + "&to=" + encodeURIComponent(date)
+        const complete = document.createElement("button");
+        complete.type = "button";
+        complete.className = "btn";
+        complete.textContent = "Segna completato";
+        complete.addEventListener("click", () =>
+          updateAppointment(appointment.id, "completed")
         );
+        actions.appendChild(complete);
 
-        // Accetta i formati più comuni restituiti dall'endpoint.
-        const rows = Array.isArray(result) ? result :
-          (result.appointments || result.bookings || result.occupied || result.data || []);
-
-        const occupied = new Set();
-        for (const row of rows) {
-          const rowDate = row.appointment_date || row.date;
-          const rowTime = row.appointment_time || row.time;
-          const status = row.status;
-          if (rowDate === date && rowTime && status !== "cancelled") {
-            occupied.add(String(rowTime).slice(0, 5));
-          } else if (rowDate === date && rowTime && !status) {
-            occupied.add(String(rowTime).slice(0, 5));
+        const cancel = document.createElement("button");
+        cancel.type = "button";
+        cancel.className = "btn danger";
+        cancel.textContent = "Annulla appuntamento";
+        cancel.addEventListener("click", () => {
+          if (confirm("Vuoi annullare questo appuntamento?")) {
+            updateAppointment(appointment.id, "cancelled");
           }
-        }
-
-        select.innerHTML = "";
-        select.add(new Option("Seleziona un orario", ""));
-        for (const time of slots) {
-          const option = new Option(
-            occupied.has(time) ? time + " — non disponibile" : time,
-            time
-          );
-          option.disabled = occupied.has(time);
-          select.add(option);
-        }
-        select.disabled = false;
-      } catch (error) {
-        select.innerHTML = "";
-        select.add(new Option("Disponibilità non caricata", ""));
-        showMessage("bookingMessage", "Non riesco a verificare gli orari. Riprova tra poco. " + error.message);
-      }
-    }
-
-    $("appointment_date").addEventListener("change", () => {
-      hideMessage("bookingMessage");
-      loadAvailability();
-    });
-
-    $("bookingForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      hideMessage("bookingMessage");
-
-      const button = $("bookButton");
-      button.disabled = true;
-      button.textContent = "Invio in corso...";
-
-      const payload = {
-        customer_name: $("customer_name").value.trim(),
-        email: $("email").value.trim(),
-        phone: $("phone").value.trim(),
-        service: $("service").value,
-        appointment_date: $("appointment_date").value,
-        appointment_time: $("appointment_time").value,
-        notes: $("notes").value.trim()
-      };
-
-      try {
-        if (!payload.appointment_time) {
-          throw new Error("Seleziona un orario disponibile.");
-        }
-        if (payload.appointment_date < localToday()) {
-          throw new Error("Scegli una data futura.");
-        }
-        if (new Date(payload.appointment_date + "T12:00:00").getDay() === 0) {
-          throw new Error("La domenica lo studio è chiuso.");
-        }
-
-        await apiRequest(FUNCTION_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
         });
-
-        showMessage("bookingMessage", "Prenotazione inviata! La tua richiesta è stata registrata. Se necessario, lo studio ti contatterà per confermare i dettagli.");
-        $("bookingForm").reset();
-        $("appointment_date").min = localToday();
-        await loadAvailability();
-      } catch (error) {
-        showMessage("bookingMessage", "Non è stato possibile completare la prenotazione: " + error.message);
-        await loadAvailability();
-      } finally {
-        button.disabled = false;
-        button.textContent = "Conferma prenotazione";
+        actions.appendChild(cancel);
+        card.appendChild(actions);
       }
-    });
 
-    $("showAdminButton").addEventListener("click", () => {
-      $("adminLogin").classList.toggle("hidden");
-      $("adminLogin").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    $("loginForm").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      hideMessage("loginMessage");
-      $("loginButton").disabled = true;
-
-      try {
-        const result = await apiRequest(
-          SUPABASE_URL + "/auth/v1/token?grant_type=password",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: $("adminEmail").value.trim(),
-              password: $("adminPassword").value
-            })
-          }
-        );
-
-        if (!result.access_token) {
-          throw new Error("Accesso non riuscito: token non ricevuto.");
-        }
-
-        accessToken = result.access_token;
-        $("adminLogin").classList.add("hidden");
-        $("adminPanel").classList.remove("hidden");
-        $("adminPassword").value = "";
-        await loadAppointments();
-      } catch (error) {
-        showMessage("loginMessage", "Accesso non riuscito. Controlla email e password e verifica che l'utente esista in Supabase. " + error.message);
-      } finally {
-        $("loginButton").disabled = false;
-      }
-    });
-
-    async function loadAppointments() {
-      if (!accessToken) return;
-      hideMessage("adminMessage");
-      $("appointmentsList").textContent = "Caricamento appuntamenti...";
-
-      try {
-        const result = await apiRequest(FUNCTION_URL, {
-          method: "GET",
-          headers: { "Authorization": "Bearer " + accessToken }
-        });
-
-        const list = Array.isArray(result) ? result :
-          (result.appointments || result.data || []);
-
-        $("appointmentsList").innerHTML = "";
-
-        if (!list.length) {
-          $("appointmentsList").textContent = "Non ci sono appuntamenti da mostrare.";
-          return;
-        }
-
-        list.sort((a, b) =>
-          (a.appointment_date + a.appointment_time)
-            .localeCompare(b.appointment_date + b.appointment_time)
-        );
-
-        for (const appointment of list) {
-          const card = document.createElement("article");
-          card.className = "booking";
-
-          const title = document.createElement("h3");
-          title.textContent = (appointment.customer_name || "Cliente") +
-            " — " + (appointment.service || "Trattamento");
-          card.appendChild(title);
-
-          const details = [
-            "Data: " + (appointment.appointment_date || "—"),
-            "Ora: " + (appointment.appointment_time || "—"),
-            "Email: " + (appointment.email || "—"),
-            "Telefono: " + (appointment.phone || "—"),
-            "Stato: " + (appointment.status || "—"),
-            "Note: " + (appointment.notes || "Nessuna")
-          ];
-
-          for (const detail of details) {
-            const p = document.createElement("p");
-            p.textContent = detail;
-            card.appendChild(p);
-          }
-
-          const actions = document.createElement("div");
-          actions.className = "booking-actions";
-
-          if (appointment.status !== "completed" && appointment.status !== "cancelled") {
-            const completeButton = document.createElement("button");
-            completeButton.textContent = "Segna completato";
-            completeButton.addEventListener("click", () =>
-              updateAppointment(appointment.id, "completed")
-            );
-            actions.appendChild(completeButton);
-
-            const cancelButton = document.createElement("button");
-            cancelButton.textContent = "Annulla";
-            cancelButton.className = "danger";
-            cancelButton.addEventListener("click", () => {
-              if (confirm("Vuoi annullare questo appuntamento?")) {
-                updateAppointment(appointment.id, "cancelled");
-              }
-            });
-            actions.appendChild(cancelButton);
-          }
-
-          card.appendChild(actions);
-          $("appointmentsList").appendChild(card);
-        }
-      } catch (error) {
-        $("appointmentsList").textContent = "";
-        showMessage("adminMessage", "Non riesco a caricare gli appuntamenti. " + error.message);
-      }
+      container.appendChild(card);
     }
+  } catch (error) {
+    $("appointmentsList").innerHTML = "";
+    say("adminStatus", "Non riesco a caricare gli appuntamenti. " + error.message);
+  }
+}
 
-    async function updateAppointment(id, status) {
-      try {
-        await apiRequest(FUNCTION_URL, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + accessToken
-          },
-          body: JSON.stringify({ id, status })
-        });
-        showMessage("adminMessage", "Appuntamento aggiornato.");
-        await loadAppointments();
-      } catch (error) {
-        showMessage("adminMessage", "Non è stato possibile aggiornare l'appuntamento: " + error.message);
-      }
-    }
+async function updateAppointment(id, status) {
+  if (!accessToken) {
+    say("adminStatus", "Effettua nuovamente l'accesso.");
+    return;
+  }
 
-    $("refreshButton").addEventListener("click", loadAppointments);
-
-    $("logoutButton").addEventListener("click", () => {
-      accessToken = null;
-      $("adminPanel").classList.add("hidden");
-      $("adminLogin").classList.remove("hidden");
-      $("loginForm").reset();
-      $("appointmentsList").innerHTML = "";
-      hideMessage("adminMessage");
-      showMessage("loginMessage", "Hai effettuato la disconnessione.");
+  try {
+    await apiRequest(FUNCTION_URL, {
+      method: "PATCH",
+      headers: {
+        "Content-Type":"application/json",
+        "Authorization":"Bearer " + accessToken
+      },
+      body: JSON.stringify({ id, status })
     });
 
-    // Carica la disponibilità se è già selezionata una data.
-    loadAvailability();
-  </script>
+    say("adminStatus", "Appuntamento aggiornato.");
+    await loadAppointments();
+    await renderTimes();
+  } catch (error) {
+    say("adminStatus", "Non è stato possibile aggiornare l'appuntamento: " + error.message);
+  }
+}
+
+$("refreshButton").addEventListener("click", loadAppointments);
+
+$("logoutButton").addEventListener("click", () => {
+  accessToken = null;
+  $("adminPanel").classList.add("hidden");
+  $("adminLogin").classList.remove("hidden");
+  $("loginForm").reset();
+  $("appointmentsList").innerHTML = "";
+  clearSay("adminStatus");
+  say("loginStatus", "Sei uscita dall'area amministratrice.");
+});
+
+renderDays();
+renderTimes();
+</script>
 </body>
 </html>
