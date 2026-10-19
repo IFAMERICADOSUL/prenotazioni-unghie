@@ -401,44 +401,129 @@ $("newBooking").addEventListener("click",()=>{
 });
 
 // Area amministratore
-async function loadAdminAppointments(){
-  if(!session?.access_token)throw new Error("Devi prima effettuare l'accesso.");
-  const result=await api(FUNCTION_URL+"?action=admin");
-  const rows=result.appointments||[];
-  const container=$("adminBookings");container.replaceChildren();
-  if(!rows.length){container.textContent="Nessun appuntamento trovato.";return;}
 
-  rows.forEach(item=>{
-    let status=item.status||"booked";
-    if(status!=="cancelled"&&item.appointment_date<todayString())status="completed";
-    const card=document.createElement("div");card.className="booking-card";
-    const fields=[
-      ["Cliente",item.customer_name],["Data",item.appointment_date],
-      ["Ora",String(item.appointment_time||"").slice(0,5)],["Trattamento",item.service],
-      ["Email",item.email],["Telefono",item.phone],["Stato",({booked:"Prenotato",completed:"Completato",cancelled:"Annullato"})[status]||status],
-      ["Allergie/sensibilità",item.allergies],["Condizioni di salute",item.health_conditions],
-      ["Problemi unghie/pelle",item.nail_conditions],["Altre informazioni",item.other_health_notes],
-      ["Note",item.notes],["Consenso sanitario",item.health_data_consent?"Sì":"No"],
-      ["Data consenso",item.health_data_consent_at||"Non disponibile"],
-      ["Versione informativa",item.privacy_notice_version||"Non disponibile"]
+function getRomeDateTime() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Rome",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(new Date());
+
+  const value = Object.fromEntries(
+    parts.map(part => [part.type, part.value])
+  );
+
+  return {
+    date: `${value.year}-${value.month}-${value.day}`,
+    time: `${value.hour}:${value.minute}:${value.second}`
+  };
+}
+
+function getAppointmentStatus(appointment) {
+  // Gli appuntamenti annullati rimangono annullati.
+  if (appointment.status === "cancelled") {
+    return { label: "ANNULLATO", color: "#54212d" };
+  }
+
+  // Gli appuntamenti già completati non tornano confermati.
+  if (appointment.status === "completed") {
+    return { label: "COMPLETATO", color: "#382a30" };
+  }
+
+  const now = getRomeDateTime();
+  const date = appointment.appointment_date;
+  const time = String(appointment.appointment_time || "").slice(0, 5);
+
+  // Completato solo dopo la data E l'orario dell'appuntamento.
+  if (
+    date &&
+    time &&
+    (date < now.date || (date === now.date && time <= now.time.slice(0, 5)))
+  ) {
+    return { label: "COMPLETATO", color: "#382a30" };
+  }
+
+  return { label: "CONFERMATO", color: "#382a30" };
+}
+
+async function loadAdminAppointments() {
+  if (!session?.access_token) {
+    throw new Error("Devi prima effettuare l'accesso.");
+  }
+
+  const result = await api(FUNCTION_URL + "?action=admin");
+  const rows = result.appointments || [];
+  const container = $("adminBookings");
+
+  container.replaceChildren();
+
+  if (!rows.length) {
+    container.textContent = "Nessun appuntamento trovato.";
+    return;
+  }
+
+  rows.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "booking-card";
+
+    const status = getAppointmentStatus(item);
+
+    const fields = [
+      ["Cliente", item.customer_name],
+      ["Data", item.appointment_date],
+      ["Ora", String(item.appointment_time || "").slice(0, 5)],
+      ["Trattamento", item.service],
+      ["Email", item.email],
+      ["Telefono", item.phone],
+      ["Allergie o sensibilità", item.allergies],
+      ["Condizioni di salute", item.health_conditions],
+      ["Problemi unghie/pelle", item.nail_conditions],
+      ["Altre informazioni", item.other_health_notes],
+      ["Note", item.notes],
+      ["Consenso sanitario", item.health_data_consent ? "Sì" : "No"],
+      ["Data consenso", item.health_data_consent_at || "Non disponibile"],
+      ["Versione informativa", item.privacy_notice_version || "Non disponibile"]
     ];
-    fields.forEach(([label,value])=>{
-      const p=document.createElement("p");p.textContent=label+": "+(value||"Non indicato");card.appendChild(p);
+
+    fields.forEach(([label, value]) => {
+      const p = document.createElement("p");
+      p.textContent = `${label}: ${value || "Non indicato"}`;
+      card.appendChild(p);
     });
-    if(item.signature_data_url){
-      const p=document.createElement("p");p.textContent="Firma salvata:";card.appendChild(p);
-      const img=document.createElement("img");img.src=item.signature_data_url;img.alt="Firma cliente";img.className="signature-preview";card.appendChild(img);
+
+    const state = document.createElement("p");
+    state.style.fontWeight = "800";
+    state.style.color = status.color;
+    state.style.fontSize = "1.05rem";
+    state.style.marginTop = "14px";
+    state.textContent = "STATO APPUNTAMENTO: " + status.label;
+    card.appendChild(state);
+
+    if (item.signature_data_url) {
+      const title = document.createElement("p");
+      title.style.fontWeight = "700";
+      title.textContent = "Firma della cliente";
+      card.appendChild(title);
+
+      const img = document.createElement("img");
+      img.src = item.signature_data_url;
+      img.alt = "Firma della cliente";
+      img.className = "signature-preview";
+      img.style.maxWidth = "260px";
+      img.style.maxHeight = "100px";
+      img.style.objectFit = "contain";
+      img.style.background = "#fff";
+      img.style.border = "1px solid #ead8de";
+      img.referrerPolicy = "no-referrer";
+      card.appendChild(img);
     }
-    if(status==="booked"){
-      const cancel=document.createElement("button");cancel.type="button";cancel.className="btn";cancel.textContent="Annulla prenotazione";
-      cancel.addEventListener("click",async()=>{
-        if(!confirm("Vuoi annullare questa prenotazione?"))return;
-        cancel.disabled=true;
-        try{await api(FUNCTION_URL,{method:"PATCH",body:JSON.stringify({id:item.id,status:"cancelled"})});await loadAdminAppointments();await loadAvailability();}
-        catch(err){alert("Errore: "+err.message);cancel.disabled=false;}
-      });
-      card.appendChild(cancel);
-    }
+
+    // Non viene aggiunto alcun pulsante per annullare.
     container.appendChild(card);
   });
 }
