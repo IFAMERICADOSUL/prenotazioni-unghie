@@ -7,59 +7,39 @@
 <meta name="theme-color" content="#f7e8ec">
 <title>Prenota | Kiraz Nails Studio</title>
 <style>
-:root{--rose:#b85f7a;--dark:#813d55;--pale:#fff7f9;--ink:#382a30;--muted:#786b70;--line:#ead8de;--busy:#eee8eb}
+:root{--rose:#b85f7a;--dark:#813d55;--ink:#382a30;--muted:#786b70;--line:#ead8de}
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(145deg,#fff9fa,#f7e8ec);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:900px;margin:auto;padding:24px 15px 46px}
+body{margin:0;background:linear-gradient(145deg,#fff9fa,#f7e8ec);color:var(--ink);font-family:system-ui,Arial,sans-serif}
+.wrap{max-width:900px;margin:auto;padding:24px 15px 45px}
 header{text-align:center;padding:20px 10px 25px}
 .eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--dark);font-size:.75rem;font-weight:750}
 h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,7vw,3.2rem);margin:.45rem 0;color:#633647}
-.sub{color:var(--muted);max-width:580px;margin:auto;line-height:1.6}
-.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(16px,4vw,27px);box-shadow:0 12px 35px #7c3d5010;margin:16px 0}
-h2{font-family:Georgia,serif;font-size:1.45rem;font-weight:500;margin:0 0 9px}
-h3{font-family:Georgia,serif;font-weight:500}
-.note{font-size:.85rem;color:var(--muted);line-height:1.55}
+.sub,.note{color:var(--muted);line-height:1.6}
+.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:clamp(16px,4vw,27px);margin:16px 0;box-shadow:0 12px 35px #7c3d5010}
+h2,h3{font-family:Georgia,serif;font-weight:500}
 label{display:block;font-weight:650;font-size:.92rem;margin:14px 0 7px}
-input,select,textarea{width:100%;padding:12px 13px;border:1px solid #dcc7ce;border-radius:12px;background:#fff;color:var(--ink);font:inherit}
-input[type=checkbox]{width:auto;accent-color:var(--rose)}
-textarea{min-height:90px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:2px solid #d9a2b3;outline-offset:1px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #dcc7ce;border-radius:11px;background:white;color:var(--ink);font:inherit}
+textarea{min-height:80px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:16px 0}
-.day{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 2px;text-align:center;font-size:.82rem;cursor:pointer;color:var(--ink)}
-.day small{display:block;color:var(--muted);margin-top:4px}
-.day.active{background:var(--rose);border-color:var(--rose);color:#fff}
-.day.active small{color:#fff}
-.day:disabled{opacity:.4;cursor:not-allowed;background:#f3eef0}
-.times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
-.slot{border:1px solid var(--line);border-radius:11px;background:#fff;padding:14px 5px;font:inherit;cursor:pointer}
-.slot.selected{background:var(--rose);border-color:var(--rose);color:#fff}
-.slot:disabled{background:var(--busy);color:#a49a9f;text-decoration:line-through;cursor:not-allowed}
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.check{display:flex;align-items:flex-start;gap:9px;padding:12px;border:1px solid var(--line);border-radius:12px;font-size:.9rem;font-weight:500}
-.check input{margin-top:4px}
-.btn{display:inline-block;width:100%;border:0;border-radius:13px;background:var(--rose);color:white;font:inherit;font-weight:750;padding:14px;cursor:pointer;margin-top:12px}
-.btn:hover{background:var(--dark)}
-.btn.secondary{background:#fff;color:var(--dark);border:1px solid var(--line)}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:16px 0}
+.day,.slot{border:1px solid var(--line);background:white;border-radius:10px;padding:12px 3px;cursor:pointer;color:var(--ink);font:inherit}
+.day{font-size:.8rem}.day small{display:block;margin-top:4px;color:var(--muted)}
+.day.active,.slot.selected{background:var(--rose);border-color:var(--rose);color:white}
+.day:disabled,.slot:disabled{opacity:.4;cursor:not-allowed;background:#f3eef0}
+.times{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.btn{width:100%;margin-top:12px;padding:13px 16px;border:0;border-radius:11px;background:var(--rose);color:white;font:inherit;font-weight:700;cursor:pointer}
+.btn.secondary{background:#f4e6eb;color:var(--dark);border:1px solid var(--line)}
 .btn:disabled{opacity:.6;cursor:wait}
-.status{padding:12px 14px;border-radius:12px;background:#fff4f6;color:#633647;line-height:1.5;margin-top:14px;display:none;overflow-wrap:anywhere}
+.status{display:none;margin-top:12px;padding:12px;background:#fff0f3;color:#7b344d;border-radius:10px;line-height:1.5;overflow-wrap:anywhere}
 .status.show{display:block}
-.footer{text-align:center;font-size:.82rem;color:var(--muted);padding:16px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;line-height:1.5}
+.check input{width:auto;margin-top:5px}
+.admin-list{display:grid;gap:12px;margin-top:15px}
+.booking-card{border:1px solid var(--line);border-radius:12px;padding:14px;overflow-wrap:anywhere}
+.booking-card p{margin:6px 0}
 .hidden{display:none!important}
-.modal{position:fixed;inset:0;background:#29151dbb;z-index:10;overflow:auto;padding:16px;display:flex;justify-content:center;align-items:flex-start}
-.document{background:white;width:min(820px,100%);padding:clamp(18px,4vw,38px);margin:10px auto;border-radius:14px;color:#30252a;box-shadow:0 15px 50px #0003}
-.document h2,.document h3{font-family:Georgia,serif;color:#633647}
-.doc-head{text-align:center;border-bottom:1px solid #e5d3da;padding-bottom:14px}
-.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
-.doc-field{padding:8px 0;border-bottom:1px solid #eee;overflow-wrap:anywhere}
-.signature{border:1px solid #d9c6ce;border-radius:10px;width:100%;height:150px;touch-action:none;background:#fff;display:block}
-.doc-actions{display:flex;gap:10px;flex-wrap:wrap}
-.doc-actions .btn{flex:1;min-width:150px}
-.smallprint{font-size:.82rem;line-height:1.5;color:#665961}
-.admin-item{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;overflow-wrap:anywhere}
-.admin-item p{margin:5px 0}
-@media(max-width:560px){.row,.doc-grid{grid-template-columns:1fr}.days{grid-template-columns:repeat(4,minmax(0,1fr))}.day{padding:11px 3px}.checks{grid-template-columns:1fr}.modal{padding:5px}.document{padding:16px}}
-@media print{body *{visibility:hidden!important}.modal,.modal *{visibility:visible!important}.modal{position:absolute;inset:0;background:white;padding:0;display:block!important;overflow:visible}.document{box-shadow:none;border-radius:0;margin:0;width:100%;padding:10mm}.doc-actions,.close-doc,.signature-hint{display:none!important}}
+.footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:25px}
+@media(max-width:560px){.row{grid-template-columns:1fr}.days{gap:3px}.day{padding:9px 1px;font-size:.72rem}}
 </style>
 </head>
 <body>
@@ -67,17 +47,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid #d9a2b3;outline-offset
 <header>
   <div class="eyebrow">Nail studio · Prenotazioni online</div>
   <h1>Kiraz Nails Studio</h1>
-  <p class="sub">Prenota il tuo momento di bellezza. Scegli il trattamento, la data e l'orario che preferisci.</p>
+  <p class="sub">Prenota il tuo momento di bellezza. Scegli il giorno, l'orario e il trattamento.</p>
 </header>
 
 <section class="panel">
   <h2>Scegli un appuntamento</h2>
-  <p class="note">Apertura dal lunedì al sabato. Domenica chiuso. Gli orari disponibili sono le 10:00 e le 15:00.</p>
+  <p class="note">Apertura dal lunedì al sabato. Domenica chiuso. Orari: 10:00 e 15:00.</p>
   <label for="month">Mese</label>
   <input id="month" type="month">
-  <div id="days" class="days" aria-label="Giorni del mese"></div>
+  <p id="calendarMessage" class="note" aria-live="polite"></p>
+  <div id="days" class="days"></div>
   <h3>Orari disponibili</h3>
-  <div id="chosenDate" class="note">Seleziona una data disponibile.</div>
+  <p id="chosenDate" class="note">Seleziona una data.</p>
   <div id="times" class="times"></div>
 </section>
 
@@ -87,20 +68,20 @@ input:focus,select:focus,textarea:focus{outline:2px solid #d9a2b3;outline-offset
     <div class="row">
       <div>
         <label for="name">Nome e cognome *</label>
-        <input id="name" autocomplete="name" required maxlength="120" placeholder="Nome e cognome">
+        <input id="name" autocomplete="name" required maxlength="100">
       </div>
       <div>
         <label for="email">Email *</label>
-        <input id="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@email.com">
+        <input id="email" type="email" autocomplete="email" required maxlength="254">
       </div>
     </div>
     <div class="row">
       <div>
-        <label for="phone">Numero di cellulare *</label>
-        <input id="phone" autocomplete="tel" type="tel" required maxlength="40" placeholder="Numero di cellulare">
+        <label for="phone">Cellulare *</label>
+        <input id="phone" type="tel" autocomplete="tel" required maxlength="30">
       </div>
       <div>
-        <label for="service">Trattamento richiesto *</label>
+        <label for="service">Trattamento *</label>
         <select id="service" required>
           <option value="">Seleziona un trattamento</option>
           <option>Soft Gel</option>
@@ -108,646 +89,316 @@ input:focus,select:focus,textarea:focus{outline:2px solid #d9a2b3;outline-offset
           <option>Acrilico</option>
           <option>Baby boomer</option>
           <option>Poly Gel</option>
+          <option>Refill</option>
+          <option>Manicure</option>
         </select>
       </div>
     </div>
-
-    <label for="notes">Note (facoltative)</label>
-    <textarea id="notes" maxlength="2000" placeholder="Eventuali richieste o dettagli utili…"></textarea>
-
-    <h3>Informazioni da comunicare prima del trattamento</h3>
-    <p class="note">Le informazioni seguenti possono riguardare dati personali relativi alla salute. Prima di usare il modulo con dati reali, pubblica un'informativa privacy completa e verifica le condizioni legali applicabili.</p>
-
-    <div class="checks">
-      <label class="check"><input type="checkbox" id="skin"> Ho una malattia o condizione della pelle nella zona delle mani/unghie</label>
-      <label class="check"><input type="checkbox" id="cancer"> Ho una diagnosi oncologica / sto seguendo cure oncologiche</label>
-      <label class="check"><input type="checkbox" id="allergies"> Ho allergie note, anche a prodotti cosmetici o acrilati</label>
-    </div>
-
+    <label for="notes">Note facoltative</label>
+    <textarea id="notes" maxlength="1500"></textarea>
+    <p class="note">Prima di raccogliere dati reali, pubblica un'informativa privacy completa. Questa pagina non raccoglie dati sanitari o firme digitali.</p>
     <label class="check">
-      <input type="checkbox" id="privacy" required>
+      <input id="privacy" type="checkbox" required>
       Confermo di aver letto l'informativa privacy dello studio. *
     </label>
-    <label class="check">
-      <input type="checkbox" id="healthConsent" required>
-      Acconsento esplicitamente al trattamento delle informazioni sanitarie che ho indicato, per la finalità descritta nell'informativa. *
-    </label>
-
-    <p class="note">La casella sul consenso sanitario non sostituisce una corretta informativa né la verifica della base giuridica. Completa questi aspetti prima della pubblicazione.</p>
-    <button class="btn" id="submit" type="submit">Continua alla presa visione e firma</button>
-    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <button id="submitBooking" class="btn" type="submit">Invia richiesta di prenotazione</button>
+    <div id="bookingStatus" class="status" role="status" aria-live="polite"></div>
   </form>
 </section>
 
 <section class="panel">
-  <h2>Area studio</h2>
-  <p class="note">Accesso riservato all'amministratore. Effettua il login con l'account autorizzato nel progetto Supabase.</p>
-  <form id="adminLogin">
+  <h2>Area studio · Amministratore</h2>
+  <p class="note">Accedi con un utente creato in Supabase Authentication. Non inserire la password nel codice.</p>
+  <form id="adminLoginForm">
     <label for="adminEmail">Email amministratore</label>
     <input id="adminEmail" type="email" autocomplete="username" required>
     <label for="adminPassword">Password</label>
     <input id="adminPassword" type="password" autocomplete="current-password" required>
-    <button class="btn" type="submit" id="loginButton">Accedi</button>
-    <button class="btn secondary hidden" type="button" id="logoutButton">Esci dall'area studio</button>
+    <button id="adminLoginButton" class="btn" type="submit">Accedi</button>
     <div id="adminStatus" class="status" role="status" aria-live="polite"></div>
   </form>
-  <div id="adminAppointments"></div>
+  <div id="adminArea" class="hidden">
+    <p id="adminWelcome" class="note"></p>
+    <button id="refreshAdmin" class="btn secondary" type="button">Aggiorna appuntamenti</button>
+    <button id="adminLogout" class="btn secondary" type="button">Esci</button>
+    <div id="adminBookings" class="admin-list"></div>
+  </div>
 </section>
-
-<p class="footer">Kiraz Nails Studio</p>
+<p class="footer">Kiraz Nails Studio · Prenotazioni online</p>
 </div>
 
-<div id="docModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="docTitle">
-  <div class="document">
-    <div class="doc-head">
-      <div class="eyebrow">Kiraz Nails Studio</div>
-      <h2 id="docTitle">Scheda appuntamento, presa visione e consenso</h2>
-      <p class="smallprint">Leggi il riepilogo prima di firmare. Il documento è un modello e non sostituisce un'informativa privacy completa.</p>
-    </div>
-    <h3>Riepilogo prenotazione</h3>
-    <div class="doc-grid">
-      <div class="doc-field"><b>Studio</b><div>Kiraz Nails Studio</div></div>
-      <div class="doc-field"><b>Cliente</b><div id="docName"></div></div>
-      <div class="doc-field"><b>Email</b><div id="docEmail"></div></div>
-      <div class="doc-field"><b>Cellulare</b><div id="docPhone"></div></div>
-      <div class="doc-field"><b>Trattamento</b><div id="docService"></div></div>
-      <div class="doc-field"><b>Appuntamento richiesto</b><div id="docWhen"></div></div>
-      <div class="doc-field"><b>Condizione della pelle segnalata</b><div id="docSkin"></div></div>
-      <div class="doc-field"><b>Condizione oncologica segnalata</b><div id="docCancer"></div></div>
-      <div class="doc-field"><b>Allergie segnalate</b><div id="docAllergies"></div></div>
-      <div class="doc-field"><b>Consenso ai dati sanitari</b><div id="docHealthConsent"></div></div>
-      <div class="doc-field" style="grid-column:1/-1"><b>Note</b><div id="docNotes"></div></div>
-      <div class="doc-field"><b>Data del trattamento</b><div>Da compilare dopo il servizio</div></div>
-      <div class="doc-field"><b>Firma della cliente</b><div id="signedAt">Da firmare qui sotto</div></div>
-    </div>
-
-    <h3>Presa visione e dichiarazioni</h3>
-    <p class="smallprint">La cliente dichiara di aver verificato i dati riportati e di aver comunicato le informazioni che ritiene rilevanti per il trattamento scelto. In caso di dubbi sull'idoneità al trattamento, il servizio potrà essere rinviato e potrà essere consigliato di rivolgersi a un professionista sanitario.</p>
-    <p class="smallprint"><b>Privacy:</b> prima dell'uso reale, completa l'informativa con titolare, finalità, basi giuridiche, tempi di conservazione, destinatari, diritti e contatti. Non raccogliere dati sanitari reali finché questi aspetti non sono stati verificati.</p>
-
-    <h3>Firma della cliente</h3>
-    <p class="smallprint signature-hint">Firma con il dito o il mouse nel riquadro.</p>
-    <canvas id="signature" class="signature" aria-label="Riquadro per firma"></canvas>
-    <div class="doc-actions">
-      <button type="button" class="btn secondary" id="clearSig">Cancella firma</button>
-      <button type="button" class="btn" id="confirmBooking">Conferma appuntamento</button>
-      <button type="button" class="btn secondary close-doc" id="closeDoc">Torna alla prenotazione</button>
-    </div>
-    <div id="docStatus" class="status" role="status" aria-live="polite"></div>
-  </div>
-</div>
-
-<div id="confirmationModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle">
-  <div class="document">
-    <div class="doc-head">
-      <div class="eyebrow">Kiraz Nails Studio</div>
-      <h2 id="confirmationTitle">Prenotazione registrata</h2>
-      <p class="smallprint">Conserva questo riepilogo per i tuoi riferimenti.</p>
-    </div>
-    <h3>Riepilogo finale</h3>
-    <div class="doc-grid">
-      <div class="doc-field"><b>Codice prenotazione</b><div id="finalId"></div></div>
-      <div class="doc-field"><b>Cliente</b><div id="finalName"></div></div>
-      <div class="doc-field"><b>Email</b><div id="finalEmail"></div></div>
-      <div class="doc-field"><b>Cellulare</b><div id="finalPhone"></div></div>
-      <div class="doc-field"><b>Trattamento</b><div id="finalService"></div></div>
-      <div class="doc-field"><b>Data</b><div id="finalDate"></div></div>
-      <div class="doc-field"><b>Ora</b><div id="finalTime"></div></div>
-    </div>
-    <div class="doc-actions">
-      <button type="button" class="btn" id="downloadPdf">Stampa / Salva PDF</button>
-      <button type="button" class="btn secondary" id="closeFinal">Chiudi</button>
-    </div>
-    <p class="smallprint">Per creare il PDF, scegli “Salva come PDF” nella finestra di stampa del browser.</p>
-  </div>
-</div>
-
-<!-- Libreria Supabase per l'autenticazione amministratore -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- La chiave pubblica è utilizzabile nel frontend. Mai inserire service_role qui. -->
 <script>
 "use strict";
 
-/*
-  CONFIGURAZIONE:
-  L'URL e la chiave publishable/anon sono pubbliche per il client.
-  NON inserire mai la service_role key in questo file.
-*/
 const SUPABASE_URL = "https://bcfytgwaurczkntjofal.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
 const FUNCTION_URL = SUPABASE_URL + "/functions/v1/manage-bookings";
 
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-const times = ["10:00", "15:00"];
+const $ = id => document.getElementById(id);
+const SLOTS = ["10:00", "15:00"];
+let supabaseClient = null;
+let session = null;
 let selectedDate = null;
 let selectedTime = null;
-let occupiedSlots = new Set();
-let hasSignature = false;
-let drawing = false;
-let bookingInProgress = false;
-
-const $ = id => document.getElementById(id);
-const monthInput = $("month");
-const now = new Date();
-
-function localDate(y, m, d) {
-  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-}
+let unavailable = new Set();
 
 function todayString() {
-  return localDate(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
-
-function say(message) {
-  $("status").textContent = message;
-  $("status").classList.add("show");
+function dateString(y,m,d) {
+  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
 }
-
-function clearSay() {
-  $("status").textContent = "";
-  $("status").classList.remove("show");
-}
-
-function adminSay(message) {
-  $("adminStatus").textContent = message;
-  $("adminStatus").classList.add("show");
-}
-
-function isClosed(date) {
+function sunday(date) {
   return new Date(date + "T12:00:00").getDay() === 0;
 }
-
-function slotKey(date, time) {
-  return date + "|" + time;
+function message(id, text, visible=true) {
+  const el = $(id);
+  el.textContent = text || "";
+  el.classList.toggle("show", visible && !!text);
 }
-
-function escapeHtml(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
 }
-
-async function functionRequest(path = "", options = {}) {
-  const { data: sessionData } = await supabase.auth.getSession();
-  const token = sessionData.session?.access_token || SUPABASE_ANON_KEY;
-
-  const response = await fetch(FUNCTION_URL + path, {
+function headers() {
+  return {
+    "Content-Type":"application/json",
+    "apikey":SUPABASE_ANON_KEY,
+    "Authorization":"Bearer " + (session?.access_token || SUPABASE_ANON_KEY)
+  };
+}
+async function api(url, options={}) {
+  const response = await fetch(url, {
     ...options,
-    headers: {
-      "Content-Type": "application/json",
-      "apikey": SUPABASE_ANON_KEY,
-      "Authorization": "Bearer " + token,
-      ...(options.headers || {})
-    }
+    headers:{...headers(), ...(options.headers || {})}
   });
-
-  const result = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    throw new Error(result.error || "Si è verificato un errore. Riprova.");
-  }
-
-  return result;
-}
-
-async function loadAvailability() {
-  const parts = monthInput.value.split("-");
-  if (parts.length !== 2) return;
-
-  const [year, month] = parts.map(Number);
-  const from = localDate(year, month, 1);
-  const to = localDate(year, month, new Date(year, month, 0).getDate());
-
-  try {
-    const result = await functionRequest(
-      `?action=availability&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`
-    );
-
-    occupiedSlots = new Set(
-      (result.occupied || []).map(item => slotKey(item.date, item.time))
-    );
-  } catch (error) {
-    occupiedSlots = new Set();
-    say("Non riesco a caricare la disponibilità dal server. Riprova tra poco.");
-    console.error(error);
-  }
-
-  renderDays();
-  renderTimes();
+  const text = await response.text();
+  let data={};
+  try { data = text ? JSON.parse(text) : {}; }
+  catch { data={message:text}; }
+  if (!response.ok) throw new Error(data.error || data.message || `Errore HTTP ${response.status}`);
+  return data;
 }
 
 function renderDays() {
-  const parts = monthInput.value.split("-").map(Number);
-  if (parts.length !== 2 || !parts[0] || !parts[1]) return;
-
-  const [year, month] = parts;
-  const count = new Date(year, month, 0).getDate();
-  const today = todayString();
-  $("days").innerHTML = "";
-
-  for (let d = 1; d <= count; d++) {
-    const date = localDate(year, month, d);
-    const past = date < today;
-    const closed = isClosed(date);
-    const fullyBooked = times.every(t => occupiedSlots.has(slotKey(date, t)));
-    const button = document.createElement("button");
-
-    button.type = "button";
-    button.className = "day" + (date === selectedDate ? " active" : "");
-    button.disabled = past || closed || fullyBooked;
-    button.innerHTML = `${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;
-
-    if (closed) button.title = "Domenica: chiuso";
-    else if (fullyBooked) button.title = "Tutti gli orari sono occupati";
-
-    button.addEventListener("click", () => {
-      selectedDate = date;
-      selectedTime = null;
-      clearSay();
+  const value=$("month").value;
+  const container=$("days");
+  container.replaceChildren();
+  if (!value) return;
+  const [y,m]=value.split("-").map(Number);
+  const total=new Date(y,m,0).getDate();
+  for(let d=1;d<=total;d++) {
+    const date=dateString(y,m,d);
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="day"+(date===selectedDate?" active":"");
+    const dayName=["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()];
+    b.innerHTML=`${String(d).padStart(2,"0")}<small>${dayName}</small>`;
+    b.disabled=date<todayString() || sunday(date);
+    if(sunday(date)) b.title="Domenica: chiuso";
+    b.addEventListener("click",()=>{
+      selectedDate=date;
+      selectedTime=null;
       renderDays();
       renderTimes();
     });
-
-    $("days").appendChild(button);
+    container.appendChild(b);
   }
 }
-
 function renderTimes() {
-  $("chosenDate").textContent = selectedDate
-    ? `Data selezionata: ${selectedDate}`
-    : "Seleziona una data disponibile.";
-
-  $("times").innerHTML = "";
-
-  times.forEach(time => {
-    const button = document.createElement("button");
-    const occupied = selectedDate && occupiedSlots.has(slotKey(selectedDate, time));
-
-    button.type = "button";
-    button.className = "slot" + (time === selectedTime ? " selected" : "");
-    button.textContent = occupied ? `${time} · Occupato` : time;
-    button.disabled = !selectedDate || Boolean(occupied);
-
-    button.addEventListener("click", () => {
-      selectedTime = time;
-      renderTimes();
-    });
-
-    $("times").appendChild(button);
+  $("chosenDate").textContent=selectedDate ? "Data selezionata: "+selectedDate : "Seleziona una data.";
+  const container=$("times");
+  container.replaceChildren();
+  SLOTS.forEach(time=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="slot"+(time===selectedTime?" selected":"");
+    b.textContent=time;
+    const busy=selectedDate && unavailable.has(selectedDate+"|"+time);
+    b.disabled=!selectedDate || !!busy;
+    if(busy) b.textContent+=" · Occupato";
+    b.addEventListener("click",()=>{selectedTime=time;renderTimes();});
+    container.appendChild(b);
   });
 }
-
-monthInput.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
-monthInput.min = monthInput.value;
-
-monthInput.addEventListener("change", async () => {
-  selectedDate = null;
-  selectedTime = null;
-  clearSay();
-  await loadAvailability();
-});
-
-const canvas = $("signature");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  if (!rect.width) return;
-
-  const saved = hasSignature ? canvas.toDataURL("image/png") : null;
-  const ratio = window.devicePixelRatio || 1;
-
-  canvas.width = Math.round(rect.width * ratio);
-  canvas.height = Math.round(150 * ratio);
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  ctx.lineWidth = 2;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = "#39252d";
-
-  if (saved) {
-    const img = new Image();
-    img.onload = () => ctx.drawImage(img, 0, 0, rect.width, 150);
-    img.src = saved;
-  }
-}
-
-function pointerPosition(event) {
-  const rect = canvas.getBoundingClientRect();
-  return { x: event.clientX - rect.left, y: event.clientY - rect.top };
-}
-
-canvas.addEventListener("pointerdown", event => {
-  drawing = true;
-  canvas.setPointerCapture(event.pointerId);
-  const point = pointerPosition(event);
-  ctx.beginPath();
-  ctx.moveTo(point.x, point.y);
-});
-
-canvas.addEventListener("pointermove", event => {
-  if (!drawing) return;
-  const point = pointerPosition(event);
-  ctx.lineTo(point.x, point.y);
-  ctx.stroke();
-  hasSignature = true;
-});
-
-["pointerup", "pointercancel", "pointerleave"].forEach(type => {
-  canvas.addEventListener(type, () => drawing = false);
-});
-
-$("clearSig").addEventListener("click", () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  hasSignature = false;
-});
-
-window.addEventListener("resize", resizeCanvas);
-
-function isChecked(id) {
-  return $(id).checked ? "Sì" : "No";
-}
-
-$("bookingForm").addEventListener("submit", event => {
-  event.preventDefault();
-  clearSay();
-
-  if (!selectedDate || !selectedTime) {
-    say("Seleziona prima una data e uno degli orari disponibili.");
-    return;
-  }
-
-  if (!$("privacy").checked || !$("healthConsent").checked) {
-    say("Leggi e conferma le caselle richieste prima di continuare.");
-    return;
-  }
-
-  $("docName").textContent = $("name").value.trim();
-  $("docEmail").textContent = $("email").value.trim();
-  $("docPhone").textContent = $("phone").value.trim();
-  $("docService").textContent = $("service").value;
-  $("docWhen").textContent = `${selectedDate} alle ${selectedTime}`;
-  $("docSkin").textContent = isChecked("skin");
-  $("docCancer").textContent = isChecked("cancer");
-  $("docAllergies").textContent = isChecked("allergies");
-  $("docHealthConsent").textContent = isChecked("healthConsent");
-  $("docNotes").textContent = $("notes").value.trim() || "Nessuna nota";
-  $("signedAt").textContent = "Firma da apporre nel riquadro";
-
-  hasSignature = false;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  $("docStatus").textContent = "";
-  $("docStatus").classList.remove("show");
-  $("docModal").classList.remove("hidden");
-  requestAnimationFrame(resizeCanvas);
-});
-
-$("closeDoc").addEventListener("click", () => {
-  $("docModal").classList.add("hidden");
-});
-
-$("confirmBooking").addEventListener("click", async () => {
-  if (bookingInProgress) return;
-
-  if (!hasSignature) {
-    $("docStatus").textContent = "Prima di confermare, firma nel riquadro.";
-    $("docStatus").classList.add("show");
-    return;
-  }
-
-  if (!$("privacy").checked || !$("healthConsent").checked) {
-    $("docStatus").textContent = "Conferma le caselle richieste nel modulo.";
-    $("docStatus").classList.add("show");
-    return;
-  }
-
-  bookingInProgress = true;
-  $("confirmBooking").disabled = true;
-  $("confirmBooking").textContent = "Invio in corso…";
-
+async function loadAvailability() {
+  const month=$("month").value;
+  if(!month) return;
+  unavailable=new Set();
+  const [y,m]=month.split("-").map(Number);
+  const from=month+"-01";
+  const to=dateString(y,m,new Date(y,m,0).getDate());
+  message("calendarMessage","Controllo disponibilità…");
   try {
-    const signature = canvas.toDataURL("image/png");
-
-    const payload = {
-      customer_name: $("name").value.trim(),
-      email: $("email").value.trim(),
-      phone: $("phone").value.trim(),
-      service: $("service").value,
-      appointment_date: selectedDate,
-      appointment_time: selectedTime,
-      notes: $("notes").value.trim(),
-      has_skin_condition: $("skin").checked,
-      has_oncological_condition: $("cancer").checked,
-      has_allergies: $("allergies").checked,
-      health_notes: "",
-      privacy: $("privacy").checked,
-      health_data_consent: $("healthConsent").checked,
-      signature_data_url: signature
-    };
-
-    const result = await functionRequest("", {
-      method: "POST",
-      body: JSON.stringify(payload)
+    const result=await api(`${FUNCTION_URL}?action=availability&from=${from}&to=${to}`);
+    const rows=Array.isArray(result)?result:(result.appointments||result.bookings||result.data||[]);
+    rows.forEach(row=>{
+      if(row.appointment_date && row.appointment_time && row.status!=="cancelled")
+        unavailable.add(row.appointment_date+"|"+String(row.appointment_time).slice(0,5));
     });
+    message("calendarMessage","Disponibilità aggiornata.",false);
+  } catch(err) {
+    message("calendarMessage","Non riesco a leggere le disponibilità dal server: "+err.message+". Il calendario resta visibile, ma verifica la configurazione Supabase.");
+  }
+  renderDays();
+  renderTimes();
+}
 
-    $("finalId").textContent = result.appointment?.id ?? "Registrata";
-    $("finalName").textContent = payload.customer_name;
-    $("finalEmail").textContent = payload.email;
-    $("finalPhone").textContent = payload.phone;
-    $("finalService").textContent = payload.service;
-    $("finalDate").textContent = payload.appointment_date;
-    $("finalTime").textContent = payload.appointment_time;
+$("month").addEventListener("change",()=>{
+  selectedDate=null;selectedTime=null;
+  renderDays();renderTimes();loadAvailability();
+});
 
-    $("docModal").classList.add("hidden");
-    $("confirmationModal").classList.remove("hidden");
-
+$("bookingForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  if(!selectedDate||!selectedTime) {
+    message("bookingStatus","Seleziona prima una data e un orario.");return;
+  }
+  if(!$("privacy").checked) {
+    message("bookingStatus","Conferma di aver letto l'informativa privacy.");return;
+  }
+  const button=$("submitBooking");
+  button.disabled=true;button.textContent="Invio in corso…";
+  const payload={
+    customer_name:$("name").value.trim(),
+    email:$("email").value.trim(),
+    phone:$("phone").value.trim(),
+    service:$("service").value,
+    appointment_date:selectedDate,
+    appointment_time:selectedTime,
+    notes:$("notes").value.trim(),
+    privacy:true
+  };
+  try {
+    const result=await api(FUNCTION_URL,{method:"POST",body:JSON.stringify(payload)});
+    message("bookingStatus",result.message||"Richiesta inviata. Verifica la conferma prima di considerare l'appuntamento prenotato.");
     $("bookingForm").reset();
-    selectedDate = null;
-    selectedTime = null;
-    hasSignature = false;
+    selectedDate=null;selectedTime=null;
+    renderDays();renderTimes();
     await loadAvailability();
-  } catch (error) {
-    $("docStatus").textContent = error.message || "Impossibile registrare la prenotazione.";
-    $("docStatus").classList.add("show");
+  } catch(err) {
+    message("bookingStatus","Prenotazione non salvata: "+err.message+". Controlla che la Edge Function manage-bookings sia pubblicata e configurata.");
   } finally {
-    bookingInProgress = false;
-    $("confirmBooking").disabled = false;
-    $("confirmBooking").textContent = "Conferma appuntamento";
+    button.disabled=false;button.textContent="Invia richiesta di prenotazione";
   }
-});
-
-$("downloadPdf").addEventListener("click", () => window.print());
-$("closeFinal").addEventListener("click", () => $("confirmationModal").classList.add("hidden"));
-
-/* Area amministratore: l'elenco viene restituito solo dopo verifica server-side. */
-$("adminLogin").addEventListener("submit", async event => {
-  event.preventDefault();
-  $("loginButton").disabled = true;
-  adminSay("Accesso in corso…");
-
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: $("adminEmail").value.trim(),
-      password: $("adminPassword").value
-    });
-
-    if (error || !data.session) {
-      throw new Error("Accesso non riuscito. Controlla email e password.");
-    }
-
-    $("adminPassword").value = "";
-    $("logoutButton").classList.remove("hidden");
-    await loadAdminAppointments();
-  } catch (error) {
-    adminSay(error.message || "Impossibile accedere.");
-  } finally {
-    $("loginButton").disabled = false;
-  }
-});
-
-$("logoutButton").addEventListener("click", async () => {
-  await supabase.auth.signOut();
-  $("adminAppointments").innerHTML = "";
-  $("logoutButton").classList.add("hidden");
-  adminSay("Sei uscito dall'area studio.");
 });
 
 async function loadAdminAppointments() {
-  try {
-    const result = await functionRequest("");
-    const appointments = result.appointments || [];
-    const container = $("adminAppointments");
-    container.innerHTML = "";
-
-    if (!appointments.length) {
-      container.textContent = "Non ci sono prenotazioni.";
-      adminSay("Accesso effettuato.");
-      return;
-    }
-
-    appointments.forEach(appointment => {
-      const item = document.createElement("article");
-      item.className = "admin-item";
-
-      const heading = document.createElement("h3");
-      heading.textContent = `${appointment.appointment_date} · ${appointment.appointment_time}`;
-      item.appendChild(heading);
-
-      const details = [
-        ["Cliente", appointment.customer_name],
-        ["Email", appointment.email],
-        ["Telefono", appointment.phone],
-        ["Trattamento", appointment.service],
-        ["Stato", appointment.status],
-        ["Note", appointment.notes || "Nessuna"],
-        ["Condizione della pelle", appointment.has_skin_condition ? "Segnalata" : "Non segnalata"],
-        ["Condizione oncologica", appointment.has_oncological_condition ? "Segnalata" : "Non segnalata"],
-        ["Allergie", appointment.has_allergies ? "Segnalate" : "Non segnalate"],
-        ["Note sanitarie", appointment.health_notes || "Nessuna"]
-      ];
-
-      details.forEach(([label, value]) => {
-        const p = document.createElement("p");
-        const strong = document.createElement("strong");
-        strong.textContent = label + ": ";
-        p.appendChild(strong);
-        p.appendChild(document.createTextNode(String(value ?? "")));
-        item.appendChild(p);
-      });
-
-      if (appointment.signature_data_url) {
-        const title = document.createElement("p");
-        title.textContent = "Firma della cliente:";
-        item.appendChild(title);
-
-        const image = document.createElement("img");
-        image.src = appointment.signature_data_url;
-        image.alt = "Firma salvata per la prenotazione";
-        image.style.maxWidth = "100%";
-        image.style.width = "420px";
-        image.style.border = "1px solid #ead8de";
-        image.style.borderRadius = "8px";
-        item.appendChild(image);
-
-        const download = document.createElement("a");
-        download.href = appointment.signature_data_url;
-        download.download = `firma-${appointment.id}.png`;
-        download.textContent = "Scarica firma PNG";
-        download.style.display = "block";
-        download.style.marginTop = "8px";
-        item.appendChild(download);
-      }
-
-      const statusLabel = document.createElement("label");
-      statusLabel.textContent = "Stato prenotazione";
-      item.appendChild(statusLabel);
-
-      const select = document.createElement("select");
-      [
-        ["booked", "Prenotata"],
-        ["completed", "Completata"],
-        ["cancelled", "Annullata"]
-      ].forEach(([value, label]) => {
-        const option = document.createElement("option");
-        option.value = value;
-        option.textContent = label;
-        select.appendChild(option);
-      });
-      select.value = appointment.status;
-      item.appendChild(select);
-
-      const updateButton = document.createElement("button");
-      updateButton.type = "button";
-      updateButton.className = "btn";
-      updateButton.textContent = "Aggiorna stato";
-      updateButton.addEventListener("click", async () => {
-        updateButton.disabled = true;
-        try {
-          await functionRequest("", {
-            method: "PATCH",
-            body: JSON.stringify({
-              id: appointment.id,
-              status: select.value
-            })
-          });
-          adminSay("Stato aggiornato.");
-          await loadAdminAppointments();
-        } catch (error) {
-          adminSay(error.message || "Impossibile aggiornare lo stato.");
-          updateButton.disabled = false;
-        }
-      });
-      item.appendChild(updateButton);
-      container.appendChild(item);
+  if(!session?.access_token) throw new Error("Devi prima effettuare l'accesso.");
+  const result=await api(FUNCTION_URL+"?action=admin");
+  const rows=Array.isArray(result)?result:(result.appointments||result.bookings||result.data||[]);
+  const container=$("adminBookings");
+  container.replaceChildren();
+  if(!rows.length) {
+    container.textContent="Nessun appuntamento trovato.";
+    return;
+  }
+  rows.forEach(item=>{
+    const card=document.createElement("div");
+    card.className="booking-card";
+    card.innerHTML=`
+      <p><strong>${escapeHTML(item.customer_name)}</strong></p>
+      <p>${escapeHTML(item.appointment_date)} · ${escapeHTML(String(item.appointment_time||"").slice(0,5))}</p>
+      <p>Trattamento: ${escapeHTML(item.service)}</p>
+      <p>Email: ${escapeHTML(item.email)} · Telefono: ${escapeHTML(item.phone)}</p>
+      <p>Note: ${escapeHTML(item.notes||"—")}</p>
+      <label>Stato
+        <select class="statusSelect">
+          <option value="booked">Prenotato</option>
+          <option value="completed">Completato</option>
+          <option value="cancelled">Annullato</option>
+        </select>
+      </label>
+      <button type="button" class="btn saveStatus">Salva stato</button>
+      <div class="status resultStatus"></div>`;
+    const select=card.querySelector(".statusSelect");
+    select.value=["booked","completed","cancelled"].includes(item.status)?item.status:"booked";
+    card.querySelector(".saveStatus").addEventListener("click",async e=>{
+      const button=e.currentTarget;
+      button.disabled=true;
+      try {
+        await api(FUNCTION_URL,{method:"PATCH",body:JSON.stringify({id:item.id,status:select.value})});
+        const box=card.querySelector(".resultStatus");
+        box.textContent="Stato aggiornato.";box.classList.add("show");
+        await loadAvailability();
+      } catch(err) {
+        const box=card.querySelector(".resultStatus");
+        box.textContent="Errore: "+err.message;box.classList.add("show");
+      } finally {button.disabled=false;}
     });
+    container.appendChild(card);
+  });
+}
 
-    adminSay("Accesso effettuato. Prenotazioni caricate.");
-  } catch (error) {
-    adminSay(error.message || "Impossibile caricare le prenotazioni.");
-    $("adminAppointments").innerHTML = "";
+$("adminLoginForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const button=$("adminLoginButton");
+  button.disabled=true;button.textContent="Accesso in corso…";
+  message("adminStatus","");
+  try {
+    if(!supabaseClient) throw new Error("Supabase non si è caricato. Ricarica la pagina e controlla la connessione.");
+    const {data,error}=await supabaseClient.auth.signInWithPassword({
+      email:$("adminEmail").value.trim(),
+      password:$("adminPassword").value
+    });
+    if(error) throw error;
+    session=data.session;
+    $("adminPassword").value="";
+    $("adminArea").classList.remove("hidden");
+    $("adminWelcome").textContent="Accesso effettuato.";
+    await loadAdminAppointments();
+    $("adminWelcome").textContent="Accesso effettuato come "+(data.user?.email||"amministratore")+".";
+    message("adminStatus","Accesso riuscito.");
+  } catch(err) {
+    $("adminArea").classList.add("hidden");
+    message("adminStatus","Accesso non riuscito: "+err.message);
+  } finally {
+    button.disabled=false;button.textContent="Accedi";
+  }
+});
+$("refreshAdmin").addEventListener("click",async()=>{
+  try {await loadAdminAppointments();message("adminStatus","Elenco aggiornato.");}
+  catch(err){message("adminStatus","Errore: "+err.message);}
+});
+$("adminLogout").addEventListener("click",async()=>{
+  try {if(supabaseClient) await supabaseClient.auth.signOut();}catch(_){}
+  session=null;
+  $("adminArea").classList.add("hidden");
+  $("adminLoginForm").reset();
+  message("adminStatus","Sei uscita dall'area amministratore.");
+});
+
+async function initSupabase() {
+  try {
+    if(!window.supabase?.createClient) throw new Error("Libreria Supabase non disponibile.");
+    supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+    const {data}=await supabaseClient.auth.getSession();
+    session=data.session;
+    if(session) {
+      $("adminArea").classList.remove("hidden");
+      try {await loadAdminAppointments();}
+      catch(err){message("adminStatus","Sessione presente, ma errore nel caricamento: "+err.message);}
+    }
+  } catch(err) {
+    message("adminStatus","Errore Supabase: "+err.message);
   }
 }
 
-async function init() {
+/* Il calendario parte anche se il caricamento di Supabase fallisce. */
+(function startCalendar(){
+  const month=todayString().slice(0,7);
+  $("month").value=month;
+  $("month").min=month;
   renderDays();
   renderTimes();
-  await loadAvailability();
-
-  const { data } = await supabase.auth.getSession();
-  if (data.session) {
-    $("logoutButton").classList.remove("hidden");
-    await loadAdminAppointments();
-  }
-}
-
-init();
+  loadAvailability();
+})();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        onload="initSupabase()"
+        onerror="document.getElementById('adminStatus').textContent='Non riesco a caricare Supabase. Controlla la connessione e ricarica.';document.getElementById('adminStatus').classList.add('show')"></script>
 </body>
 </html>
