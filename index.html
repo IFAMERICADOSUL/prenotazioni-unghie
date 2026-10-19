@@ -5,41 +5,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f7e8ec">
-<title>Prenota | Kiraz Nails Studio</title>
+<title>Prenotazioni | Kiraz Nails Studio</title>
 <style>
 :root{--rose:#b85f7a;--dark:#813d55;--ink:#382a30;--muted:#786b70;--line:#ead8de}
 *{box-sizing:border-box}
 body{margin:0;background:linear-gradient(145deg,#fff9fa,#f7e8ec);color:var(--ink);font-family:system-ui,Arial,sans-serif}
-.wrap{max-width:900px;margin:auto;padding:24px 15px 45px}
-header{text-align:center;padding:20px 10px 25px}
+.wrap{max-width:900px;margin:auto;padding:20px 14px 40px}
+header{text-align:center;padding:20px 8px}
 .eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--dark);font-size:.75rem;font-weight:750}
 h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,7vw,3.2rem);margin:.45rem 0;color:#633647}
-.sub,.note{color:var(--muted);line-height:1.6}
-.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:clamp(16px,4vw,27px);margin:16px 0;box-shadow:0 12px 35px #7c3d5010}
 h2,h3{font-family:Georgia,serif;font-weight:500}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:clamp(15px,4vw,26px);margin:16px 0;box-shadow:0 12px 35px #7c3d5010}
+.note{color:var(--muted);line-height:1.6;font-size:.92rem}
 label{display:block;font-weight:650;font-size:.92rem;margin:14px 0 7px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #dcc7ce;border-radius:11px;background:white;color:var(--ink);font:inherit}
-textarea{min-height:80px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #dcc7ce;border-radius:10px;background:white;color:var(--ink);font:inherit}
+textarea{min-height:80px;resize:vertical}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:16px 0}
-.day,.slot{border:1px solid var(--line);background:white;border-radius:10px;padding:12px 3px;cursor:pointer;color:var(--ink);font:inherit}
-.day{font-size:.8rem}.day small{display:block;margin-top:4px;color:var(--muted)}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:15px 0}
+.day,.slot{border:1px solid var(--line);background:white;border-radius:9px;padding:11px 2px;cursor:pointer;color:var(--ink);font:inherit}
+.day{font-size:.78rem}
+.day small{display:block;margin-top:4px;color:var(--muted)}
 .day.active,.slot.selected{background:var(--rose);border-color:var(--rose);color:white}
-.day:disabled,.slot:disabled{opacity:.4;cursor:not-allowed;background:#f3eef0}
-.times{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.btn{width:100%;margin-top:12px;padding:13px 16px;border:0;border-radius:11px;background:var(--rose);color:white;font:inherit;font-weight:700;cursor:pointer}
+.day:disabled,.slot:disabled{opacity:.42;cursor:not-allowed;background:#f3eef0}
+.times{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.btn{width:100%;margin-top:12px;padding:13px 16px;border:0;border-radius:10px;background:var(--rose);color:white;font:inherit;font-weight:700;cursor:pointer}
 .btn.secondary{background:#f4e6eb;color:var(--dark);border:1px solid var(--line)}
-.btn:disabled{opacity:.6;cursor:wait}
+.btn:disabled{opacity:.55;cursor:wait}
 .status{display:none;margin-top:12px;padding:12px;background:#fff0f3;color:#7b344d;border-radius:10px;line-height:1.5;overflow-wrap:anywhere}
 .status.show{display:block}
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;line-height:1.5}
-.check input{width:auto;margin-top:5px}
-.admin-list{display:grid;gap:12px;margin-top:15px}
-.booking-card{border:1px solid var(--line);border-radius:12px;padding:14px;overflow-wrap:anywhere}
-.booking-card p{margin:6px 0}
+.check input{width:auto;flex-shrink:0;margin-top:5px}
+#signature{display:block;width:100%;height:180px;border:1px dashed #b85f7a;border-radius:10px;background:#fffdfd;touch-action:none}
 .hidden{display:none!important}
-.footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:25px}
-@media(max-width:560px){.row{grid-template-columns:1fr}.days{gap:3px}.day{padding:9px 1px;font-size:.72rem}}
+.booking-card{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;overflow-wrap:anywhere}
+.booking-card p{margin:6px 0}
+.signature-preview{max-width:260px;max-height:100px;object-fit:contain;border:1px solid var(--line);background:#fff}
+.footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:24px}
+@media(max-width:560px){.row{grid-template-columns:1fr}.day{font-size:.7rem;padding:9px 1px}.panel{border-radius:14px}}
 </style>
 </head>
 <body>
@@ -47,12 +49,12 @@ textarea{min-height:80px}
 <header>
   <div class="eyebrow">Nail studio · Prenotazioni online</div>
   <h1>Kiraz Nails Studio</h1>
-  <p class="sub">Prenota il tuo momento di bellezza. Scegli il giorno, l'orario e il trattamento.</p>
+  <p class="note">Scegli il trattamento, il giorno e l'orario. Compila la scheda e firma prima di confermare.</p>
 </header>
 
 <section class="panel">
-  <h2>Scegli un appuntamento</h2>
-  <p class="note">Apertura dal lunedì al sabato. Domenica chiuso. Orari: 10:00 e 15:00.</p>
+  <h2>1. Scegli l'appuntamento</h2>
+  <p class="note">Dal lunedì al sabato · Domenica chiuso · Orari disponibili: 10:00 e 15:00.</p>
   <label for="month">Mese</label>
   <input id="month" type="month">
   <p id="calendarMessage" class="note" aria-live="polite"></p>
@@ -63,203 +65,251 @@ textarea{min-height:80px}
 </section>
 
 <section class="panel">
-  <h2>Dati per la prenotazione</h2>
-  <form id="bookingForm">
-    <div class="row">
-      <div>
-        <label for="name">Nome e cognome *</label>
-        <input id="name" autocomplete="name" required maxlength="100">
-      </div>
-      <div>
-        <label for="email">Email *</label>
-        <input id="email" type="email" autocomplete="email" required maxlength="254">
-      </div>
+<h2>2. Dati personali</h2>
+<form id="bookingForm">
+  <div class="row">
+    <div><label for="name">Nome e cognome *</label><input id="name" autocomplete="name" maxlength="120" required></div>
+    <div><label for="email">Email *</label><input id="email" type="email" autocomplete="email" maxlength="254" required></div>
+  </div>
+  <div class="row">
+    <div><label for="phone">Cellulare *</label><input id="phone" type="tel" autocomplete="tel" maxlength="40" required></div>
+    <div>
+      <label for="service">Trattamento *</label>
+      <select id="service" required>
+        <option value="">Scegli un trattamento</option>
+        <option>Soft Gel</option>
+        <option>Builder Gel</option>
+        <option>Acrilico</option>
+        <option>Baby boomer</option>
+        <option>Poly Gel</option>
+      </select>
     </div>
-    <div class="row">
-      <div>
-        <label for="phone">Cellulare *</label>
-        <input id="phone" type="tel" autocomplete="tel" required maxlength="30">
-      </div>
-      <div>
-        <label for="service">Trattamento *</label>
-<select id="service" required>
-  <option value="">Seleziona un trattamento</option>
-  <option>Soft Gel</option>
-  <option>Builder Gel</option>
-  <option>Acrilico</option>
-  <option>Baby boomer</option>
-  <option>Poly Gel</option>
-</select>
-      </div>
-    </div>
-    <label for="notes">Note facoltative</label>
-    <textarea id="notes" maxlength="1500"></textarea>
-    <p class="note">Prima di raccogliere dati reali, pubblica un'informativa privacy completa. Questa pagina non raccoglie dati sanitari o firme digitali.</p>
+  </div>
+  <label for="notes">Note sull'appuntamento (facoltative)</label>
+  <textarea id="notes" maxlength="2000" placeholder="Altre indicazioni per lo studio"></textarea>
+
+  <h2>3. Scheda informativa sulle unghie</h2>
+  <p class="note">Rispondi soltanto alle domande pertinenti. Non inserire informazioni non necessarie. Se hai dubbi sulla sicurezza di un trattamento, parlane con un professionista sanitario.</p>
+
+  <label for="allergies">Allergie o sensibilità note (facoltativo)</label>
+  <textarea id="allergies" maxlength="2000" placeholder="Per esempio, allergie note a prodotti o ingredienti"></textarea>
+
+  <label for="healthConditions">Condizioni di salute rilevanti per il trattamento (facoltativo)</label>
+  <textarea id="healthConditions" maxlength="3000" placeholder="Indica soltanto le informazioni strettamente necessarie"></textarea>
+
+  <label for="nailConditions">Problemi attuali delle unghie o della pelle della zona (facoltativo)</label>
+  <textarea id="nailConditions" maxlength="3000" placeholder="Per esempio, irritazioni o alterazioni presenti"></textarea>
+
+  <label for="otherHealth">Altre informazioni pertinenti (facoltativo)</label>
+  <textarea id="otherHealth" maxlength="3000"></textarea>
+
+  <h2>4. Informativa, consensi e firma</h2>
+  <div class="panel" style="background:#fff9fa;box-shadow:none">
+    <h3>Informativa privacy</h3>
+    <p class="note">
+      Prima di pubblicare questo modulo, sostituisci questo testo con l'informativa privacy completa del tuo studio: identità e contatti del titolare, finalità e basi giuridiche, destinatari, tempi di conservazione, diritti della persona ed eventuali trasferimenti di dati. Indica chiaramente come contattarti per esercitare i diritti.
+    </p>
     <label class="check">
       <input id="privacy" type="checkbox" required>
-      Confermo di aver letto l'informativa privacy dello studio. *
+      <span>Confermo di aver letto l'informativa privacy completa dello studio. *</span>
     </label>
-    <button id="submitBooking" class="btn" type="submit">Invia richiesta di prenotazione</button>
-    <div id="bookingStatus" class="status" role="status" aria-live="polite"></div>
-  </form>
+    <hr style="border:0;border-top:1px solid #ead8de;margin:18px 0">
+    <h3>Consenso ai dati relativi alla salute</h3>
+    <p class="note">
+      Le informazioni sanitarie sono dati particolarmente protetti. Spiega nell'informativa quali informazioni raccogli, perché sono necessarie, chi le consulta e per quanto tempo vengono conservate.
+    </p>
+    <label class="check">
+      <input id="healthConsent" type="checkbox" required>
+      <span>Acconsento esplicitamente al trattamento delle informazioni relative alla mia salute inserite in questa scheda per la finalità descritta nell'informativa. Posso non inserire dati non pertinenti. *</span>
+    </label>
+    <label class="check">
+      <input id="workConsent" type="checkbox" required>
+      <span>Dichiaro di aver letto le informazioni relative al trattamento richiesto e di voler procedere con la richiesta di appuntamento. *</span>
+    </label>
+  </div>
+
+  <label for="signature">Firma sullo schermo *</label>
+  <p class="note">Firma nel riquadro con il dito o con il mouse. La firma verrà associata alla prenotazione e inserita nel PDF.</p>
+  <canvas id="signature" aria-label="Riquadro per firmare"></canvas>
+  <button type="button" id="clearSignature" class="btn secondary">Cancella e rifai la firma</button>
+
+  <p class="note">La firma raccolta qui è una firma elettronica disegnata sullo schermo; non è automaticamente una firma digitale qualificata. Il testo del consenso e l'informativa devono essere verificati prima di usare il sito con clienti reali.</p>
+
+  <button id="submitBooking" type="submit" class="btn">Conferma appuntamento</button>
+  <div id="bookingStatus" class="status" role="status" aria-live="polite"></div>
+</form>
+</section>
+
+<section id="confirmationPanel" class="panel hidden" aria-live="polite">
+  <h2>Appuntamento confermato! 💗</h2>
+  <p>Grazie per aver scelto Kiraz Nails Studio. La tua prenotazione è stata registrata correttamente.</p>
+  <div id="confirmationDetails"></div>
+  <button id="downloadPdf" class="btn" type="button">Scarica la mia scheda PDF firmata</button>
+  <p class="note">Il PDF viene generato sul tuo dispositivo. Salvalo in un luogo sicuro: contiene dati personali e informazioni sanitarie.</p>
+  <button id="newBooking" class="btn secondary" type="button">Torna alla pagina iniziale</button>
 </section>
 
 <section class="panel">
   <h2>Area studio · Amministratore</h2>
-  <p class="note">Accedi con un utente creato in Supabase Authentication. Non inserire la password nel codice.</p>
+  <p class="note">Accedi con l'utente amministratore creato in Supabase Authentication.</p>
   <form id="adminLoginForm">
     <label for="adminEmail">Email amministratore</label>
     <input id="adminEmail" type="email" autocomplete="username" required>
     <label for="adminPassword">Password</label>
     <input id="adminPassword" type="password" autocomplete="current-password" required>
-    <button id="adminLoginButton" class="btn" type="submit">Accedi</button>
+    <button id="adminLoginButton" type="submit" class="btn">Accedi</button>
     <div id="adminStatus" class="status" role="status" aria-live="polite"></div>
   </form>
   <div id="adminArea" class="hidden">
     <p id="adminWelcome" class="note"></p>
     <button id="refreshAdmin" class="btn secondary" type="button">Aggiorna appuntamenti</button>
     <button id="adminLogout" class="btn secondary" type="button">Esci</button>
-    <div id="adminBookings" class="admin-list"></div>
+    <div id="adminBookings"></div>
   </div>
 </section>
 <p class="footer">Kiraz Nails Studio · Prenotazioni online</p>
 </div>
 
-<!-- La chiave pubblica è utilizzabile nel frontend. Mai inserire service_role qui. -->
 <script>
 "use strict";
+const SUPABASE_URL="https://bcfytgwaurczkntjofal.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
+const FUNCTION_URL=SUPABASE_URL+"/functions/v1/manage-bookings";
+const $=id=>document.getElementById(id);
+const SLOTS=["10:00","15:00"];
+let supabaseClient=null, session=null;
+let selectedDate=null, selectedTime=null;
+let unavailable=new Set();
+let lastBooking=null, lastSignature=null, lastConsentTime=null;
 
-const SUPABASE_URL = "https://bcfytgwaurczkntjofal.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
-const FUNCTION_URL = SUPABASE_URL + "/functions/v1/manage-bookings";
-
-const $ = id => document.getElementById(id);
-const SLOTS = ["10:00", "15:00"];
-let supabaseClient = null;
-let session = null;
-let selectedDate = null;
-let selectedTime = null;
-let unavailable = new Set();
-
-function todayString() {
-  const d = new Date();
+function todayString(){
+  const d=new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
-function dateString(y,m,d) {
-  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+function dateString(y,m,d){return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;}
+function isSunday(date){return new Date(date+"T12:00:00").getDay()===0;}
+function showMessage(id,text,show=true){
+  const el=$(id);el.textContent=text||"";el.classList.toggle("show",show&&!!text);
 }
-function sunday(date) {
-  return new Date(date + "T12:00:00").getDay() === 0;
+function escapeHTML(v){
+  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-function message(id, text, visible=true) {
-  const el = $(id);
-  el.textContent = text || "";
-  el.classList.toggle("show", visible && !!text);
+function headers(){
+  return { "Content-Type":"application/json","apikey":SUPABASE_ANON_KEY,
+    "Authorization":"Bearer "+(session?.access_token||SUPABASE_ANON_KEY) };
 }
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function headers() {
-  return {
-    "Content-Type":"application/json",
-    "apikey":SUPABASE_ANON_KEY,
-    "Authorization":"Bearer " + (session?.access_token || SUPABASE_ANON_KEY)
-  };
-}
-async function api(url, options={}) {
-  const response = await fetch(url, {
-    ...options,
-    headers:{...headers(), ...(options.headers || {})}
-  });
-  const text = await response.text();
-  let data={};
-  try { data = text ? JSON.parse(text) : {}; }
-  catch { data={message:text}; }
-  if (!response.ok) throw new Error(data.error || data.message || `Errore HTTP ${response.status}`);
+async function api(url,options={}){
+  const response=await fetch(url,{...options,headers:{...headers(),...(options.headers||{})}});
+  const raw=await response.text();let data={};
+  try{data=raw?JSON.parse(raw):{};}catch{data={message:raw};}
+  if(!response.ok)throw new Error(data.error||data.message||`Errore HTTP ${response.status}`);
   return data;
 }
 
-function renderDays() {
-  const value=$("month").value;
-  const container=$("days");
-  container.replaceChildren();
-  if (!value) return;
-  const [y,m]=value.split("-").map(Number);
-  const total=new Date(y,m,0).getDate();
-  for(let d=1;d<=total;d++) {
-    const date=dateString(y,m,d);
-    const b=document.createElement("button");
-    b.type="button";
-    b.className="day"+(date===selectedDate?" active":"");
-    const dayName=["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()];
-    b.innerHTML=`${String(d).padStart(2,"0")}<small>${dayName}</small>`;
-    b.disabled=date<todayString() || sunday(date);
-    if(sunday(date)) b.title="Domenica: chiuso";
-    b.addEventListener("click",()=>{
-      selectedDate=date;
-      selectedTime=null;
-      renderDays();
-      renderTimes();
-    });
+function renderDays(){
+  const month=$("month").value,container=$("days");container.replaceChildren();
+  if(!month)return;
+  const [y,m]=month.split("-").map(Number),total=new Date(y,m,0).getDate();
+  for(let d=1;d<=total;d++){
+    const date=dateString(y,m,d),b=document.createElement("button");
+    b.type="button";b.className="day"+(date===selectedDate?" active":"");
+    b.innerHTML=`${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;
+    b.disabled=date<todayString()||isSunday(date);
+    b.addEventListener("click",()=>{selectedDate=date;selectedTime=null;renderDays();renderTimes();});
     container.appendChild(b);
   }
 }
-function renderTimes() {
-  $("chosenDate").textContent=selectedDate ? "Data selezionata: "+selectedDate : "Seleziona una data.";
-  const container=$("times");
-  container.replaceChildren();
+function renderTimes(){
+  $("chosenDate").textContent=selectedDate?"Data selezionata: "+selectedDate:"Seleziona una data.";
+  const container=$("times");container.replaceChildren();
   SLOTS.forEach(time=>{
-    const b=document.createElement("button");
-    b.type="button";
+    const b=document.createElement("button");b.type="button";
     b.className="slot"+(time===selectedTime?" selected":"");
-    b.textContent=time;
-    const busy=selectedDate && unavailable.has(selectedDate+"|"+time);
-    b.disabled=!selectedDate || !!busy;
-    if(busy) b.textContent+=" · Occupato";
+    const busy=selectedDate&&unavailable.has(selectedDate+"|"+time);
+    b.textContent=busy?time+" · Occupato":time;b.disabled=!selectedDate||!!busy;
     b.addEventListener("click",()=>{selectedTime=time;renderTimes();});
     container.appendChild(b);
   });
 }
-async function loadAvailability() {
-  const month=$("month").value;
-  if(!month) return;
+async function loadAvailability(){
+  const month=$("month").value;if(!month)return;
   unavailable=new Set();
-  const [y,m]=month.split("-").map(Number);
-  const from=month+"-01";
-  const to=dateString(y,m,new Date(y,m,0).getDate());
-  message("calendarMessage","Controllo disponibilità…");
-  try {
+  const [y,m]=month.split("-").map(Number),from=month+"-01",to=dateString(y,m,new Date(y,m,0).getDate());
+  showMessage("calendarMessage","Controllo disponibilità…");
+  try{
     const result=await api(`${FUNCTION_URL}?action=availability&from=${from}&to=${to}`);
-    const rows=Array.isArray(result)?result:(result.appointments||result.bookings||result.data||[]);
-    rows.forEach(row=>{
-      if(row.appointment_date && row.appointment_time && row.status!=="cancelled")
-        unavailable.add(row.appointment_date+"|"+String(row.appointment_time).slice(0,5));
+    const rows=Array.isArray(result)?result:(result.appointments||[]);
+    rows.forEach(r=>{
+      if(r.appointment_date&&r.appointment_time&&r.status!=="cancelled")
+        unavailable.add(r.appointment_date+"|"+String(r.appointment_time).slice(0,5));
     });
-    message("calendarMessage","Disponibilità aggiornata.",false);
-  } catch(err) {
-    message("calendarMessage","Non riesco a leggere le disponibilità dal server: "+err.message+". Il calendario resta visibile, ma verifica la configurazione Supabase.");
+    showMessage("calendarMessage","Disponibilità aggiornata.",false);
+  }catch(err){
+    showMessage("calendarMessage","Non riesco a leggere la disponibilità: "+err.message);
   }
-  renderDays();
-  renderTimes();
+  renderDays();renderTimes();
 }
-
 $("month").addEventListener("change",()=>{
-  selectedDate=null;selectedTime=null;
-  renderDays();renderTimes();loadAvailability();
+  selectedDate=null;selectedTime=null;renderDays();renderTimes();loadAvailability();
 });
 
-$("bookingForm").addEventListener("submit",async event=>{
-  event.preventDefault();
-  if(!selectedDate||!selectedTime) {
-    message("bookingStatus","Seleziona prima una data e un orario.");return;
+// Firma touch/mouse sul canvas.
+const canvas=$("signature"),ctx=canvas.getContext("2d");
+let drawing=false,hasSignature=false;
+function resizeCanvas(){
+  const rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+  let old=null;
+  if(hasSignature){try{old=canvas.toDataURL();}catch{}}
+  canvas.width=Math.max(1,Math.floor(rect.width*dpr));
+  canvas.height=Math.max(1,Math.floor(rect.height*dpr));
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.strokeStyle="#382a30";ctx.lineWidth=2.2;ctx.lineCap="round";ctx.lineJoin="round";
+  hasSignature=false;
+  if(old){
+    const img=new Image();
+    img.onload=()=>{ctx.drawImage(img,0,0,rect.width,rect.height);hasSignature=true;};
+    img.src=old;
   }
-  if(!$("privacy").checked) {
-    message("bookingStatus","Conferma di aver letto l'informativa privacy.");return;
+}
+function point(e){
+  const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};
+}
+canvas.addEventListener("pointerdown",e=>{
+  e.preventDefault();drawing=true;canvas.setPointerCapture(e.pointerId);
+  const p=point(e);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+0.1,p.y+0.1);ctx.stroke();hasSignature=true;
+});
+canvas.addEventListener("pointermove",e=>{
+  if(!drawing)return;e.preventDefault();const p=point(e);ctx.lineTo(p.x,p.y);ctx.stroke();
+});
+function endDraw(){drawing=false;ctx.beginPath();}
+canvas.addEventListener("pointerup",endDraw);
+canvas.addEventListener("pointercancel",endDraw);
+$("clearSignature").addEventListener("click",()=>{
+  ctx.clearRect(0,0,canvas.width,canvas.height);hasSignature=false;
+});
+window.addEventListener("resize",()=>{if(!$("confirmationPanel").classList.contains("hidden"))return;resizeCanvas();});
+requestAnimationFrame(resizeCanvas);
+
+function signatureDataURL(){
+  if(!hasSignature)return null;
+  const temp=document.createElement("canvas");
+  temp.width=canvas.width;temp.height=canvas.height;
+  const c=temp.getContext("2d");
+  c.fillStyle="#ffffff";c.fillRect(0,0,temp.width,temp.height);c.drawImage(canvas,0,0);
+  return temp.toDataURL("image/png");
+}
+
+$("bookingForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!selectedDate||!selectedTime){showMessage("bookingStatus","Seleziona una data e un orario.");return;}
+  if(!$("privacy").checked||!$("healthConsent").checked||!$("workConsent").checked){
+    showMessage("bookingStatus","Leggi e seleziona tutti i consensi richiesti.");return;
   }
-  const button=$("submitBooking");
-  button.disabled=true;button.textContent="Invio in corso…";
+  const signature=signatureDataURL();
+  if(!signature){showMessage("bookingStatus","Aggiungi la tua firma nel riquadro.");return;}
+
+  const button=$("submitBooking");button.disabled=true;button.textContent="Salvataggio in corso…";
+  const consentTime=new Date().toISOString();
   const payload={
     customer_name:$("name").value.trim(),
     email:$("email").value.trim(),
@@ -268,197 +318,176 @@ $("bookingForm").addEventListener("submit",async event=>{
     appointment_date:selectedDate,
     appointment_time:selectedTime,
     notes:$("notes").value.trim(),
-    privacy:true
+    allergies:$("allergies").value.trim(),
+    health_conditions:$("healthConditions").value.trim(),
+    nail_conditions:$("nailConditions").value.trim(),
+    other_health_notes:$("otherHealth").value.trim(),
+    privacy:true,
+    health_data_consent:true,
+    signature_data_url:signature
   };
-  try {
+  try{
     const result=await api(FUNCTION_URL,{method:"POST",body:JSON.stringify(payload)});
-    message("bookingStatus",result.message||"Richiesta inviata. Verifica la conferma prima di considerare l'appuntamento prenotato.");
-    $("bookingForm").reset();
-    selectedDate=null;selectedTime=null;
-    renderDays();renderTimes();
+    if(!result.success)throw new Error("Il server non ha confermato la prenotazione.");
+    lastBooking={...payload,id:result.appointment?.id||"",status:"booked"};
+    lastSignature=signature;lastConsentTime=consentTime;
+    $("confirmationDetails").replaceChildren();
+    const lines=[
+      ["Cliente",payload.customer_name],["Trattamento",payload.service],
+      ["Data",payload.appointment_date],["Ora",payload.appointment_time]
+    ];
+    lines.forEach(([label,value])=>{
+      const p=document.createElement("p");p.textContent=label+": "+value;$("confirmationDetails").appendChild(p);
+    });
+    $("confirmationPanel").classList.remove("hidden");
+    showMessage("bookingStatus","",false);
+    $("confirmationPanel").scrollIntoView({behavior:"smooth",block:"start"});
     await loadAvailability();
-  } catch(err) {
-    message("bookingStatus","Prenotazione non salvata: "+err.message+". Controlla che la Edge Function manage-bookings sia pubblicata e configurata.");
-  } finally {
-    button.disabled=false;button.textContent="Invia richiesta di prenotazione";
+  }catch(err){
+    showMessage("bookingStatus","Prenotazione non confermata: "+err.message);
+  }finally{
+    button.disabled=false;button.textContent="Conferma appuntamento";
   }
 });
 
-
-async function loadAdminAppointments() {
-  if (!session?.access_token) {
-    throw new Error("Devi prima effettuare l'accesso.");
+// PDF generato nel dispositivo, dopo che il server ha confermato la prenotazione.
+$("downloadPdf").addEventListener("click",()=>{
+  if(!lastBooking||!lastSignature){alert("Non c'è una prenotazione confermata da scaricare.");return;}
+  const jsPDF=window.jspdf?.jsPDF;
+  if(!jsPDF){alert("Il generatore PDF non è disponibile. Controlla la connessione e ricarica la pagina.");return;}
+  const doc=new jsPDF({unit:"mm",format:"a4"});
+  const left=18,width=174;let y=20;
+  function line(label,value){
+    const text=doc.splitTextToSize(String(value||"Non indicato"),width-3);
+    if(y+8+text.length*5>275){doc.addPage();y=20;}
+    doc.setFont("helvetica","bold");doc.text(label, left, y);y+=6;
+    doc.setFont("helvetica","normal");doc.text(text,left,y);y+=text.length*5+4;
   }
+  doc.setFont("helvetica","bold");doc.setFontSize(19);
+  doc.text("Kiraz Nails Studio",left,y);y+=10;
+  doc.setFontSize(15);doc.text("Scheda cliente e prenotazione",left,y);y+=10;
+  doc.setFontSize(10);
+  line("Nome e cognome",lastBooking.customer_name);
+  line("Email",lastBooking.email);
+  line("Telefono",lastBooking.phone);
+  line("Trattamento",lastBooking.service);
+  line("Data appuntamento",lastBooking.appointment_date);
+  line("Orario",lastBooking.appointment_time);
+  line("Note appuntamento",lastBooking.notes);
+  line("Allergie o sensibilità dichiarate",lastBooking.allergies);
+  line("Condizioni di salute pertinenti",lastBooking.health_conditions);
+  line("Problemi unghie/pelle dichiarati",lastBooking.nail_conditions);
+  line("Altre informazioni",lastBooking.other_health_notes);
+  line("Informativa privacy", "Confermata dalla cliente. Versione: kiraz-privacy-v1");
+  line("Consenso dati sanitari", "Consenso esplicito registrato.");
+  line("Consenso registrato il",lastConsentTime||new Date().toISOString());
+  line("Firma", "Firma elettronica disegnata sullo schermo e associata alla prenotazione.");
+  if(y>230){doc.addPage();y=20;}
+  doc.setFont("helvetica","bold");doc.text("Firma della cliente",left,y);y+=4;
+  try{doc.addImage(lastSignature,"PNG",left,y,75,32);}catch(e){console.error("Firma PDF:",e);}
+  y+=38;
+  doc.setFont("helvetica","normal");
+  doc.text("Documento generato sul dispositivo della cliente.",left,y);
+  const safeName=lastBooking.customer_name.trim().replace(/[^a-z0-9_-]+/gi,"_").slice(0,40)||"cliente";
+  doc.save(`Kiraz_Nails_${safeName}_${lastBooking.appointment_date}.pdf`);
+});
 
-  const result = await api(FUNCTION_URL + "?action=admin");
-  const rows = Array.isArray(result)
-    ? result
-    : (result.appointments || result.bookings || result.data || []);
+$("newBooking").addEventListener("click",()=>{
+  $("confirmationPanel").classList.add("hidden");
+  $("bookingForm").reset();selectedDate=null;selectedTime=null;
+  lastBooking=null;lastSignature=null;lastConsentTime=null;
+  ctx.clearRect(0,0,canvas.width,canvas.height);hasSignature=false;
+  renderDays();renderTimes();window.scrollTo({top:0,behavior:"smooth"});
+});
 
-  const container = $("adminBookings");
-  container.replaceChildren();
+// Area amministratore
+async function loadAdminAppointments(){
+  if(!session?.access_token)throw new Error("Devi prima effettuare l'accesso.");
+  const result=await api(FUNCTION_URL+"?action=admin");
+  const rows=result.appointments||[];
+  const container=$("adminBookings");container.replaceChildren();
+  if(!rows.length){container.textContent="Nessun appuntamento trovato.";return;}
 
-  if (!rows.length) {
-    container.textContent = "Nessun appuntamento trovato.";
-    return;
-  }
-
-  const today = todayString();
-
-  for (const item of rows) {
-    let status = item.status || "booked";
-
-    // Un appuntamento annullato non viene mai completato automaticamente.
-    if (status !== "cancelled" &&
-        item.appointment_date &&
-        item.appointment_date < today) {
-      if (status !== "completed") {
-        try {
-          await api(FUNCTION_URL, {
-            method: "PATCH",
-            body: JSON.stringify({
-              id: item.id,
-              status: "completed"
-            })
-          });
-        } catch (err) {
-          console.error("Aggiornamento stato completato:", err);
-        }
-      }
-      status = "completed";
-    }
-
-    const card = document.createElement("div");
-    card.className = "booking-card";
-
-    card.innerHTML = `
-      <p><strong>${escapeHTML(item.customer_name || "Cliente")}</strong></p>
-      <p>${escapeHTML(item.appointment_date || "")} ·
-         ${escapeHTML(String(item.appointment_time || "").slice(0,5))}</p>
-      <p>Trattamento: ${escapeHTML(item.service || "")}</p>
-      <p>Email: ${escapeHTML(item.email || "")}</p>
-      <p>Telefono: ${escapeHTML(item.phone || "")}</p>
-      <p>Stato: <strong class="bookingState"></strong></p>
-      <button type="button" class="btn cancelBooking">Annulla prenotazione</button>
-      <div class="status cancelResult"></div>
-    `;
-
-    const stateLabel = card.querySelector(".bookingState");
-    const cancelButton = card.querySelector(".cancelBooking");
-    const resultBox = card.querySelector(".cancelResult");
-
-    const labels = {
-      booked: "Prenotato",
-      completed: "Completato",
-      cancelled: "Annullato"
-    };
-
-    stateLabel.textContent = labels[status] || status;
-
-    // Nessun pulsante di annullamento per prenotazioni già concluse.
-    if (status === "cancelled" || status === "completed") {
-      cancelButton.classList.add("hidden");
-    }
-
-    cancelButton.addEventListener("click", async () => {
-      if (!confirm("Vuoi annullare definitivamente questa prenotazione?")) {
-        return;
-      }
-
-      cancelButton.disabled = true;
-
-      try {
-        await api(FUNCTION_URL, {
-          method: "PATCH",
-          body: JSON.stringify({
-            id: item.id,
-            status: "cancelled"
-          })
-        });
-
-        resultBox.textContent = "Prenotazione annullata.";
-        resultBox.classList.add("show");
-
-        // Ricarica appuntamenti e disponibilità del calendario.
-        await loadMonthAvailability();
-        await loadAdminAppointments();
-      } catch (err) {
-        resultBox.textContent = "Errore durante l'annullamento: " + err.message;
-        resultBox.classList.add("show");
-        cancelButton.disabled = false;
-      }
+  rows.forEach(item=>{
+    let status=item.status||"booked";
+    if(status!=="cancelled"&&item.appointment_date<todayString())status="completed";
+    const card=document.createElement("div");card.className="booking-card";
+    const fields=[
+      ["Cliente",item.customer_name],["Data",item.appointment_date],
+      ["Ora",String(item.appointment_time||"").slice(0,5)],["Trattamento",item.service],
+      ["Email",item.email],["Telefono",item.phone],["Stato",({booked:"Prenotato",completed:"Completato",cancelled:"Annullato"})[status]||status],
+      ["Allergie/sensibilità",item.allergies],["Condizioni di salute",item.health_conditions],
+      ["Problemi unghie/pelle",item.nail_conditions],["Altre informazioni",item.other_health_notes],
+      ["Note",item.notes],["Consenso sanitario",item.health_data_consent?"Sì":"No"],
+      ["Data consenso",item.health_data_consent_at||"Non disponibile"],
+      ["Versione informativa",item.privacy_notice_version||"Non disponibile"]
+    ];
+    fields.forEach(([label,value])=>{
+      const p=document.createElement("p");p.textContent=label+": "+(value||"Non indicato");card.appendChild(p);
     });
-
+    if(item.signature_data_url){
+      const p=document.createElement("p");p.textContent="Firma salvata:";card.appendChild(p);
+      const img=document.createElement("img");img.src=item.signature_data_url;img.alt="Firma cliente";img.className="signature-preview";card.appendChild(img);
+    }
+    if(status==="booked"){
+      const cancel=document.createElement("button");cancel.type="button";cancel.className="btn";cancel.textContent="Annulla prenotazione";
+      cancel.addEventListener("click",async()=>{
+        if(!confirm("Vuoi annullare questa prenotazione?"))return;
+        cancel.disabled=true;
+        try{await api(FUNCTION_URL,{method:"PATCH",body:JSON.stringify({id:item.id,status:"cancelled"})});await loadAdminAppointments();await loadAvailability();}
+        catch(err){alert("Errore: "+err.message);cancel.disabled=false;}
+      });
+      card.appendChild(cancel);
+    }
     container.appendChild(card);
-  }
+  });
 }
 
-$("adminLoginForm").addEventListener("submit",async event=>{
-  event.preventDefault();
-  const button=$("adminLoginButton");
-  button.disabled=true;button.textContent="Accesso in corso…";
-  message("adminStatus","");
-  try {
-    if(!supabaseClient) throw new Error("Supabase non si è caricato. Ricarica la pagina e controlla la connessione.");
+$("adminLoginForm").addEventListener("submit",async e=>{
+  e.preventDefault();const button=$("adminLoginButton");
+  button.disabled=true;showMessage("adminStatus","");
+  try{
+    if(!supabaseClient)throw new Error("Supabase non è ancora disponibile.");
     const {data,error}=await supabaseClient.auth.signInWithPassword({
-      email:$("adminEmail").value.trim(),
-      password:$("adminPassword").value
+      email:$("adminEmail").value.trim(),password:$("adminPassword").value
     });
-    if(error) throw error;
-    session=data.session;
-    $("adminPassword").value="";
+    if(error)throw error;
+    session=data.session;$("adminPassword").value="";
     $("adminArea").classList.remove("hidden");
-    $("adminWelcome").textContent="Accesso effettuato.";
     await loadAdminAppointments();
-    $("adminWelcome").textContent="Accesso effettuato come "+(data.user?.email||"amministratore")+".";
-    message("adminStatus","Accesso riuscito.");
-  } catch(err) {
-    $("adminArea").classList.add("hidden");
-    message("adminStatus","Accesso non riuscito: "+err.message);
-  } finally {
-    button.disabled=false;button.textContent="Accedi";
-  }
+    $("adminWelcome").textContent="Accesso effettuato: "+(data.user?.email||"amministratore");
+    showMessage("adminStatus","Accesso riuscito.");
+  }catch(err){$("adminArea").classList.add("hidden");showMessage("adminStatus","Accesso non riuscito: "+err.message);}
+  finally{button.disabled=false;}
 });
 $("refreshAdmin").addEventListener("click",async()=>{
-  try {await loadAdminAppointments();message("adminStatus","Elenco aggiornato.");}
-  catch(err){message("adminStatus","Errore: "+err.message);}
+  try{await loadAdminAppointments();showMessage("adminStatus","Elenco aggiornato.");}
+  catch(err){showMessage("adminStatus","Errore: "+err.message);}
 });
 $("adminLogout").addEventListener("click",async()=>{
-  try {if(supabaseClient) await supabaseClient.auth.signOut();}catch(_){}
-  session=null;
-  $("adminArea").classList.add("hidden");
-  $("adminLoginForm").reset();
-  message("adminStatus","Sei uscita dall'area amministratore.");
+  try{if(supabaseClient)await supabaseClient.auth.signOut();}catch{}
+  session=null;$("adminArea").classList.add("hidden");$("adminLoginForm").reset();
+  showMessage("adminStatus","Sei uscita dall'area amministratore.");
 });
 
-async function initSupabase() {
-  try {
-    if(!window.supabase?.createClient) throw new Error("Libreria Supabase non disponibile.");
+async function initSupabase(){
+  try{
+    if(!window.supabase?.createClient)throw new Error("Libreria Supabase non disponibile.");
     supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-    const {data}=await supabaseClient.auth.getSession();
-    session=data.session;
-    if(session) {
+    const {data}=await supabaseClient.auth.getSession();session=data.session;
+    if(session){
       $("adminArea").classList.remove("hidden");
-      try {await loadAdminAppointments();}
-      catch(err){message("adminStatus","Sessione presente, ma errore nel caricamento: "+err.message);}
+      try{await loadAdminAppointments();}catch(err){showMessage("adminStatus","Errore nel caricamento: "+err.message);}
     }
-  } catch(err) {
-    message("adminStatus","Errore Supabase: "+err.message);
-  }
+  }catch(err){showMessage("adminStatus","Errore Supabase: "+err.message);}
 }
 
-/* Il calendario parte anche se il caricamento di Supabase fallisce. */
 (function startCalendar(){
-  const month=todayString().slice(0,7);
-  $("month").value=month;
-  $("month").min=month;
-  renderDays();
-  renderTimes();
-  loadAvailability();
+  const month=todayString().slice(0,7);$("month").value=month;$("month").min=month;
+  renderDays();renderTimes();loadAvailability();
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-        onload="initSupabase()"
-        onerror="document.getElementById('adminStatus').textContent='Non riesco a caricare Supabase. Controlla la connessione e ricarica.';document.getElementById('adminStatus').classList.add('show')"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="initSupabase()" onerror="document.getElementById('adminStatus').textContent='Errore nel caricamento di Supabase';document.getElementById('adminStatus').classList.add('show')"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
