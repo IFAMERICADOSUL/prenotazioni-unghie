@@ -1,142 +1,653 @@
+
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f7e8ec">
 <title>Prenota | Kiraz Nails Studio</title>
+
 <style>
-:root{--rose:#b85f7a;--dark:#813d55;--pale:#fff7f9;--ink:#382a30;--muted:#786b70;--line:#ead8de;--busy:#eee8eb}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#fff9fa,#f7e8ec);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:900px;margin:auto;padding:24px 15px 46px}header{text-align:center;padding:20px 10px 25px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--dark);font-size:.75rem;font-weight:750}
-h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,7vw,3.2rem);margin:.45rem 0;color:#633647}.sub{color:var(--muted);max-width:580px;margin:auto;line-height:1.6}
-.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(16px,4vw,27px);box-shadow:0 12px 35px #7c3d5010;margin:16px 0}
-h2{font-family:Georgia,serif;font-size:1.45rem;font-weight:500;margin:0 0 9px}.note{font-size:.85rem;color:var(--muted);line-height:1.55}
-label{display:block;font-weight:650;font-size:.92rem;margin:14px 0 7px}
-input,select,textarea{width:100%;padding:12px 13px;border:1px solid #dcc7ce;border-radius:12px;background:#fff;color:var(--ink);font:inherit}
-textarea{min-height:90px;resize:vertical}input:focus,select:focus,textarea:focus{outline:2px solid #d9a2b3;outline-offset:1px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:16px 0}
-.day{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 2px;text-align:center;font-size:.82rem;cursor:pointer;color:var(--ink)}.day small{display:block;color:var(--muted);margin-top:4px}
-.day.active{background:var(--rose);border-color:var(--rose);color:#fff}.day.active small{color:#fff}.day:disabled{opacity:.4;cursor:not-allowed;background:#f3eef0}
-.times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}.slot{border:1px solid var(--line);border-radius:11px;background:#fff;padding:14px 5px;font:inherit;cursor:pointer}
-.slot.selected{background:var(--rose);border-color:var(--rose);color:#fff}.slot:disabled{background:var(--busy);color:#a49a9f;text-decoration:line-through;cursor:not-allowed}
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.check{display:flex;align-items:flex-start;gap:9px;padding:12px;border:1px solid var(--line);border-radius:12px;font-size:.9rem;font-weight:500}.check input{width:auto;margin-top:4px;accent-color:var(--rose)}
-.btn{width:100%;border:0;border-radius:13px;background:var(--rose);color:white;font:inherit;font-weight:750;padding:14px;cursor:pointer;margin-top:16px}.btn:hover{background:var(--dark)}.btn.secondary{background:#fff;color:var(--dark);border:1px solid var(--line)}
-.status{padding:12px 14px;border-radius:12px;background:#fff4f6;color:#633647;line-height:1.5;margin-top:14px;display:none}.status.show{display:block}
-.footer{text-align:center;font-size:.82rem;color:var(--muted);padding:16px}
-.hidden{display:none!important}.modal{position:fixed;inset:0;background:#29151dbb;z-index:10;overflow:auto;padding:16px;display:flex;justify-content:center;align-items:flex-start}
-.document{background:white;width:min(820px,100%);padding:clamp(18px,4vw,38px);margin:10px auto;border-radius:14px;color:#30252a;box-shadow:0 15px 50px #0003}
-.document h2,.document h3{font-family:Georgia,serif;color:#633647}.doc-head{text-align:center;border-bottom:1px solid #e5d3da;padding-bottom:14px}.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}.doc-field{padding:8px 0;border-bottom:1px solid #eee}.signature{border:1px solid #d9c6ce;border-radius:10px;width:100%;height:150px;touch-action:none;background:#fff;display:block}
-.doc-actions{display:flex;gap:10px;flex-wrap:wrap}.doc-actions .btn{flex:1;min-width:150px}.smallprint{font-size:.82rem;line-height:1.5;color:#665961}
-@media(max-width:560px){.row,.doc-grid{grid-template-columns:1fr}.days{grid-template-columns:repeat(4,minmax(0,1fr))}.day{padding:11px 3px}.checks{grid-template-columns:1fr}.modal{padding:5px}.document{padding:16px}}
-@media print{body *{visibility:hidden!important}.modal,.modal *{visibility:visible!important}.modal{position:absolute;inset:0;background:white;padding:0;display:block!important;overflow:visible}.document{box-shadow:none;border-radius:0;margin:0;width:100%;padding:10mm}.doc-actions,.close-doc,.signature-hint{display:none!important}}
+:root {
+  --rose:#b85f7a;
+  --dark:#813d55;
+  --ink:#382a30;
+  --muted:#786b70;
+  --line:#ead8de;
+  --busy:#eee8eb;
+}
+* { box-sizing:border-box }
+body {
+  margin:0;
+  background:linear-gradient(145deg,#fff9fa,#f7e8ec);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+.wrap { max-width:900px; margin:auto; padding:24px 15px 46px }
+header { text-align:center; padding:20px 10px 25px }
+.eyebrow {
+  text-transform:uppercase; letter-spacing:.16em;
+  color:var(--dark); font-size:.75rem; font-weight:750;
+}
+h1 {
+  font-family:Georgia,serif; font-weight:500;
+  font-size:clamp(2rem,7vw,3.2rem);
+  margin:.45rem 0; color:#633647;
+}
+.sub { color:var(--muted); max-width:580px; margin:auto; line-height:1.6 }
+.panel {
+  background:#fff; border:1px solid var(--line);
+  border-radius:22px; padding:clamp(16px,4vw,27px);
+  box-shadow:0 12px 35px #7c3d5010; margin:16px 0;
+}
+h2 { font-family:Georgia,serif; font-size:1.45rem; font-weight:500; margin:0 0 9px }
+.note { font-size:.85rem; color:var(--muted); line-height:1.55 }
+label { display:block; font-weight:650; font-size:.92rem; margin:14px 0 7px }
+input,select,textarea {
+  width:100%; padding:12px 13px; border:1px solid #dcc7ce;
+  border-radius:12px; background:#fff; color:var(--ink); font:inherit;
+}
+textarea { min-height:90px; resize:vertical }
+input:focus,select:focus,textarea:focus { outline:2px solid #d9a2b3; outline-offset:1px }
+.row { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+.days { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:7px; margin:16px 0 }
+.day {
+  border:1px solid var(--line); background:#fff; border-radius:12px;
+  padding:10px 2px; text-align:center; font-size:.82rem; cursor:pointer; color:var(--ink);
+}
+.day small { display:block; color:var(--muted); margin-top:4px }
+.day.active { background:var(--rose); border-color:var(--rose); color:#fff }
+.day.active small { color:#fff }
+.day:disabled { opacity:.4; cursor:not-allowed; background:#f3eef0 }
+.times { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:14px 0 }
+.slot { border:1px solid var(--line); border-radius:11px; background:#fff; padding:14px 5px; font:inherit; cursor:pointer }
+.slot.selected { background:var(--rose); border-color:var(--rose); color:#fff }
+.slot:disabled { background:var(--busy); color:#a49a9f; text-decoration:line-through; cursor:not-allowed }
+.checks { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px }
+.check {
+  display:flex; align-items:flex-start; gap:9px; padding:12px;
+  border:1px solid var(--line); border-radius:12px; font-size:.9rem; font-weight:500;
+}
+.check input { width:auto; margin-top:4px; accent-color:var(--rose) }
+.btn {
+  width:100%; border:0; border-radius:13px; background:var(--rose);
+  color:white; font:inherit; font-weight:750; padding:14px; cursor:pointer; margin-top:16px;
+}
+.btn:hover { background:var(--dark) }
+.btn:disabled { opacity:.6; cursor:wait }
+.btn.secondary { background:#fff; color:var(--dark); border:1px solid var(--line) }
+.status { padding:12px 14px; border-radius:12px; background:#fff4f6; color:#633647; line-height:1.5; margin-top:14px; display:none }
+.status.show { display:block }
+.footer { text-align:center; font-size:.82rem; color:var(--muted); padding:16px }
+.hidden { display:none!important }
+.modal {
+  position:fixed; inset:0; background:#29151dbb; z-index:10;
+  overflow:auto; padding:16px; display:flex; justify-content:center; align-items:flex-start;
+}
+.document {
+  background:white; width:min(820px,100%); padding:clamp(18px,4vw,38px);
+  margin:10px auto; border-radius:14px; color:#30252a; box-shadow:0 15px 50px #0003;
+}
+.document h2,.document h3 { font-family:Georgia,serif; color:#633647 }
+.doc-head { text-align:center; border-bottom:1px solid #e5d3da; padding-bottom:14px }
+.doc-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px }
+.doc-field { padding:8px 0; border-bottom:1px solid #eee; overflow-wrap:anywhere }
+.signature {
+  border:1px solid #d9c6ce; border-radius:10px; width:100%;
+  height:150px; touch-action:none; background:#fff; display:block;
+}
+.doc-actions { display:flex; gap:10px; flex-wrap:wrap }
+.doc-actions .btn { flex:1; min-width:150px }
+.smallprint { font-size:.82rem; line-height:1.5; color:#665961 }
+@media(max-width:560px) {
+  .row,.doc-grid { grid-template-columns:1fr }
+  .days { grid-template-columns:repeat(4,minmax(0,1fr)) }
+  .day { padding:11px 3px }
+  .checks { grid-template-columns:1fr }
+  .modal { padding:5px }
+  .document { padding:16px }
+}
+@media print {
+  body * { visibility:hidden!important }
+  .modal,.modal * { visibility:visible!important }
+  .modal { position:absolute; inset:0; background:white; padding:0; display:block!important; overflow:visible }
+  .document { box-shadow:none; border-radius:0; margin:0; width:100%; padding:10mm }
+  .doc-actions,.close-doc,.signature-hint { display:none!important }
+}
 </style>
 </head>
+
 <body>
 <div class="wrap">
-<header><div class="eyebrow">Nail studio · Prenotazioni online</div><h1>Kiraz Nails Studio</h1><p class="sub">Prenota il tuo momento di bellezza. Seleziona una data, uno dei due orari disponibili e il trattamento desiderato.</p></header>
+<header>
+  <div class="eyebrow">Nail studio · Prenotazioni online</div>
+  <h1>Kiraz Nails Studio</h1>
+  <p class="sub">Prenota il tuo momento di bellezza. Seleziona una data, uno dei due orari disponibili e il trattamento desiderato.</p>
+</header>
+
 <section class="panel">
-<h2>Scegli un appuntamento</h2><p class="note">Apertura dal lunedì al sabato. Domenica chiuso. Gli unici orari selezionabili sono le 10:00 e le 15:00. La disponibilità effettiva richiede il collegamento al database.</p>
-<label for="month">Mese</label><input id="month" type="month">
-<div id="days" class="days" aria-label="Giorni del mese"></div>
-<h3 style="font-family:Georgia,serif;font-weight:500">Orari disponibili</h3><div id="chosenDate" class="note">Seleziona una data disponibile.</div><div id="times" class="times"></div>
+  <h2>Scegli un appuntamento</h2>
+  <p class="note">Apertura dal lunedì al sabato. Domenica chiuso. Gli orari sono verificati con il database. Gli appuntamenti già prenotati non sono selezionabili.</p>
+  <label for="month">Mese</label>
+  <input id="month" type="month">
+  <div id="days" class="days" aria-label="Giorni del mese"></div>
+  <h3 style="font-family:Georgia,serif;font-weight:500">Orari disponibili</h3>
+  <div id="chosenDate" class="note">Seleziona una data disponibile.</div>
+  <div id="times" class="times"></div>
 </section>
+
 <section class="panel">
-<h2>Dati per la prenotazione</h2>
-<form id="bookingForm">
-<div class="row">
-<div><label for="name">Nome e cognome *</label><input id="name" name="name" autocomplete="name" required maxlength="100" placeholder="Nome e cognome"></div>
-<div><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@email.com"></div>
-</div>
-<div class="row"><div><label for="phone">Numero di cellulare *</label><input id="phone" name="phone" autocomplete="tel" type="tel" required maxlength="30" placeholder="Numero di cellulare"></div>
-<div><label for="service">Trattamento richiesto *</label><select id="service" name="service" required><option value="">Seleziona un trattamento</option><option>Soft Gel</option><option>Builder Gel</option><option>Acrilico</option><option>Baby boomer</option><option>Poly Gel</option></select></div></div>
-<label for="notes">Note (facoltative)</label><textarea id="notes" name="notes" maxlength="1500" placeholder="Scrivi qui eventuali richieste o dettagli utili…"></textarea>
-<h3 style="font-family:Georgia,serif;font-weight:500;margin:22px 0 5px">Informazioni da comunicare prima del trattamento</h3>
-<p class="note">Queste informazioni possono riguardare dati personali relativi alla salute. Indica solo ciò che ritieni necessario e leggi l'informativa privacy dello studio prima di inviare. Le caselle non sostituiscono una valutazione professionale.</p>
-<div class="checks">
-<label class="check"><input type="checkbox" id="skin"> Ho una malattia o condizione della pelle nella zona delle mani/unghie</label>
-<label class="check"><input type="checkbox" id="cancer"> Ho una diagnosi oncologica / sto seguendo cure oncologiche</label>
-<label class="check"><input type="checkbox" id="allergies"> Ho allergie note (anche a prodotti cosmetici o acrilati)</label>
-</div>
-<label class="check" style="margin-top:12px"><input type="checkbox" id="privacy" required> Confermo di aver letto l'informativa privacy dello studio e acconsento al trattamento dei dati necessari per gestire la richiesta di appuntamento. *</label>
-<label class="check"><input type="checkbox" id="healthConsent"> Acconsento facoltativamente all'uso delle informazioni sanitarie che ho indicato, limitatamente alla valutazione preliminare del trattamento.</label>
-<p class="note">Prima di pubblicare il sito, aggiungi un'informativa privacy completa e verifica con un professionista gli adempimenti applicabili. I dati sanitari richiedono protezioni e una base giuridica adeguata.</p>
-<button class="btn" id="submit" type="submit">Continua alla presa visione e firma</button>
-<div id="status" class="status" role="status" aria-live="polite"></div>
-</form>
+  <h2>Dati per la prenotazione</h2>
+  <form id="bookingForm">
+    <div class="row">
+      <div>
+        <label for="name">Nome e cognome *</label>
+        <input id="name" name="name" autocomplete="name" required maxlength="100" placeholder="Nome e cognome">
+      </div>
+      <div>
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nome@email.com">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="phone">Numero di cellulare *</label>
+        <input id="phone" name="phone" autocomplete="tel" type="tel" required maxlength="30" placeholder="Numero di cellulare">
+      </div>
+      <div>
+        <label for="service">Trattamento richiesto *</label>
+        <select id="service" name="service" required>
+          <option value="">Seleziona un trattamento</option>
+          <option>Soft Gel</option>
+          <option>Builder Gel</option>
+          <option>Acrilico</option>
+          <option>Baby boomer</option>
+          <option>Poly Gel</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="notes">Note (facoltative)</label>
+    <textarea id="notes" name="notes" maxlength="1500" placeholder="Scrivi qui eventuali richieste o dettagli utili…"></textarea>
+
+    <h3 style="font-family:Georgia,serif;font-weight:500;margin:22px 0 5px">Informazioni da comunicare prima del trattamento</h3>
+    <p class="note">Queste informazioni possono riguardare dati personali relativi alla salute. Indica solo ciò che ritieni necessario. Le caselle non sostituiscono una valutazione professionale.</p>
+
+    <div class="checks">
+      <label class="check"><input type="checkbox" id="skin"> Ho una malattia o condizione della pelle nella zona delle mani/unghie</label>
+      <label class="check"><input type="checkbox" id="cancer"> Ho una diagnosi oncologica / sto seguendo cure oncologiche</label>
+      <label class="check"><input type="checkbox" id="allergies"> Ho allergie note, anche a prodotti cosmetici o acrilati</label>
+    </div>
+
+    <label class="check" style="margin-top:12px">
+      <input type="checkbox" id="privacy" required>
+      Confermo di aver letto l'informativa privacy dello studio e acconsento al trattamento dei dati necessari per gestire la richiesta di appuntamento. *
+    </label>
+    <label class="check">
+      <input type="checkbox" id="healthConsent">
+      Acconsento facoltativamente all'uso delle informazioni sanitarie che ho indicato, limitatamente alla valutazione preliminare del trattamento.
+    </label>
+
+    <p class="note">Le risposte sanitarie e il disegno della firma non vengono inviati né archiviati dal backend in questa versione. Prima di raccogliere dati sanitari online, completa e verifica l'informativa privacy e le misure di protezione applicabili.</p>
+
+    <button class="btn" id="submit" type="submit">Continua alla presa visione e firma</button>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+  </form>
 </section>
+
 <section class="panel">
-<h2>Area studio</h2>
-<p class="note">Il pannello amministratore reale, con elenco di tutti gli appuntamenti ricevuti, sarà attivato dopo il collegamento al database e l'accesso protetto. Non inserire credenziali amministrative in questa pagina pubblica.</p>
+  <h2>Area studio</h2>
+  <p class="note">Le prenotazioni confermate vengono registrate su Supabase. Il pannello amministratore protetto va configurato separatamente. Non inserire credenziali amministrative in questa pagina pubblica.</p>
 </section>
-<p class="footer">Kiraz Nails Studio · Per modificare il sito, consulta il README incluso nel progetto.</p>
+<p class="footer">Kiraz Nails Studio · Prenotazioni online</p>
 </div>
 
 <div id="docModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="docTitle">
-<div class="document">
-<div class="doc-head"><div class="eyebrow">Kiraz Nails Studio</div><h2 id="docTitle">Scheda appuntamento, presa visione e consenso</h2><p class="smallprint">Documento preliminare da completare e firmare. Non sostituisce un'informativa privacy o un consenso professionale redatto su misura.</p></div>
-<h3>Riepilogo prenotazione</h3><div class="doc-grid">
-<div class="doc-field"><b>Studio</b><div>Kiraz Nails Studio</div></div><div class="doc-field"><b>Cliente</b><div id="docName"></div></div>
-<div class="doc-field"><b>Email confermata dalla cliente</b><div id="docEmail"></div></div><div class="doc-field"><b>Cellulare</b><div id="docPhone"></div></div>
-<div class="doc-field"><b>Trattamento scelto</b><div id="docService"></div></div><div class="doc-field"><b>Appuntamento richiesto</b><div id="docWhen"></div></div>
-<div class="doc-field"><b>Malattia/condizione della pelle segnalata</b><div id="docSkin"></div></div><div class="doc-field"><b>Condizione oncologica segnalata</b><div id="docCancer"></div></div>
-<div class="doc-field"><b>Allergie segnalate</b><div id="docAllergies"></div></div><div class="doc-field"><b>Consenso facoltativo ai dati sanitari</b><div id="docHealthConsent"></div></div>
-<div class="doc-field" style="grid-column:1/-1"><b>Note della cliente</b><div id="docNotes"></div></div>
-<div class="doc-field"><b>Data di esecuzione del trattamento</b><div>Da compilare dopo il servizio: __________________</div></div><div class="doc-field"><b>Firma della cliente</b><div id="signedAt">Da firmare qui sotto</div></div>
+  <div class="document">
+    <div class="doc-head">
+      <div class="eyebrow">Kiraz Nails Studio</div>
+      <h2 id="docTitle">Scheda appuntamento, presa visione e consenso</h2>
+      <p class="smallprint">Documento preliminare da completare e firmare. Non sostituisce un'informativa privacy o un consenso professionale redatto su misura.</p>
+    </div>
+
+    <h3>Riepilogo prenotazione</h3>
+    <div class="doc-grid">
+      <div class="doc-field"><b>Studio</b><div>Kiraz Nails Studio</div></div>
+      <div class="doc-field"><b>Cliente</b><div id="docName"></div></div>
+      <div class="doc-field"><b>Email</b><div id="docEmail"></div></div>
+      <div class="doc-field"><b>Cellulare</b><div id="docPhone"></div></div>
+      <div class="doc-field"><b>Trattamento scelto</b><div id="docService"></div></div>
+      <div class="doc-field"><b>Appuntamento richiesto</b><div id="docWhen"></div></div>
+      <div class="doc-field"><b>Condizione della pelle segnalata</b><div id="docSkin"></div></div>
+      <div class="doc-field"><b>Condizione oncologica segnalata</b><div id="docCancer"></div></div>
+      <div class="doc-field"><b>Allergie segnalate</b><div id="docAllergies"></div></div>
+      <div class="doc-field"><b>Consenso facoltativo ai dati sanitari</b><div id="docHealthConsent"></div></div>
+      <div class="doc-field" style="grid-column:1/-1"><b>Note della cliente</b><div id="docNotes"></div></div>
+      <div class="doc-field"><b>Data di esecuzione del trattamento</b><div>Da compilare dopo il servizio: __________</div></div>
+      <div class="doc-field"><b>Firma della cliente</b><div id="signedAt">Da firmare qui sotto</div></div>
+    </div>
+
+    <h3>Presa visione e dichiarazioni</h3>
+    <p class="smallprint">La cliente dichiara di aver verificato i dati riportati e di aver comunicato le informazioni che ritiene rilevanti per il trattamento scelto. La segnalazione di condizioni della pelle, condizioni oncologiche o allergie non equivale a una diagnosi né determina automaticamente l'idoneità al trattamento. In caso di dubbi, il servizio potrà essere rinviato e potrà essere consigliato di rivolgersi a un professionista sanitario.</p>
+    <p class="smallprint"><b>Privacy:</b> questo modello è una bozza. Prima dell'uso reale, inserire un'informativa privacy completa e verificare le basi giuridiche, i tempi di conservazione, i destinatari, i diritti e i contatti. Non raccogliere dati sanitari online finché tali aspetti non sono stati verificati.</p>
+
+    <h3>Firma della cliente</h3>
+    <p class="smallprint signature-hint">Firma con il dito o il mouse nel riquadro.</p>
+    <canvas id="signature" class="signature" aria-label="Riquadro per firma"></canvas>
+
+    <div class="doc-actions">
+      <button type="button" class="btn secondary" id="clearSig">Cancella firma</button>
+      <button type="button" class="btn" id="confirmBooking">Conferma appuntamento</button>
+      <button type="button" class="btn secondary close-doc" id="closeDoc">Torna alla prenotazione</button>
+    </div>
+    <p class="smallprint">La prenotazione viene inviata al server soltanto dopo la firma nel riquadro. Il disegno della firma e le risposte sanitarie non vengono archiviati nel database da questa versione.</p>
+  </div>
 </div>
-<h3>Presa visione e dichiarazioni</h3>
-<p class="smallprint">La cliente dichiara di aver verificato i dati sopra riportati e di aver comunicato le informazioni che ritiene rilevanti per il trattamento scelto. La cliente conferma di aver letto le indicazioni e le informazioni fornite dallo studio prima del servizio e di impegnarsi a segnalare eventuali cambiamenti rilevanti. La segnalazione di condizioni della pelle, condizioni oncologiche o allergie non equivale a una diagnosi né determina automaticamente l'idoneità al trattamento; in caso di dubbi, il servizio potrà essere rinviato e potrà essere consigliato di rivolgersi a un professionista sanitario.</p>
-<p class="smallprint"><b>Privacy:</b> questo modello è una bozza. Prima dell'uso reale, inserire un'informativa privacy completa con titolare del trattamento, finalità, basi giuridiche, tempi di conservazione, destinatari, diritti e contatti. Non usare il modulo per raccogliere dati sanitari finché tali aspetti non sono stati verificati.</p>
-<h3>Firma digitale della cliente</h3><p class="smallprint signature-hint">Firma con il dito o il mouse nel riquadro. Per firmare, la cliente deve usare personalmente il dispositivo.</p>
-<canvas id="signature" class="signature" aria-label="Riquadro per firma"></canvas>
-<div class="doc-actions"><button type="button" class="btn secondary" id="clearSig">Cancella firma</button><button type="button" class="btn" id="confirmBooking">Conferma appuntamento</button><button type="button" class="btn secondary close-doc" id="closeDoc">Torna alla prenotazione</button></div>
-<p class="smallprint">La conferma qui è dimostrativa: finché non è collegato il backend, l'appuntamento non viene salvato e non compare in un pannello admin.</p>
-</div></div>
+
 <div id="confirmationModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle">
-<div class="document">
-<div class="doc-head"><div class="eyebrow">Kiraz Nails Studio</div><h2 id="confirmationTitle">Riepilogo finale</h2><p class="smallprint">Schermata dimostrativa di conferma appuntamento</p></div>
-<h3>Appuntamento selezionato</h3>
-<div class="doc-grid">
-<div class="doc-field"><b>Cliente</b><div id="finalName"></div></div><div class="doc-field"><b>Email</b><div id="finalEmail"></div></div>
-<div class="doc-field"><b>Cellulare</b><div id="finalPhone"></div></div><div class="doc-field"><b>Trattamento</b><div id="finalService"></div></div>
-<div class="doc-field"><b>Data</b><div id="finalDate"></div></div><div class="doc-field"><b>Ora</b><div id="finalTime"></div></div>
+  <div class="document">
+    <div class="doc-head">
+      <div class="eyebrow">Kiraz Nails Studio</div>
+      <h2 id="confirmationTitle">Prenotazione confermata</h2>
+      <p class="smallprint">La prenotazione è confermata soltanto dopo il salvataggio sul server.</p>
+    </div>
+    <h3>Riepilogo appuntamento</h3>
+    <div class="doc-grid">
+      <div class="doc-field"><b>Cliente</b><div id="finalName"></div></div>
+      <div class="doc-field"><b>Email</b><div id="finalEmail"></div></div>
+      <div class="doc-field"><b>Cellulare</b><div id="finalPhone"></div></div>
+      <div class="doc-field"><b>Trattamento</b><div id="finalService"></div></div>
+      <div class="doc-field"><b>Data</b><div id="finalDate"></div></div>
+      <div class="doc-field"><b>Ora</b><div id="finalTime"></div></div>
+    </div>
+    <div class="doc-field"><b>Codice prenotazione</b><div id="finalId"></div></div>
+    <div class="doc-actions">
+      <button type="button" class="btn" id="downloadPdf">Stampa / Salva PDF</button>
+      <button type="button" class="btn secondary" id="closeFinal">Chiudi</button>
+    </div>
+    <p class="smallprint">L'invio automatico via email non è configurato.</p>
+  </div>
 </div>
-<p class="smallprint">Per ora questa schermata non rappresenta una prenotazione effettivamente registrata. Quando il database sarà collegato, qui verrà mostrato il codice della prenotazione e il posto sarà riservato solo dopo la conferma del server.</p>
-<div class="doc-actions"><button type="button" class="btn" id="downloadPdf">Scarica PDF della conferma</button><button type="button" class="btn secondary" id="closeFinal">Chiudi</button></div>
-<p class="smallprint">Il PDF si ottiene tramite la funzione di stampa del browser: scegli “Salva come PDF”. L'invio automatico via email e il pannello amministratore richiedono backend e servizio email.</p>
-</div></div>
 
 <script>
-const times=["10:00","15:00"];
-let selectedDate=null,selectedTime=null,bookings=new Set();
-const $=id=>document.getElementById(id), monthInput=$("month"), now=new Date();
-monthInput.value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;monthInput.min=monthInput.value;
-function localDate(y,m,d){return `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`}
-function say(msg){$("status").textContent=msg;$("status").classList.add("show")}
-function clearSay(){$("status").textContent="";$("status").classList.remove("show")}
-function isClosed(date){return new Date(`${date}T12:00:00`).getDay()===0}
-function renderDays(){const parts=monthInput.value.split("-").map(Number);if(parts.length<2)return;const [y,m]=parts;const count=new Date(y,m,0).getDate();$("days").innerHTML="";
-for(let d=1;d<=count;d++){const date=localDate(y,m-1,d),past=date<localDate(now.getFullYear(),now.getMonth(),now.getDate()),closed=isClosed(date),b=document.createElement("button");b.type="button";b.className="day"+(date===selectedDate?" active":"");b.disabled=past||closed;b.innerHTML=`${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;if(closed)b.title="Domenica: chiuso";b.addEventListener("click",()=>{selectedDate=date;selectedTime=null;clearSay();renderDays();renderTimes()});$("days").appendChild(b)}}
-function renderTimes(){$("chosenDate").textContent=selectedDate?`Data selezionata: ${selectedDate}`:"Seleziona una data disponibile."; $("times").innerHTML="";times.forEach(t=>{const b=document.createElement("button");b.type="button";b.className="slot"+(t===selectedTime?" selected":"");b.textContent=t;b.disabled=!selectedDate;b.addEventListener("click",()=>{selectedTime=t;renderTimes()});$("times").appendChild(b)})}
-const canvas=$("signature"),ctx=canvas.getContext("2d");let drawing=false,hasSignature=false;
-function resizeCanvas(){const rect=canvas.getBoundingClientRect(),ratio=window.devicePixelRatio||1;const old=hasSignature?canvas.toDataURL():null;canvas.width=rect.width*ratio;canvas.height=rect.height*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.lineWidth=2;ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle="#39252d";if(old){const img=new Image();img.onload=()=>ctx.drawImage(img,0,0,rect.width,rect.height);img.src=old}}
-function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
-canvas.addEventListener("pointerdown",e=>{drawing=true;hasSignature=true;canvas.setPointerCapture(e.pointerId);const p=point(e);ctx.beginPath();ctx.moveTo(p.x,p.y)});
-canvas.addEventListener("pointermove",e=>{if(!drawing)return;const p=point(e);ctx.lineTo(p.x,p.y);ctx.stroke()});
-["pointerup","pointercancel","pointerleave"].forEach(ev=>canvas.addEventListener(ev,()=>drawing=false));
-$("clearSig").addEventListener("click",()=>{ctx.clearRect(0,0,canvas.width,canvas.height);hasSignature=false});
-window.addEventListener("resize",resizeCanvas);
-function checked(id){return $(id).checked?"Sì":"No"}
-$("bookingForm").addEventListener("submit",e=>{e.preventDefault();clearSay();if(!selectedDate||!selectedTime){say("Seleziona prima una data e uno dei due orari.");return}
-$("docName").textContent=$("name").value.trim();$("docEmail").textContent=$("email").value.trim();$("docPhone").textContent=$("phone").value.trim();$("docService").textContent=$("service").value;$("docWhen").textContent=`${selectedDate} alle ${selectedTime}`;$("docSkin").textContent=checked("skin");$("docCancer").textContent=checked("cancer");$("docAllergies").textContent=checked("allergies");$("docHealthConsent").textContent=checked("healthConsent");$("docNotes").textContent=$("notes").value.trim()||"Nessuna nota";$("signedAt").textContent=`Firma apposta il ${new Date().toLocaleString("it-IT")}`;$("docModal").classList.remove("hidden");requestAnimationFrame(resizeCanvas);say("Anteprima dimostrativa: la richiesta non è stata salvata e l'orario non è riservato. Per attivare prenotazioni, firma archiviata ed email occorre configurare il backend sicuro.")});
-$("confirmBooking").addEventListener("click",()=>{
- if(!hasSignature){alert("Prima di confermare, la cliente deve firmare nel riquadro.");return}
- $("finalName").textContent=$("name").value.trim();$("finalEmail").textContent=$("email").value.trim();$("finalPhone").textContent=$("phone").value.trim();$("finalService").textContent=$("service").value;$("finalDate").textContent=selectedDate;$("finalTime").textContent=selectedTime;
- $("docModal").classList.add("hidden");$("confirmationModal").classList.remove("hidden");
+const SUPABASE_URL = "https://bcfytgwaurczkntjofal.supabase.co";
+// Chiave pubblicabile: non inserire mai la service_role nel sito.
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
+const API_URL = `${SUPABASE_URL}/functions/v1/manage-bookings`;
+const times = ["10:00", "15:00"];
+
+let selectedDate = null;
+let selectedTime = null;
+let occupied = new Set();
+let availabilityLoaded = false;
+let availabilityError = false;
+let currentMonthRequest = 0;
+let isSubmitting = false;
+
+const $ = id => document.getElementById(id);
+const monthInput = $("month");
+const now = new Date();
+
+const today = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+
+monthInput.value = today.slice(0,7);
+monthInput.min = today.slice(0,7);
+
+function localDate(y,m,d) {
+  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+}
+
+function say(msg) {
+  $("status").textContent = msg;
+  $("status").classList.add("show");
+}
+
+function clearSay() {
+  $("status").textContent = "";
+  $("status").classList.remove("show");
+}
+
+function isClosed(date) {
+  return new Date(`${date}T12:00:00`).getDay() === 0;
+}
+
+function monthRange() {
+  const [y,m] = monthInput.value.split("-").map(Number);
+  return {
+    from: localDate(y,m,1),
+    to: localDate(y,m,new Date(y,m,0).getDate())
+  };
+}
+
+async function loadAvailability() {
+  const requestNo = ++currentMonthRequest;
+  availabilityLoaded = false;
+  availabilityError = false;
+  occupied = new Set();
+  selectedTime = null;
+  renderDays();
+  renderTimes();
+
+  const {from,to} = monthRange();
+
+  try {
+    const response = await fetch(
+      `${API_URL}?action=availability&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`,
+      {
+        method:"GET",
+        headers:{"apikey":SUPABASE_PUBLISHABLE_KEY}
+      }
+    );
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(result.error || `Errore disponibilità (${response.status})`);
+    }
+
+    if (!Array.isArray(result.occupied)) {
+      throw new Error("Risposta disponibilità non valida");
+    }
+
+    if (requestNo !== currentMonthRequest) return;
+
+    occupied = new Set(
+      result.occupied.map(item =>
+        `${item.appointment_date}|${String(item.appointment_time).slice(0,5)}`
+      )
+    );
+
+    availabilityLoaded = true;
+    renderDays();
+    renderTimes();
+  } catch (err) {
+    if (requestNo !== currentMonthRequest) return;
+    availabilityError = true;
+    availabilityLoaded = false;
+    renderDays();
+    renderTimes();
+    say("Non riesco a verificare gli orari. Per evitare doppie prenotazioni, la selezione è disabilitata. Riprova tra poco.");
+    console.error("Errore disponibilità:",err);
+  }
+}
+
+function renderDays() {
+  const parts = monthInput.value.split("-").map(Number);
+  if (parts.length < 2) return;
+
+  const [y,m] = parts;
+  const count = new Date(y,m,0).getDate();
+  $("days").innerHTML = "";
+
+  for (let d=1; d<=count; d++) {
+    const date = localDate(y,m,d);
+    const closed = isClosed(date);
+    const b = document.createElement("button");
+    const hasFreeSlot = times.some(t => !occupied.has(`${date}|${t}`));
+    const past = date < today;
+
+    b.type = "button";
+    b.className = "day" + (date===selectedDate ? " active" : "");
+    b.innerHTML = `${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;
+    b.disabled = past || closed || !availabilityLoaded || !hasFreeSlot;
+
+    if (closed) b.title = "Domenica: chiuso";
+    else if (availabilityLoaded && !hasFreeSlot) b.title = "Nessun orario disponibile";
+
+    b.addEventListener("click",() => {
+      selectedDate = date;
+      selectedTime = null;
+      clearSay();
+      renderDays();
+      renderTimes();
+    });
+
+    $("days").appendChild(b);
+  }
+}
+
+function renderTimes() {
+  $("chosenDate").textContent = selectedDate
+    ? `Data selezionata: ${selectedDate}`
+    : "Seleziona una data disponibile.";
+
+  $("times").innerHTML = "";
+
+  times.forEach(t => {
+    const b = document.createElement("button");
+    const isBusy = selectedDate && occupied.has(`${selectedDate}|${t}`);
+
+    b.type = "button";
+    b.className = "slot" + (t===selectedTime ? " selected" : "");
+    b.textContent = isBusy ? `${t} · Prenotato` : t;
+    b.disabled = !selectedDate || !availabilityLoaded || availabilityError || !!isBusy;
+
+    b.addEventListener("click",() => {
+      selectedTime = t;
+      renderTimes();
+    });
+
+    $("times").appendChild(b);
+  });
+
+  if (!availabilityLoaded) {
+    const p = document.createElement("p");
+    p.className = "note";
+    p.textContent = availabilityError
+      ? "Disponibilità non verificabile. Ricarica la pagina e riprova."
+      : "Controllo disponibilità in corso…";
+    $("times").appendChild(p);
+  }
+}
+
+const canvas = $("signature");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+let hasSignature = false;
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  const ratio = window.devicePixelRatio || 1;
+  const old = hasSignature ? canvas.toDataURL() : null;
+
+  canvas.width = Math.max(1,rect.width*ratio);
+  canvas.height = Math.max(1,rect.height*ratio);
+
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  ctx.lineWidth = 2;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.strokeStyle = "#39252d";
+
+  if (old) {
+    const img = new Image();
+    img.onload = () => ctx.drawImage(img,0,0,rect.width,rect.height);
+    img.src = old;
+  }
+}
+
+function point(e) {
+  const r = canvas.getBoundingClientRect();
+  return {x:e.clientX-r.left,y:e.clientY-r.top};
+}
+
+canvas.addEventListener("pointerdown",e => {
+  drawing = true;
+  hasSignature = true;
+  canvas.setPointerCapture(e.pointerId);
+  const p = point(e);
+  ctx.beginPath();
+  ctx.moveTo(p.x,p.y);
 });
-$("downloadPdf").addEventListener("click",()=>window.print());
-$("closeDoc").addEventListener("click",()=>$("docModal").classList.add("hidden"));
-$("closeFinal").addEventListener("click",()=>$("confirmationModal").classList.add("hidden"));
-monthInput.addEventListener("change",()=>{selectedDate=null;selectedTime=null;renderDays();renderTimes();clearSay()});
-renderDays();renderTimes();
+
+canvas.addEventListener("pointermove",e => {
+  if (!drawing) return;
+  const p = point(e);
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
+});
+
+["pointerup","pointercancel","pointerleave"].forEach(ev =>
+  canvas.addEventListener(ev,() => drawing=false)
+);
+
+$("clearSig").addEventListener("click",() => {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  hasSignature = false;
+});
+
+window.addEventListener("resize",resizeCanvas);
+
+function checked(id) {
+  return $(id).checked ? "Sì" : "No";
+}
+
+function fillDocument() {
+  $("docName").textContent = $("name").value.trim();
+  $("docEmail").textContent = $("email").value.trim();
+  $("docPhone").textContent = $("phone").value.trim();
+  $("docService").textContent = $("service").value;
+  $("docWhen").textContent = `${selectedDate} alle ${selectedTime}`;
+  $("docSkin").textContent = checked("skin");
+  $("docCancer").textContent = checked("cancer");
+  $("docAllergies").textContent = checked("allergies");
+  $("docHealthConsent").textContent = checked("healthConsent");
+  $("docNotes").textContent = $("notes").value.trim() || "Nessuna nota";
+  $("signedAt").textContent = `Firma disegnata il ${new Date().toLocaleString("it-IT")}`;
+}
+
+$("bookingForm").addEventListener("submit",e => {
+  e.preventDefault();
+  clearSay();
+
+  if (!selectedDate || !selectedTime) {
+    say("Seleziona prima una data e un orario disponibile.");
+    return;
+  }
+
+  if (!availabilityLoaded || availabilityError) {
+    say("La disponibilità non è verificabile. Riprova tra poco.");
+    return;
+  }
+
+  if (occupied.has(`${selectedDate}|${selectedTime}`)) {
+    selectedTime = null;
+    renderTimes();
+    say("Questo orario è appena stato prenotato. Scegline un altro.");
+    return;
+  }
+
+  if (!$("privacy").checked) {
+    say("Per continuare devi confermare di aver letto l'informativa privacy.");
+    return;
+  }
+
+  fillDocument();
+  hasSignature = false;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  $("docModal").classList.remove("hidden");
+  requestAnimationFrame(resizeCanvas);
+});
+
+$("confirmBooking").addEventListener("click",async () => {
+  if (isSubmitting) return;
+
+  if (!hasSignature) {
+    alert("Prima di confermare, la cliente deve firmare nel riquadro.");
+    return;
+  }
+
+  if (!availabilityLoaded || availabilityError) {
+    say("Non posso verificare la disponibilità in questo momento.");
+    return;
+  }
+
+  if (occupied.has(`${selectedDate}|${selectedTime}`)) {
+    $("docModal").classList.add("hidden");
+    selectedTime = null;
+    renderTimes();
+    say("Questo orario è stato prenotato da un'altra persona. Seleziona un altro orario.");
+    return;
+  }
+
+  isSubmitting = true;
+  const button = $("confirmBooking");
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = "Invio in corso…";
+
+  try {
+    const response = await fetch(API_URL,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_PUBLISHABLE_KEY
+      },
+      body:JSON.stringify({
+        customer_name:$("name").value.trim(),
+        email:$("email").value.trim(),
+        phone:$("phone").value.trim(),
+        service:$("service").value,
+        appointment_date:selectedDate,
+        appointment_time:selectedTime,
+        notes:$("notes").value.trim()
+      })
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      if (response.status === 409) {
+        $("docModal").classList.add("hidden");
+        selectedTime = null;
+        await loadAvailability();
+        say("Questo orario è stato appena prenotato da un'altra persona. Scegli un altro orario.");
+        return;
+      }
+      throw new Error(result.error || `Impossibile salvare la prenotazione (${response.status})`);
+    }
+
+    if (!result.appointment || !result.appointment.id) {
+      throw new Error("Il server non ha restituito il codice della prenotazione.");
+    }
+
+    $("finalName").textContent = $("name").value.trim();
+    $("finalEmail").textContent = $("email").value.trim();
+    $("finalPhone").textContent = $("phone").value.trim();
+    $("finalService").textContent = $("service").value;
+    $("finalDate").textContent = selectedDate;
+    $("finalTime").textContent = selectedTime;
+    $("finalId").textContent = result.appointment.id;
+
+    $("docModal").classList.add("hidden");
+    $("confirmationModal").classList.remove("hidden");
+    say("Prenotazione registrata correttamente.");
+
+    selectedTime = null;
+    $("bookingForm").reset();
+    await loadAvailability();
+  } catch (err) {
+    console.error("Errore prenotazione:",err);
+    say(err instanceof Error ? err.message : "Errore durante la prenotazione. Riprova.");
+  } finally {
+    isSubmitting = false;
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+});
+
+$("downloadPdf").addEventListener("click",() => window.print());
+$("closeDoc").addEventListener("click",() => $("docModal").classList.add("hidden"));
+$("closeFinal").addEventListener("click",() => $("confirmationModal").classList.add("hidden"));
+
+monthInput.addEventListener("change",() => {
+  selectedDate = null;
+  selectedTime = null;
+  clearSay();
+  loadAvailability();
+});
+
+loadAvailability();
 </script>
-</body></html>
+</body>
+</html>
