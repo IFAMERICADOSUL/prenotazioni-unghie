@@ -29,6 +29,8 @@ textarea{min-height:80px;resize:vertical}
 .times{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
 .btn{width:100%;margin-top:12px;padding:13px 16px;border:0;border-radius:10px;background:var(--rose);color:white;font:inherit;font-weight:700;cursor:pointer}
 .btn.secondary{background:#f4e6eb;color:var(--dark);border:1px solid var(--line)}
+.btn.cancel{background:#54212d;color:white}
+.btn.cancel:disabled{background:#eee5e8;color:#786b70;opacity:1;cursor:not-allowed}
 .btn:disabled{opacity:.55;cursor:wait}
 .status{display:none;margin-top:12px;padding:12px;background:#fff0f3;color:#7b344d;border-radius:10px;line-height:1.5;overflow-wrap:anywhere}
 .status.show{display:block}
@@ -45,6 +47,7 @@ textarea{min-height:80px;resize:vertical}
 </head>
 <body>
 <div class="wrap">
+
 <header>
   <div class="eyebrow">Nail studio · Prenotazioni online</div>
   <h1>Kiraz Nails Studio</h1>
@@ -67,11 +70,21 @@ textarea{min-height:80px;resize:vertical}
 <h2>2. Dati personali</h2>
 <form id="bookingForm">
   <div class="row">
-    <div><label for="name">Nome e cognome *</label><input id="name" autocomplete="name" maxlength="120" required></div>
-    <div><label for="email">Email *</label><input id="email" type="email" autocomplete="email" maxlength="254" required></div>
+    <div>
+      <label for="name">Nome e cognome *</label>
+      <input id="name" autocomplete="name" maxlength="120" required>
+    </div>
+    <div>
+      <label for="email">Email *</label>
+      <input id="email" type="email" autocomplete="email" maxlength="254" required>
+    </div>
   </div>
+
   <div class="row">
-    <div><label for="phone">Cellulare *</label><input id="phone" type="tel" autocomplete="tel" maxlength="40" required></div>
+    <div>
+      <label for="phone">Cellulare *</label>
+      <input id="phone" type="tel" autocomplete="tel" maxlength="40" required>
+    </div>
     <div>
       <label for="service">Trattamento *</label>
       <select id="service" required>
@@ -84,6 +97,7 @@ textarea{min-height:80px;resize:vertical}
       </select>
     </div>
   </div>
+
   <label for="notes">Note sull'appuntamento (facoltative)</label>
   <textarea id="notes" maxlength="2000" placeholder="Altre indicazioni per lo studio"></textarea>
 
@@ -103,27 +117,132 @@ textarea{min-height:80px;resize:vertical}
   <textarea id="otherHealth" maxlength="3000"></textarea>
 
   <h2>4. Informativa, consensi e firma</h2>
+
   <div class="panel" style="background:#fff9fa;box-shadow:none">
-    <h3>Informativa privacy</h3>
-    <p class="note">
-      Prima di pubblicare questo modulo, sostituisci questo testo con l'informativa privacy completa del tuo studio: identità e contatti del titolare, finalità e basi giuridiche, destinatari, tempi di conservazione, diritti della persona ed eventuali trasferimenti di dati. Indica chiaramente come contattarti per esercitare i diritti.
+    <h3>Informativa sul trattamento dei dati personali</h3>
+
+    <p>
+      <strong>Titolare del trattamento:</strong>
+      Samy Akira Cueva Rodriguez, titolare di Kiraz Nails Studio, Parma, Italia.
+      <strong>Contatto:</strong>
+      <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.
     </p>
+
+    <p>
+      <strong>Quali dati raccogliamo.</strong>
+      Dati identificativi e di contatto (nome, email e telefono), dettagli
+      dell'appuntamento e del trattamento richiesto, note che decidi di
+      inserire, eventuali informazioni su allergie, condizioni di salute e
+      unghie, firma disegnata sullo schermo e registrazioni delle scelte
+      di consenso.
+    </p>
+
+    <p>
+      <strong>Finalità e basi giuridiche.</strong>
+      I dati identificativi e di contatto sono trattati per gestire la
+      richiesta, fissare e amministrare l'appuntamento e comunicare con te.
+      La base giuridica prevista è l'esecuzione di misure precontrattuali
+      richieste dall'interessata e, quando applicabile, l'esecuzione del
+      servizio (art. 6, par. 1, lett. b GDPR).
+      Le informazioni relative alla salute sono facoltative e saranno
+      trattate soltanto per valutare le informazioni pertinenti alla
+      sicurezza e all'esecuzione del trattamento richiesto, sulla base
+      del tuo consenso esplicito (art. 9, par. 2, lett. a GDPR).
+      La firma è raccolta per documentare la scheda e le dichiarazioni rese.
+    </p>
+
+    <p>
+      <strong>Conferimento dei dati.</strong>
+      Nome, recapito, trattamento, data e orario sono necessari per gestire
+      la prenotazione; senza questi dati potremmo non riuscire a fissarla.
+      Le informazioni sulla salute sono facoltative: non inserire dati non
+      pertinenti. Il mancato consenso al trattamento dei dati sanitari non
+      deve essere interpretato come consenso e può limitare la possibilità
+      di valutare le informazioni che scegli di comunicare.
+    </p>
+
+    <p>
+      <strong>Destinatari e servizi.</strong>
+      I dati possono essere trattati, nei limiti necessari, da fornitori
+      tecnici che ospitano o rendono operativo il sito e il servizio di
+      prenotazione, inclusa la piattaforma Supabase utilizzata per il
+      database e le funzioni server, nonché da soggetti autorizzati dal
+      titolare. Prima della pubblicazione, verifica i fornitori effettivi,
+      i relativi ruoli contrattuali, la localizzazione dei dati e gli
+      eventuali trasferimenti fuori dallo Spazio economico europeo.
+    </p>
+
+    <p>
+      <strong>Conservazione.</strong>
+      Il periodo previsto per i dati della prenotazione e della scheda è
+      di 3 mesi dalla data dell'appuntamento o dalla data prevista
+      dell'appuntamento se questo non si svolge, salvo necessità di
+      conservazione più lunga per obblighi di legge o per accertare,
+      esercitare o difendere un diritto. I backup tecnici possono seguire
+      tempi di cancellazione propri del fornitore. Verifica che questa
+      durata sia compatibile con gli obblighi applicabili.
+    </p>
+
+    <p>
+      <strong>I tuoi diritti.</strong>
+      Nei casi previsti dal GDPR puoi chiedere accesso, rettifica,
+      cancellazione, limitazione, portabilità e opporti al trattamento.
+      Puoi revocare in qualsiasi momento il consenso ai dati relativi alla
+      salute, senza pregiudicare la liceità del trattamento precedente
+      alla revoca. Per esercitare i diritti scrivi a
+      <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.
+      Hai inoltre diritto di proporre reclamo al Garante per la protezione
+      dei dati personali.
+    </p>
+
+    <p>
+      <strong>Sicurezza e aggiornamenti.</strong>
+      I dati personali e, in particolare, quelli relativi alla salute
+      devono essere accessibili soltanto a persone autorizzate e protetti
+      con misure adeguate. L'informativa deve essere verificata e
+      completata in base alla configurazione effettiva del sito, ai
+      fornitori e alle modalità di conservazione prima della raccolta
+      di dati reali.
+    </p>
+
     <label class="check">
       <input id="privacy" type="checkbox" required>
-      <span>Confermo di aver letto l'informativa privacy completa dello studio. *</span>
+      <span>Dichiaro di aver letto l'informativa sul trattamento dei dati personali riportata sopra. *</span>
     </label>
+
     <hr style="border:0;border-top:1px solid #ead8de;margin:18px 0">
-    <h3>Consenso ai dati relativi alla salute</h3>
-    <p class="note">
-      Le informazioni sanitarie sono dati particolarmente protetti. Spiega nell'informativa quali informazioni raccogli, perché sono necessarie, chi le consulta e per quanto tempo vengono conservate.
+
+    <h3>Consenso esplicito al trattamento dei dati relativi alla salute</h3>
+
+    <p>
+      I dati relativi ad allergie, condizioni di salute e condizioni delle
+      unghie possono rivelare informazioni sulla salute e sono dati
+      particolarmente protetti dal GDPR. Inserisci solo ciò che ritieni
+      pertinente al trattamento richiesto. Il consenso può essere revocato
+      scrivendo a
+      <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.
     </p>
+
     <label class="check">
       <input id="healthConsent" type="checkbox" required>
-      <span>Acconsento esplicitamente al trattamento delle informazioni relative alla mia salute inserite in questa scheda per la finalità descritta nell'informativa. Posso non inserire dati non pertinenti. *</span>
+      <span>
+        Presto il mio consenso esplicito al trattamento delle informazioni
+        relative alla salute che inserisco volontariamente, esclusivamente
+        per valutare le informazioni pertinenti alla sicurezza e
+        all'esecuzione del trattamento richiesto, secondo l'informativa
+        sopra riportata. *
+      </span>
     </label>
+
+    <h3>Dichiarazione relativa al trattamento richiesto</h3>
+
     <label class="check">
       <input id="workConsent" type="checkbox" required>
-      <span>Dichiaro di aver letto le informazioni relative al trattamento richiesto e di voler procedere con la richiesta di appuntamento. *</span>
+      <span>
+        Dichiaro che le informazioni che ho scelto di fornire sono, per
+        quanto a mia conoscenza, corrette e pertinenti e desidero procedere
+        con la richiesta di appuntamento. *
+      </span>
     </label>
   </div>
 
@@ -132,7 +251,10 @@ textarea{min-height:80px;resize:vertical}
   <canvas id="signature" aria-label="Riquadro per firmare"></canvas>
   <button type="button" id="clearSignature" class="btn secondary">Cancella e rifai la firma</button>
 
-  <p class="note">La firma raccolta qui è una firma elettronica disegnata sullo schermo; non è automaticamente una firma digitale qualificata. Il testo del consenso e l'informativa devono essere verificati prima di usare il sito con clienti reali.</p>
+  <p class="note">
+    La firma raccolta qui è una firma elettronica disegnata sullo schermo;
+    non è automaticamente una firma digitale qualificata.
+  </p>
 
   <button id="submitBooking" type="submit" class="btn">Conferma appuntamento</button>
   <div id="bookingStatus" class="status" role="status" aria-live="polite"></div>
@@ -151,6 +273,7 @@ textarea{min-height:80px;resize:vertical}
 <section class="panel">
   <h2>Area studio · Amministratore</h2>
   <p class="note">Accedi con l'utente amministratore creato in Supabase Authentication.</p>
+
   <form id="adminLoginForm">
     <label for="adminEmail">Email amministratore</label>
     <input id="adminEmail" type="email" autocomplete="username" required>
@@ -159,6 +282,7 @@ textarea{min-height:80px;resize:vertical}
     <button id="adminLoginButton" type="submit" class="btn">Accedi</button>
     <div id="adminStatus" class="status" role="status" aria-live="polite"></div>
   </form>
+
   <div id="adminArea" class="hidden">
     <p id="adminWelcome" class="note"></p>
     <button id="refreshAdmin" class="btn secondary" type="button">Aggiorna appuntamenti</button>
@@ -166,6 +290,7 @@ textarea{min-height:80px;resize:vertical}
     <div id="adminBookings"></div>
   </div>
 </section>
+
 <p class="footer">Kiraz Nails Studio · Prenotazioni online</p>
 </div>
 
@@ -178,10 +303,14 @@ const FUNCTION_URL=SUPABASE_URL+"/functions/v1/manage-bookings";
 const $=id=>document.getElementById(id);
 const SLOTS=["10:00","15:00"];
 
-let supabaseClient=null, session=null;
-let selectedDate=null, selectedTime=null;
+let supabaseClient=null;
+let session=null;
+let selectedDate=null;
+let selectedTime=null;
 let unavailable=new Set();
-let lastBooking=null, lastSignature=null, lastConsentTime=null;
+let lastBooking=null;
+let lastSignature=null;
+let lastConsentTime=null;
 
 function todayString(){
   const d=new Date();
@@ -200,12 +329,6 @@ function showMessage(id,text,show=true){
   const el=$(id);
   el.textContent=text||"";
   el.classList.toggle("show",show&&!!text);
-}
-
-function escapeHTML(v){
-  return String(v??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
 }
 
 function headers(){
@@ -308,28 +431,18 @@ async function loadAvailability(){
   showMessage("calendarMessage","Controllo disponibilità…");
 
   try{
-    const result=await api(
-      `${FUNCTION_URL}?action=availability&from=${from}&to=${to}`
-    );
-
-    const rows=Array.isArray(result)
-      ?result
-      :(result.appointments||[]);
+    const result=await api(`${FUNCTION_URL}?action=availability&from=${from}&to=${to}`);
+    const rows=Array.isArray(result)?result:(result.appointments||[]);
 
     rows.forEach(r=>{
       if(r.appointment_date&&r.appointment_time&&r.status!=="cancelled"){
-        unavailable.add(
-          r.appointment_date+"|"+String(r.appointment_time).slice(0,5)
-        );
+        unavailable.add(r.appointment_date+"|"+String(r.appointment_time).slice(0,5));
       }
     });
 
     showMessage("calendarMessage","Disponibilità aggiornata.",false);
   }catch(err){
-    showMessage(
-      "calendarMessage",
-      "Non riesco a leggere la disponibilità: "+err.message
-    );
+    showMessage("calendarMessage","Non riesco a leggere la disponibilità: "+err.message);
   }
 
   renderDays();
@@ -344,10 +457,11 @@ $("month").addEventListener("change",()=>{
   loadAvailability();
 });
 
-// Firma touch/mouse sul canvas.
+// Firma su canvas: supporta mouse e touchscreen.
 const canvas=$("signature");
 const ctx=canvas.getContext("2d");
-let drawing=false,hasSignature=false;
+let drawing=false;
+let hasSignature=false;
 
 function resizeCanvas(){
   const rect=canvas.getBoundingClientRect();
@@ -360,7 +474,6 @@ function resizeCanvas(){
 
   canvas.width=Math.max(1,Math.floor(rect.width*dpr));
   canvas.height=Math.max(1,Math.floor(rect.height*dpr));
-
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.strokeStyle="#382a30";
   ctx.lineWidth=2.2;
@@ -387,7 +500,6 @@ canvas.addEventListener("pointerdown",e=>{
   e.preventDefault();
   drawing=true;
   canvas.setPointerCapture(e.pointerId);
-
   const p=point(e);
   ctx.beginPath();
   ctx.moveTo(p.x,p.y);
@@ -398,7 +510,6 @@ canvas.addEventListener("pointerdown",e=>{
 
 canvas.addEventListener("pointermove",e=>{
   if(!drawing)return;
-
   e.preventDefault();
   const p=point(e);
   ctx.lineTo(p.x,p.y);
@@ -440,6 +551,7 @@ function signatureDataURL(){
   return temp.toDataURL("image/png");
 }
 
+// Invio della prenotazione.
 $("bookingForm").addEventListener("submit",async e=>{
   e.preventDefault();
 
@@ -449,7 +561,7 @@ $("bookingForm").addEventListener("submit",async e=>{
   }
 
   if(!$("privacy").checked||!$("healthConsent").checked||!$("workConsent").checked){
-    showMessage("bookingStatus","Leggi e seleziona tutti i consensi richiesti.");
+    showMessage("bookingStatus","Leggi l'informativa e seleziona tutti i consensi richiesti.");
     return;
   }
 
@@ -519,11 +631,7 @@ $("bookingForm").addEventListener("submit",async e=>{
 
     $("confirmationPanel").classList.remove("hidden");
     showMessage("bookingStatus","",false);
-
-    $("confirmationPanel").scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
+    $("confirmationPanel").scrollIntoView({behavior:"smooth",block:"start"});
 
     await loadAvailability();
   }catch(err){
@@ -534,7 +642,7 @@ $("bookingForm").addEventListener("submit",async e=>{
   }
 });
 
-// PDF generato sul dispositivo dopo la conferma della prenotazione.
+// PDF della scheda firmata, generato nel dispositivo della cliente.
 $("downloadPdf").addEventListener("click",()=>{
   if(!lastBooking||!lastSignature){
     alert("Non c'è una prenotazione confermata da scaricare.");
@@ -549,14 +657,12 @@ $("downloadPdf").addEventListener("click",()=>{
   }
 
   const doc=new jsPDF({unit:"mm",format:"a4"});
-  const left=18,width=174;
+  const left=18;
+  const width=174;
   let y=20;
 
   function line(label,value){
-    const text=doc.splitTextToSize(
-      String(value||"Non indicato"),
-      width-3
-    );
+    const text=doc.splitTextToSize(String(value||"Non indicato"),width-3);
 
     if(y+8+text.length*5>275){
       doc.addPage();
@@ -618,14 +724,8 @@ $("downloadPdf").addEventListener("click",()=>{
   doc.setFont("helvetica","normal");
   doc.text("Documento generato sul dispositivo della cliente.",left,y);
 
-  const safeName=lastBooking.customer_name
-    .trim()
-    .replace(/[^a-z0-9_-]+/gi,"_")
-    .slice(0,40)||"cliente";
-
-  doc.save(
-    `Kiraz_Nails_${safeName}_${lastBooking.appointment_date}.pdf`
-  );
+  const safeName=lastBooking.customer_name.trim().replace(/[^a-z0-9_-]+/gi,"_").slice(0,40)||"cliente";
+  doc.save(`Kiraz_Nails_${safeName}_${lastBooking.appointment_date}.pdf`);
 });
 
 $("newBooking").addEventListener("click",()=>{
@@ -660,9 +760,7 @@ function getRomeDateTime(){
     hourCycle:"h23"
   }).formatToParts(new Date());
 
-  const value=Object.fromEntries(
-    parts.map(part=>[part.type,part.value])
-  );
+  const value=Object.fromEntries(parts.map(part=>[part.type,part.value]));
 
   return {
     date:`${value.year}-${value.month}-${value.day}`,
@@ -671,12 +769,10 @@ function getRomeDateTime(){
 }
 
 function getAppointmentStatus(appointment){
-  // Gli appuntamenti annullati rimangono annullati.
   if(appointment.status==="cancelled"){
     return {label:"ANNULLATO",color:"#54212d"};
   }
 
-  // Gli appuntamenti già completati non tornano confermati.
   if(appointment.status==="completed"){
     return {label:"COMPLETATO",color:"#382a30"};
   }
@@ -685,7 +781,6 @@ function getAppointmentStatus(appointment){
   const date=appointment.appointment_date;
   const time=String(appointment.appointment_time||"").slice(0,5);
 
-  // Completato dopo che è trascorsa la data e l'ora dell'appuntamento.
   if(
     date&&time&&
     (date<now.date||(date===now.date&&time<=now.time.slice(0,5)))
@@ -768,13 +863,65 @@ async function loadAdminAppointments(){
       card.appendChild(img);
     }
 
-    // Non viene aggiunto alcun pulsante per annullare.
+    // Il pulsante scompare quando l'appuntamento è COMPLETATO.
+    // Se è già annullato, rimane visibile ma disabilitato.
+    if(status.label!=="COMPLETATO"){
+      const cancelButton=document.createElement("button");
+      cancelButton.type="button";
+      cancelButton.className="btn cancel";
+      cancelButton.textContent=status.label==="ANNULLATO"
+        ?"Appuntamento già annullato"
+        :"Annulla appuntamento";
+      cancelButton.disabled=status.label==="ANNULLATO";
+
+      if(status.label!=="ANNULLATO"){
+        cancelButton.addEventListener("click",async()=>{
+          const currentStatus=getAppointmentStatus(item);
+
+          if(currentStatus.label==="COMPLETATO"){
+            await loadAdminAppointments();
+            return;
+          }
+
+          if(!item.id){
+            showMessage("adminStatus","Impossibile annullare: manca l'ID della prenotazione.");
+            return;
+          }
+
+          const ok=window.confirm(
+            `Vuoi annullare l'appuntamento di ${item.customer_name||"questa cliente"} del ${item.appointment_date} alle ${String(item.appointment_time||"").slice(0,5)}?`
+          );
+
+          if(!ok)return;
+
+          cancelButton.disabled=true;
+          cancelButton.textContent="Annullamento in corso…";
+
+          try{
+            await api(FUNCTION_URL,{
+              method:"PATCH",
+              body:JSON.stringify({id:item.id,status:"cancelled"})
+            });
+
+            showMessage("adminStatus","Appuntamento annullato.");
+            await loadAdminAppointments();
+            await loadAvailability();
+          }catch(err){
+            showMessage("adminStatus","Non è stato possibile annullare l'appuntamento: "+err.message);
+            cancelButton.disabled=false;
+            cancelButton.textContent="Annulla appuntamento";
+          }
+        });
+      }
+
+      card.appendChild(cancelButton);
+    }
+
     container.appendChild(card);
   });
 }
 
-// Aggiorna automaticamente l'area Admin ogni 60 secondi.
-// Usa il fuso orario Europe/Rome e non aggiunge pulsanti di annullamento.
+// Aggiornamento automatico ogni 60 secondi.
 setInterval(()=>{
   if(
     session?.access_token&&
@@ -810,9 +957,7 @@ $("adminLoginForm").addEventListener("submit",async e=>{
 
     await loadAdminAppointments();
 
-    $("adminWelcome").textContent=
-      "Accesso effettuato: "+(data.user?.email||"amministratore");
-
+    $("adminWelcome").textContent="Accesso effettuato: "+(data.user?.email||"amministratore");
     showMessage("adminStatus","Accesso riuscito.");
   }catch(err){
     $("adminArea").classList.add("hidden");
@@ -839,7 +984,6 @@ $("adminLogout").addEventListener("click",async()=>{
   session=null;
   $("adminArea").classList.add("hidden");
   $("adminLoginForm").reset();
-
   showMessage("adminStatus","Sei uscita dall'area amministratore.");
 });
 
@@ -875,7 +1019,6 @@ async function initSupabase(){
   const month=todayString().slice(0,7);
   $("month").value=month;
   $("month").min=month;
-
   renderDays();
   renderTimes();
   loadAvailability();
