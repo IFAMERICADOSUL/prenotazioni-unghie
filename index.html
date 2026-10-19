@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="it">
 <head>
@@ -172,11 +171,13 @@ textarea{min-height:80px;resize:vertical}
 
 <script>
 "use strict";
+
 const SUPABASE_URL="https://bcfytgwaurczkntjofal.supabase.co";
 const SUPABASE_ANON_KEY="sb_publishable_bXqcoqtOF9BLbTTtbyXhuQ_m7x496xt";
 const FUNCTION_URL=SUPABASE_URL+"/functions/v1/manage-bookings";
 const $=id=>document.getElementById(id);
 const SLOTS=["10:00","15:00"];
+
 let supabaseClient=null, session=null;
 let selectedDate=null, selectedTime=null;
 let unavailable=new Set();
@@ -186,130 +187,285 @@ function todayString(){
   const d=new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
-function dateString(y,m,d){return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;}
-function isSunday(date){return new Date(date+"T12:00:00").getDay()===0;}
+
+function dateString(y,m,d){
+  return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+}
+
+function isSunday(date){
+  return new Date(date+"T12:00:00").getDay()===0;
+}
+
 function showMessage(id,text,show=true){
-  const el=$(id);el.textContent=text||"";el.classList.toggle("show",show&&!!text);
+  const el=$(id);
+  el.textContent=text||"";
+  el.classList.toggle("show",show&&!!text);
 }
+
 function escapeHTML(v){
-  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  return String(v??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
 }
+
 function headers(){
-  return { "Content-Type":"application/json","apikey":SUPABASE_ANON_KEY,
-    "Authorization":"Bearer "+(session?.access_token||SUPABASE_ANON_KEY) };
+  return {
+    "Content-Type":"application/json",
+    "apikey":SUPABASE_ANON_KEY,
+    "Authorization":"Bearer "+(session?.access_token||SUPABASE_ANON_KEY)
+  };
 }
+
 async function api(url,options={}){
-  const response=await fetch(url,{...options,headers:{...headers(),...(options.headers||{})}});
-  const raw=await response.text();let data={};
-  try{data=raw?JSON.parse(raw):{};}catch{data={message:raw};}
-  if(!response.ok)throw new Error(data.error||data.message||`Errore HTTP ${response.status}`);
+  const response=await fetch(url,{
+    ...options,
+    headers:{...headers(),...(options.headers||{})}
+  });
+
+  const raw=await response.text();
+  let data={};
+
+  try{
+    data=raw?JSON.parse(raw):{};
+  }catch{
+    data={message:raw};
+  }
+
+  if(!response.ok){
+    throw new Error(data.error||data.message||`Errore HTTP ${response.status}`);
+  }
+
   return data;
 }
 
 function renderDays(){
-  const month=$("month").value,container=$("days");container.replaceChildren();
+  const month=$("month").value;
+  const container=$("days");
+  container.replaceChildren();
+
   if(!month)return;
-  const [y,m]=month.split("-").map(Number),total=new Date(y,m,0).getDate();
+
+  const [y,m]=month.split("-").map(Number);
+  const total=new Date(y,m,0).getDate();
+
   for(let d=1;d<=total;d++){
-    const date=dateString(y,m,d),b=document.createElement("button");
-    b.type="button";b.className="day"+(date===selectedDate?" active":"");
+    const date=dateString(y,m,d);
+    const b=document.createElement("button");
+
+    b.type="button";
+    b.className="day"+(date===selectedDate?" active":"");
     b.innerHTML=`${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;
     b.disabled=date<todayString()||isSunday(date);
-    b.addEventListener("click",()=>{selectedDate=date;selectedTime=null;renderDays();renderTimes();});
+
+    b.addEventListener("click",()=>{
+      selectedDate=date;
+      selectedTime=null;
+      renderDays();
+      renderTimes();
+    });
+
     container.appendChild(b);
   }
 }
+
 function renderTimes(){
-  $("chosenDate").textContent=selectedDate?"Data selezionata: "+selectedDate:"Seleziona una data.";
-  const container=$("times");container.replaceChildren();
+  $("chosenDate").textContent=selectedDate
+    ?"Data selezionata: "+selectedDate
+    :"Seleziona una data.";
+
+  const container=$("times");
+  container.replaceChildren();
+
   SLOTS.forEach(time=>{
-    const b=document.createElement("button");b.type="button";
+    const b=document.createElement("button");
+    b.type="button";
     b.className="slot"+(time===selectedTime?" selected":"");
+
     const busy=selectedDate&&unavailable.has(selectedDate+"|"+time);
-    b.textContent=busy?time+" · Occupato":time;b.disabled=!selectedDate||!!busy;
-    b.addEventListener("click",()=>{selectedTime=time;renderTimes();});
+
+    b.textContent=busy?time+" · Occupato":time;
+    b.disabled=!selectedDate||!!busy;
+
+    b.addEventListener("click",()=>{
+      selectedTime=time;
+      renderTimes();
+    });
+
     container.appendChild(b);
   });
 }
+
 async function loadAvailability(){
-  const month=$("month").value;if(!month)return;
+  const month=$("month").value;
+  if(!month)return;
+
   unavailable=new Set();
-  const [y,m]=month.split("-").map(Number),from=month+"-01",to=dateString(y,m,new Date(y,m,0).getDate());
+
+  const [y,m]=month.split("-").map(Number);
+  const from=month+"-01";
+  const to=dateString(y,m,new Date(y,m,0).getDate());
+
   showMessage("calendarMessage","Controllo disponibilità…");
+
   try{
-    const result=await api(`${FUNCTION_URL}?action=availability&from=${from}&to=${to}`);
-    const rows=Array.isArray(result)?result:(result.appointments||[]);
+    const result=await api(
+      `${FUNCTION_URL}?action=availability&from=${from}&to=${to}`
+    );
+
+    const rows=Array.isArray(result)
+      ?result
+      :(result.appointments||[]);
+
     rows.forEach(r=>{
-      if(r.appointment_date&&r.appointment_time&&r.status!=="cancelled")
-        unavailable.add(r.appointment_date+"|"+String(r.appointment_time).slice(0,5));
+      if(r.appointment_date&&r.appointment_time&&r.status!=="cancelled"){
+        unavailable.add(
+          r.appointment_date+"|"+String(r.appointment_time).slice(0,5)
+        );
+      }
     });
+
     showMessage("calendarMessage","Disponibilità aggiornata.",false);
   }catch(err){
-    showMessage("calendarMessage","Non riesco a leggere la disponibilità: "+err.message);
+    showMessage(
+      "calendarMessage",
+      "Non riesco a leggere la disponibilità: "+err.message
+    );
   }
-  renderDays();renderTimes();
+
+  renderDays();
+  renderTimes();
 }
+
 $("month").addEventListener("change",()=>{
-  selectedDate=null;selectedTime=null;renderDays();renderTimes();loadAvailability();
+  selectedDate=null;
+  selectedTime=null;
+  renderDays();
+  renderTimes();
+  loadAvailability();
 });
 
 // Firma touch/mouse sul canvas.
-const canvas=$("signature"),ctx=canvas.getContext("2d");
+const canvas=$("signature");
+const ctx=canvas.getContext("2d");
 let drawing=false,hasSignature=false;
+
 function resizeCanvas(){
-  const rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  const dpr=window.devicePixelRatio||1;
   let old=null;
-  if(hasSignature){try{old=canvas.toDataURL();}catch{}}
+
+  if(hasSignature){
+    try{old=canvas.toDataURL();}catch{}
+  }
+
   canvas.width=Math.max(1,Math.floor(rect.width*dpr));
   canvas.height=Math.max(1,Math.floor(rect.height*dpr));
+
   ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.strokeStyle="#382a30";ctx.lineWidth=2.2;ctx.lineCap="round";ctx.lineJoin="round";
+  ctx.strokeStyle="#382a30";
+  ctx.lineWidth=2.2;
+  ctx.lineCap="round";
+  ctx.lineJoin="round";
   hasSignature=false;
+
   if(old){
     const img=new Image();
-    img.onload=()=>{ctx.drawImage(img,0,0,rect.width,rect.height);hasSignature=true;};
+    img.onload=()=>{
+      ctx.drawImage(img,0,0,rect.width,rect.height);
+      hasSignature=true;
+    };
     img.src=old;
   }
 }
+
 function point(e){
-  const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};
+  const r=canvas.getBoundingClientRect();
+  return {x:e.clientX-r.left,y:e.clientY-r.top};
 }
+
 canvas.addEventListener("pointerdown",e=>{
-  e.preventDefault();drawing=true;canvas.setPointerCapture(e.pointerId);
-  const p=point(e);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+0.1,p.y+0.1);ctx.stroke();hasSignature=true;
+  e.preventDefault();
+  drawing=true;
+  canvas.setPointerCapture(e.pointerId);
+
+  const p=point(e);
+  ctx.beginPath();
+  ctx.moveTo(p.x,p.y);
+  ctx.lineTo(p.x+0.1,p.y+0.1);
+  ctx.stroke();
+  hasSignature=true;
 });
+
 canvas.addEventListener("pointermove",e=>{
-  if(!drawing)return;e.preventDefault();const p=point(e);ctx.lineTo(p.x,p.y);ctx.stroke();
+  if(!drawing)return;
+
+  e.preventDefault();
+  const p=point(e);
+  ctx.lineTo(p.x,p.y);
+  ctx.stroke();
 });
-function endDraw(){drawing=false;ctx.beginPath();}
+
+function endDraw(){
+  drawing=false;
+  ctx.beginPath();
+}
+
 canvas.addEventListener("pointerup",endDraw);
 canvas.addEventListener("pointercancel",endDraw);
+
 $("clearSignature").addEventListener("click",()=>{
-  ctx.clearRect(0,0,canvas.width,canvas.height);hasSignature=false;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  hasSignature=false;
 });
-window.addEventListener("resize",()=>{if(!$("confirmationPanel").classList.contains("hidden"))return;resizeCanvas();});
+
+window.addEventListener("resize",()=>{
+  if(!$("confirmationPanel").classList.contains("hidden"))return;
+  resizeCanvas();
+});
+
 requestAnimationFrame(resizeCanvas);
 
 function signatureDataURL(){
   if(!hasSignature)return null;
+
   const temp=document.createElement("canvas");
-  temp.width=canvas.width;temp.height=canvas.height;
+  temp.width=canvas.width;
+  temp.height=canvas.height;
+
   const c=temp.getContext("2d");
-  c.fillStyle="#ffffff";c.fillRect(0,0,temp.width,temp.height);c.drawImage(canvas,0,0);
+  c.fillStyle="#ffffff";
+  c.fillRect(0,0,temp.width,temp.height);
+  c.drawImage(canvas,0,0);
+
   return temp.toDataURL("image/png");
 }
 
 $("bookingForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  if(!selectedDate||!selectedTime){showMessage("bookingStatus","Seleziona una data e un orario.");return;}
-  if(!$("privacy").checked||!$("healthConsent").checked||!$("workConsent").checked){
-    showMessage("bookingStatus","Leggi e seleziona tutti i consensi richiesti.");return;
-  }
-  const signature=signatureDataURL();
-  if(!signature){showMessage("bookingStatus","Aggiungi la tua firma nel riquadro.");return;}
 
-  const button=$("submitBooking");button.disabled=true;button.textContent="Salvataggio in corso…";
+  if(!selectedDate||!selectedTime){
+    showMessage("bookingStatus","Seleziona una data e un orario.");
+    return;
+  }
+
+  if(!$("privacy").checked||!$("healthConsent").checked||!$("workConsent").checked){
+    showMessage("bookingStatus","Leggi e seleziona tutti i consensi richiesti.");
+    return;
+  }
+
+  const signature=signatureDataURL();
+
+  if(!signature){
+    showMessage("bookingStatus","Aggiungi la tua firma nel riquadro.");
+    return;
+  }
+
+  const button=$("submitBooking");
+  button.disabled=true;
+  button.textContent="Salvataggio in corso…";
+
   const consentTime=new Date().toISOString();
+
   const payload={
     customer_name:$("name").value.trim(),
     email:$("email").value.trim(),
@@ -326,47 +482,107 @@ $("bookingForm").addEventListener("submit",async e=>{
     health_data_consent:true,
     signature_data_url:signature
   };
+
   try{
-    const result=await api(FUNCTION_URL,{method:"POST",body:JSON.stringify(payload)});
-    if(!result.success)throw new Error("Il server non ha confermato la prenotazione.");
-    lastBooking={...payload,id:result.appointment?.id||"",status:"booked"};
-    lastSignature=signature;lastConsentTime=consentTime;
-    $("confirmationDetails").replaceChildren();
-    const lines=[
-      ["Cliente",payload.customer_name],["Trattamento",payload.service],
-      ["Data",payload.appointment_date],["Ora",payload.appointment_time]
-    ];
-    lines.forEach(([label,value])=>{
-      const p=document.createElement("p");p.textContent=label+": "+value;$("confirmationDetails").appendChild(p);
+    const result=await api(FUNCTION_URL,{
+      method:"POST",
+      body:JSON.stringify(payload)
     });
+
+    if(!result.success){
+      throw new Error("Il server non ha confermato la prenotazione.");
+    }
+
+    lastBooking={
+      ...payload,
+      id:result.appointment?.id||"",
+      status:"booked"
+    };
+
+    lastSignature=signature;
+    lastConsentTime=consentTime;
+
+    $("confirmationDetails").replaceChildren();
+
+    const lines=[
+      ["Cliente",payload.customer_name],
+      ["Trattamento",payload.service],
+      ["Data",payload.appointment_date],
+      ["Ora",payload.appointment_time]
+    ];
+
+    lines.forEach(([label,value])=>{
+      const p=document.createElement("p");
+      p.textContent=label+": "+value;
+      $("confirmationDetails").appendChild(p);
+    });
+
     $("confirmationPanel").classList.remove("hidden");
     showMessage("bookingStatus","",false);
-    $("confirmationPanel").scrollIntoView({behavior:"smooth",block:"start"});
+
+    $("confirmationPanel").scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
     await loadAvailability();
   }catch(err){
     showMessage("bookingStatus","Prenotazione non confermata: "+err.message);
   }finally{
-    button.disabled=false;button.textContent="Conferma appuntamento";
+    button.disabled=false;
+    button.textContent="Conferma appuntamento";
   }
 });
 
-// PDF generato nel dispositivo, dopo che il server ha confermato la prenotazione.
+// PDF generato sul dispositivo dopo la conferma della prenotazione.
 $("downloadPdf").addEventListener("click",()=>{
-  if(!lastBooking||!lastSignature){alert("Non c'è una prenotazione confermata da scaricare.");return;}
-  const jsPDF=window.jspdf?.jsPDF;
-  if(!jsPDF){alert("Il generatore PDF non è disponibile. Controlla la connessione e ricarica la pagina.");return;}
-  const doc=new jsPDF({unit:"mm",format:"a4"});
-  const left=18,width=174;let y=20;
-  function line(label,value){
-    const text=doc.splitTextToSize(String(value||"Non indicato"),width-3);
-    if(y+8+text.length*5>275){doc.addPage();y=20;}
-    doc.setFont("helvetica","bold");doc.text(label, left, y);y+=6;
-    doc.setFont("helvetica","normal");doc.text(text,left,y);y+=text.length*5+4;
+  if(!lastBooking||!lastSignature){
+    alert("Non c'è una prenotazione confermata da scaricare.");
+    return;
   }
-  doc.setFont("helvetica","bold");doc.setFontSize(19);
-  doc.text("Kiraz Nails Studio",left,y);y+=10;
-  doc.setFontSize(15);doc.text("Scheda cliente e prenotazione",left,y);y+=10;
+
+  const jsPDF=window.jspdf?.jsPDF;
+
+  if(!jsPDF){
+    alert("Il generatore PDF non è disponibile. Controlla la connessione e ricarica la pagina.");
+    return;
+  }
+
+  const doc=new jsPDF({unit:"mm",format:"a4"});
+  const left=18,width=174;
+  let y=20;
+
+  function line(label,value){
+    const text=doc.splitTextToSize(
+      String(value||"Non indicato"),
+      width-3
+    );
+
+    if(y+8+text.length*5>275){
+      doc.addPage();
+      y=20;
+    }
+
+    doc.setFont("helvetica","bold");
+    doc.text(label,left,y);
+    y+=6;
+
+    doc.setFont("helvetica","normal");
+    doc.text(text,left,y);
+    y+=text.length*5+4;
+  }
+
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(19);
+  doc.text("Kiraz Nails Studio",left,y);
+  y+=10;
+
+  doc.setFontSize(15);
+  doc.text("Scheda cliente e prenotazione",left,y);
+  y+=10;
+
   doc.setFontSize(10);
+
   line("Nome e cognome",lastBooking.customer_name);
   line("Email",lastBooking.email);
   line("Telefono",lastBooking.phone);
@@ -378,148 +594,177 @@ $("downloadPdf").addEventListener("click",()=>{
   line("Condizioni di salute pertinenti",lastBooking.health_conditions);
   line("Problemi unghie/pelle dichiarati",lastBooking.nail_conditions);
   line("Altre informazioni",lastBooking.other_health_notes);
-  line("Informativa privacy", "Confermata dalla cliente. Versione: kiraz-privacy-v1");
-  line("Consenso dati sanitari", "Consenso esplicito registrato.");
+  line("Informativa privacy","Confermata dalla cliente. Versione: kiraz-privacy-v1");
+  line("Consenso dati sanitari","Consenso esplicito registrato.");
   line("Consenso registrato il",lastConsentTime||new Date().toISOString());
-  line("Firma", "Firma elettronica disegnata sullo schermo e associata alla prenotazione.");
-  if(y>230){doc.addPage();y=20;}
-  doc.setFont("helvetica","bold");doc.text("Firma della cliente",left,y);y+=4;
-  try{doc.addImage(lastSignature,"PNG",left,y,75,32);}catch(e){console.error("Firma PDF:",e);}
+  line("Firma","Firma elettronica disegnata sullo schermo e associata alla prenotazione.");
+
+  if(y>230){
+    doc.addPage();
+    y=20;
+  }
+
+  doc.setFont("helvetica","bold");
+  doc.text("Firma della cliente",left,y);
+  y+=4;
+
+  try{
+    doc.addImage(lastSignature,"PNG",left,y,75,32);
+  }catch(e){
+    console.error("Firma PDF:",e);
+  }
+
   y+=38;
   doc.setFont("helvetica","normal");
   doc.text("Documento generato sul dispositivo della cliente.",left,y);
-  const safeName=lastBooking.customer_name.trim().replace(/[^a-z0-9_-]+/gi,"_").slice(0,40)||"cliente";
-  doc.save(`Kiraz_Nails_${safeName}_${lastBooking.appointment_date}.pdf`);
+
+  const safeName=lastBooking.customer_name
+    .trim()
+    .replace(/[^a-z0-9_-]+/gi,"_")
+    .slice(0,40)||"cliente";
+
+  doc.save(
+    `Kiraz_Nails_${safeName}_${lastBooking.appointment_date}.pdf`
+  );
 });
 
 $("newBooking").addEventListener("click",()=>{
   $("confirmationPanel").classList.add("hidden");
-  $("bookingForm").reset();selectedDate=null;selectedTime=null;
-  lastBooking=null;lastSignature=null;lastConsentTime=null;
-  ctx.clearRect(0,0,canvas.width,canvas.height);hasSignature=false;
-  renderDays();renderTimes();window.scrollTo({top:0,behavior:"smooth"});
+  $("bookingForm").reset();
+
+  selectedDate=null;
+  selectedTime=null;
+  lastBooking=null;
+  lastSignature=null;
+  lastConsentTime=null;
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  hasSignature=false;
+
+  renderDays();
+  renderTimes();
+  window.scrollTo({top:0,behavior:"smooth"});
 });
 
-// Area amministratore
+// AREA AMMINISTRATORE
 
-function getRomeDateTime() {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Europe/Rome",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hourCycle: "h23"
+function getRomeDateTime(){
+  const parts=new Intl.DateTimeFormat("en-GB",{
+    timeZone:"Europe/Rome",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit",
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hourCycle:"h23"
   }).formatToParts(new Date());
 
-  const value = Object.fromEntries(
-    parts.map(part => [part.type, part.value])
+  const value=Object.fromEntries(
+    parts.map(part=>[part.type,part.value])
   );
 
   return {
-    date: `${value.year}-${value.month}-${value.day}`,
-    time: `${value.hour}:${value.minute}:${value.second}`
+    date:`${value.year}-${value.month}-${value.day}`,
+    time:`${value.hour}:${value.minute}:${value.second}`
   };
 }
 
-function getAppointmentStatus(appointment) {
+function getAppointmentStatus(appointment){
   // Gli appuntamenti annullati rimangono annullati.
-  if (appointment.status === "cancelled") {
-    return { label: "ANNULLATO", color: "#54212d" };
+  if(appointment.status==="cancelled"){
+    return {label:"ANNULLATO",color:"#54212d"};
   }
 
   // Gli appuntamenti già completati non tornano confermati.
-  if (appointment.status === "completed") {
-    return { label: "COMPLETATO", color: "#382a30" };
+  if(appointment.status==="completed"){
+    return {label:"COMPLETATO",color:"#382a30"};
   }
 
-  const now = getRomeDateTime();
-  const date = appointment.appointment_date;
-  const time = String(appointment.appointment_time || "").slice(0, 5);
+  const now=getRomeDateTime();
+  const date=appointment.appointment_date;
+  const time=String(appointment.appointment_time||"").slice(0,5);
 
-  // Completato solo dopo la data E l'orario dell'appuntamento.
-  if (
-    date &&
-    time &&
-    (date < now.date || (date === now.date && time <= now.time.slice(0, 5)))
-  ) {
-    return { label: "COMPLETATO", color: "#382a30" };
+  // Completato dopo che è trascorsa la data e l'ora dell'appuntamento.
+  if(
+    date&&time&&
+    (date<now.date||(date===now.date&&time<=now.time.slice(0,5)))
+  ){
+    return {label:"COMPLETATO",color:"#382a30"};
   }
 
-  return { label: "CONFERMATO", color: "#382a30" };
+  return {label:"CONFERMATO",color:"#382a30"};
 }
 
-async function loadAdminAppointments() {
-  if (!session?.access_token) {
+async function loadAdminAppointments(){
+  if(!session?.access_token){
     throw new Error("Devi prima effettuare l'accesso.");
   }
 
-  const result = await api(FUNCTION_URL + "?action=admin");
-  const rows = result.appointments || [];
-  const container = $("adminBookings");
+  const result=await api(FUNCTION_URL+"?action=admin");
+  const rows=result.appointments||[];
+  const container=$("adminBookings");
 
   container.replaceChildren();
 
-  if (!rows.length) {
-    container.textContent = "Nessun appuntamento trovato.";
+  if(!rows.length){
+    container.textContent="Nessun appuntamento trovato.";
     return;
   }
 
-  rows.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "booking-card";
+  rows.forEach(item=>{
+    const card=document.createElement("div");
+    card.className="booking-card";
 
-    const status = getAppointmentStatus(item);
+    const status=getAppointmentStatus(item);
 
-    const fields = [
-      ["Cliente", item.customer_name],
-      ["Data", item.appointment_date],
-      ["Ora", String(item.appointment_time || "").slice(0, 5)],
-      ["Trattamento", item.service],
-      ["Email", item.email],
-      ["Telefono", item.phone],
-      ["Allergie o sensibilità", item.allergies],
-      ["Condizioni di salute", item.health_conditions],
-      ["Problemi unghie/pelle", item.nail_conditions],
-      ["Altre informazioni", item.other_health_notes],
-      ["Note", item.notes],
-      ["Consenso sanitario", item.health_data_consent ? "Sì" : "No"],
-      ["Data consenso", item.health_data_consent_at || "Non disponibile"],
-      ["Versione informativa", item.privacy_notice_version || "Non disponibile"]
+    const fields=[
+      ["Cliente",item.customer_name],
+      ["Data",item.appointment_date],
+      ["Ora",String(item.appointment_time||"").slice(0,5)],
+      ["Trattamento",item.service],
+      ["Email",item.email],
+      ["Telefono",item.phone],
+      ["Allergie o sensibilità",item.allergies],
+      ["Condizioni di salute",item.health_conditions],
+      ["Problemi unghie/pelle",item.nail_conditions],
+      ["Altre informazioni",item.other_health_notes],
+      ["Note",item.notes],
+      ["Consenso sanitario",item.health_data_consent?"Sì":"No"],
+      ["Data consenso",item.health_data_consent_at||"Non disponibile"],
+      ["Versione informativa",item.privacy_notice_version||"Non disponibile"]
     ];
 
-    fields.forEach(([label, value]) => {
-      const p = document.createElement("p");
-      p.textContent = `${label}: ${value || "Non indicato"}`;
+    fields.forEach(([label,value])=>{
+      const p=document.createElement("p");
+      p.textContent=`${label}: ${value||"Non indicato"}`;
       card.appendChild(p);
     });
 
-    const state = document.createElement("p");
-    state.style.fontWeight = "800";
-    state.style.color = status.color;
-    state.style.fontSize = "1.05rem";
-    state.style.marginTop = "14px";
-    state.textContent = "STATO APPUNTAMENTO: " + status.label;
+    const state=document.createElement("p");
+    state.style.fontWeight="800";
+    state.style.color=status.color;
+    state.style.fontSize="1.05rem";
+    state.style.marginTop="14px";
+    state.textContent="STATO APPUNTAMENTO: "+status.label;
     card.appendChild(state);
 
-    if (item.signature_data_url) {
-      const title = document.createElement("p");
-      title.style.fontWeight = "700";
-      title.textContent = "Firma della cliente";
+    if(item.signature_data_url){
+      const title=document.createElement("p");
+      title.style.fontWeight="700";
+      title.textContent="Firma della cliente";
       card.appendChild(title);
 
-      const img = document.createElement("img");
-      img.src = item.signature_data_url;
-      img.alt = "Firma della cliente";
-      img.className = "signature-preview";
-      img.style.maxWidth = "260px";
-      img.style.maxHeight = "100px";
-      img.style.objectFit = "contain";
-      img.style.background = "#fff";
-      img.style.border = "1px solid #ead8de";
-      img.referrerPolicy = "no-referrer";
+      const img=document.createElement("img");
+      img.src=item.signature_data_url;
+      img.alt="Firma della cliente";
+      img.className="signature-preview";
+      img.style.maxWidth="260px";
+      img.style.maxHeight="100px";
+      img.style.objectFit="contain";
+      img.style.background="#fff";
+      img.style.border="1px solid #ead8de";
+      img.referrerPolicy="no-referrer";
       card.appendChild(img);
     }
 
@@ -528,51 +773,120 @@ async function loadAdminAppointments() {
   });
 }
 
+// Aggiorna automaticamente l'area Admin ogni 60 secondi.
+// Usa il fuso orario Europe/Rome e non aggiunge pulsanti di annullamento.
+setInterval(()=>{
+  if(
+    session?.access_token&&
+    $("adminArea")&&
+    !$("adminArea").classList.contains("hidden")
+  ){
+    loadAdminAppointments().catch(console.error);
+  }
+},60000);
+
 $("adminLoginForm").addEventListener("submit",async e=>{
-  e.preventDefault();const button=$("adminLoginButton");
-  button.disabled=true;showMessage("adminStatus","");
+  e.preventDefault();
+
+  const button=$("adminLoginButton");
+  button.disabled=true;
+  showMessage("adminStatus","");
+
   try{
-    if(!supabaseClient)throw new Error("Supabase non è ancora disponibile.");
+    if(!supabaseClient){
+      throw new Error("Supabase non è ancora disponibile.");
+    }
+
     const {data,error}=await supabaseClient.auth.signInWithPassword({
-      email:$("adminEmail").value.trim(),password:$("adminPassword").value
+      email:$("adminEmail").value.trim(),
+      password:$("adminPassword").value
     });
+
     if(error)throw error;
-    session=data.session;$("adminPassword").value="";
+
+    session=data.session;
+    $("adminPassword").value="";
     $("adminArea").classList.remove("hidden");
+
     await loadAdminAppointments();
-    $("adminWelcome").textContent="Accesso effettuato: "+(data.user?.email||"amministratore");
+
+    $("adminWelcome").textContent=
+      "Accesso effettuato: "+(data.user?.email||"amministratore");
+
     showMessage("adminStatus","Accesso riuscito.");
-  }catch(err){$("adminArea").classList.add("hidden");showMessage("adminStatus","Accesso non riuscito: "+err.message);}
-  finally{button.disabled=false;}
+  }catch(err){
+    $("adminArea").classList.add("hidden");
+    showMessage("adminStatus","Accesso non riuscito: "+err.message);
+  }finally{
+    button.disabled=false;
+  }
 });
+
 $("refreshAdmin").addEventListener("click",async()=>{
-  try{await loadAdminAppointments();showMessage("adminStatus","Elenco aggiornato.");}
-  catch(err){showMessage("adminStatus","Errore: "+err.message);}
+  try{
+    await loadAdminAppointments();
+    showMessage("adminStatus","Elenco aggiornato.");
+  }catch(err){
+    showMessage("adminStatus","Errore: "+err.message);
+  }
 });
+
 $("adminLogout").addEventListener("click",async()=>{
-  try{if(supabaseClient)await supabaseClient.auth.signOut();}catch{}
-  session=null;$("adminArea").classList.add("hidden");$("adminLoginForm").reset();
+  try{
+    if(supabaseClient)await supabaseClient.auth.signOut();
+  }catch{}
+
+  session=null;
+  $("adminArea").classList.add("hidden");
+  $("adminLoginForm").reset();
+
   showMessage("adminStatus","Sei uscita dall'area amministratore.");
 });
 
 async function initSupabase(){
   try{
-    if(!window.supabase?.createClient)throw new Error("Libreria Supabase non disponibile.");
-    supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-    const {data}=await supabaseClient.auth.getSession();session=data.session;
+    if(!window.supabase?.createClient){
+      throw new Error("Libreria Supabase non disponibile.");
+    }
+
+    supabaseClient=window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+    const {data}=await supabaseClient.auth.getSession();
+    session=data.session;
+
     if(session){
       $("adminArea").classList.remove("hidden");
-      try{await loadAdminAppointments();}catch(err){showMessage("adminStatus","Errore nel caricamento: "+err.message);}
+
+      try{
+        await loadAdminAppointments();
+      }catch(err){
+        showMessage("adminStatus","Errore nel caricamento: "+err.message);
+      }
     }
-  }catch(err){showMessage("adminStatus","Errore Supabase: "+err.message);}
+  }catch(err){
+    showMessage("adminStatus","Errore Supabase: "+err.message);
+  }
 }
 
 (function startCalendar(){
-  const month=todayString().slice(0,7);$("month").value=month;$("month").min=month;
-  renderDays();renderTimes();loadAvailability();
+  const month=todayString().slice(0,7);
+  $("month").value=month;
+  $("month").min=month;
+
+  renderDays();
+  renderTimes();
+  loadAvailability();
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="initSupabase()" onerror="document.getElementById('adminStatus').textContent='Errore nel caricamento di Supabase';document.getElementById('adminStatus').classList.add('show')"></script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  onload="initSupabase()"
+  onerror="document.getElementById('adminStatus').textContent='Errore nel caricamento di Supabase';document.getElementById('adminStatus').classList.add('show')">
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
