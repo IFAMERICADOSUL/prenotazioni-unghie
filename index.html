@@ -284,51 +284,113 @@ $("bookingForm").addEventListener("submit",async event=>{
   }
 });
 
+
 async function loadAdminAppointments() {
-  if(!session?.access_token) throw new Error("Devi prima effettuare l'accesso.");
-  const result=await api(FUNCTION_URL+"?action=admin");
-  const rows=Array.isArray(result)?result:(result.appointments||result.bookings||result.data||[]);
-  const container=$("adminBookings");
+  if (!session?.access_token) {
+    throw new Error("Devi prima effettuare l'accesso.");
+  }
+
+  const result = await api(FUNCTION_URL + "?action=admin");
+  const rows = Array.isArray(result)
+    ? result
+    : (result.appointments || result.bookings || result.data || []);
+
+  const container = $("adminBookings");
   container.replaceChildren();
-  if(!rows.length) {
-    container.textContent="Nessun appuntamento trovato.";
+
+  if (!rows.length) {
+    container.textContent = "Nessun appuntamento trovato.";
     return;
   }
-  rows.forEach(item=>{
-    const card=document.createElement("div");
-    card.className="booking-card";
-    card.innerHTML=`
-      <p><strong>${escapeHTML(item.customer_name)}</strong></p>
-      <p>${escapeHTML(item.appointment_date)} · ${escapeHTML(String(item.appointment_time||"").slice(0,5))}</p>
-      <p>Trattamento: ${escapeHTML(item.service)}</p>
-      <p>Email: ${escapeHTML(item.email)} · Telefono: ${escapeHTML(item.phone)}</p>
-      <p>Note: ${escapeHTML(item.notes||"—")}</p>
-      <label>Stato
-        <select class="statusSelect">
-          <option value="booked">Prenotato</option>
-          <option value="completed">Completato</option>
-          <option value="cancelled">Annullato</option>
-        </select>
-      </label>
-      <button type="button" class="btn saveStatus">Salva stato</button>
-      <div class="status resultStatus"></div>`;
-    const select=card.querySelector(".statusSelect");
-    select.value=["booked","completed","cancelled"].includes(item.status)?item.status:"booked";
-    card.querySelector(".saveStatus").addEventListener("click",async e=>{
-      const button=e.currentTarget;
-      button.disabled=true;
+
+  const today = todayString();
+
+  for (const item of rows) {
+    let status = item.status || "booked";
+
+    // Un appuntamento annullato non viene mai completato automaticamente.
+    if (status !== "cancelled" &&
+        item.appointment_date &&
+        item.appointment_date < today) {
+      if (status !== "completed") {
+        try {
+          await api(FUNCTION_URL, {
+            method: "PATCH",
+            body: JSON.stringify({
+              id: item.id,
+              status: "completed"
+            })
+          });
+        } catch (err) {
+          console.error("Aggiornamento stato completato:", err);
+        }
+      }
+      status = "completed";
+    }
+
+    const card = document.createElement("div");
+    card.className = "booking-card";
+
+    card.innerHTML = `
+      <p><strong>${escapeHTML(item.customer_name || "Cliente")}</strong></p>
+      <p>${escapeHTML(item.appointment_date || "")} ·
+         ${escapeHTML(String(item.appointment_time || "").slice(0,5))}</p>
+      <p>Trattamento: ${escapeHTML(item.service || "")}</p>
+      <p>Email: ${escapeHTML(item.email || "")}</p>
+      <p>Telefono: ${escapeHTML(item.phone || "")}</p>
+      <p>Stato: <strong class="bookingState"></strong></p>
+      <button type="button" class="btn cancelBooking">Annulla prenotazione</button>
+      <div class="status cancelResult"></div>
+    `;
+
+    const stateLabel = card.querySelector(".bookingState");
+    const cancelButton = card.querySelector(".cancelBooking");
+    const resultBox = card.querySelector(".cancelResult");
+
+    const labels = {
+      booked: "Prenotato",
+      completed: "Completato",
+      cancelled: "Annullato"
+    };
+
+    stateLabel.textContent = labels[status] || status;
+
+    // Nessun pulsante di annullamento per prenotazioni già concluse.
+    if (status === "cancelled" || status === "completed") {
+      cancelButton.classList.add("hidden");
+    }
+
+    cancelButton.addEventListener("click", async () => {
+      if (!confirm("Vuoi annullare definitivamente questa prenotazione?")) {
+        return;
+      }
+
+      cancelButton.disabled = true;
+
       try {
-        await api(FUNCTION_URL,{method:"PATCH",body:JSON.stringify({id:item.id,status:select.value})});
-        const box=card.querySelector(".resultStatus");
-        box.textContent="Stato aggiornato.";box.classList.add("show");
-        await loadAvailability();
-      } catch(err) {
-        const box=card.querySelector(".resultStatus");
-        box.textContent="Errore: "+err.message;box.classList.add("show");
-      } finally {button.disabled=false;}
+        await api(FUNCTION_URL, {
+          method: "PATCH",
+          body: JSON.stringify({
+            id: item.id,
+            status: "cancelled"
+          })
+        });
+
+        resultBox.textContent = "Prenotazione annullata.";
+        resultBox.classList.add("show");
+
+        // Ricarica appuntamenti e disponibilità del calendario.
+        await loadMonthAvailability();
+        await loadAdminAppointments();
+      } catch (err) {
+        resultBox.textContent = "Errore durante l'annullamento: " + err.message;
+        resultBox.classList.add("show");
+        cancelButton.disabled = false;
+      }
     });
+
     container.appendChild(card);
-  });
+  }
 }
 
 $("adminLoginForm").addEventListener("submit",async event=>{
