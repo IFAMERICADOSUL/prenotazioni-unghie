@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="it">
 <head>
@@ -5,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f7e8ec">
 <title>Prenotazioni | Kiraz Nails Studio</title>
+
 <style>
 :root{--rose:#b85f7a;--dark:#813d55;--ink:#382a30;--muted:#786b70;--line:#ead8de}
 *{box-sizing:border-box}
@@ -29,7 +31,7 @@ textarea{min-height:80px;resize:vertical}
 .times{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
 .btn{width:100%;margin-top:12px;padding:13px 16px;border:0;border-radius:10px;background:var(--rose);color:white;font:inherit;font-weight:700;cursor:pointer}
 .btn.secondary{background:#f4e6eb;color:var(--dark);border:1px solid var(--line)}
-.btn.cancel{background:#54212d;color:white}
+.btn.cancel{background:#54212d;color:#fff}
 .btn.cancel:disabled{background:#eee5e8;color:#786b70;opacity:1;cursor:not-allowed}
 .btn:disabled{opacity:.55;cursor:wait}
 .status{display:none;margin-top:12px;padding:12px;background:#fff0f3;color:#7b344d;border-radius:10px;line-height:1.5;overflow-wrap:anywhere}
@@ -42,12 +44,25 @@ textarea{min-height:80px;resize:vertical}
 .booking-card p{margin:6px 0}
 .signature-preview{max-width:260px;max-height:100px;object-fit:contain;border:1px solid var(--line);background:#fff}
 .footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:24px}
+
+/* Testi dei consensi a scomparsa */
+.consent-box{background:#fff9fa;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0}
+.consent-box details{margin:0}
+.consent-box summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;font-weight:700;color:var(--dark);line-height:1.4}
+.consent-box summary::-webkit-details-marker{display:none}
+.consent-box summary::before{content:"▸";display:inline-block;font-size:1rem;transition:transform .18s ease;flex-shrink:0}
+.consent-box details[open] summary::before{transform:rotate(90deg)}
+.consent-box summary:focus-visible{outline:2px solid var(--rose);outline-offset:4px;border-radius:3px}
+.consent-text{padding:8px 0 2px;line-height:1.65;font-size:.9rem}
+.consent-text p{margin:9px 0}
+.consent-box .check{margin:12px 0 2px}
+.consent-box hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 @media(max-width:560px){.row{grid-template-columns:1fr}.day{font-size:.7rem;padding:9px 1px}.panel{border-radius:14px}}
 </style>
 </head>
+
 <body>
 <div class="wrap">
-
 <header>
   <div class="eyebrow">Nail studio · Prenotazioni online</div>
   <h1>Kiraz Nails Studio</h1>
@@ -70,21 +85,11 @@ textarea{min-height:80px;resize:vertical}
 <h2>2. Dati personali</h2>
 <form id="bookingForm">
   <div class="row">
-    <div>
-      <label for="name">Nome e cognome *</label>
-      <input id="name" autocomplete="name" maxlength="120" required>
-    </div>
-    <div>
-      <label for="email">Email *</label>
-      <input id="email" type="email" autocomplete="email" maxlength="254" required>
-    </div>
+    <div><label for="name">Nome e cognome *</label><input id="name" autocomplete="name" maxlength="120" required></div>
+    <div><label for="email">Email *</label><input id="email" type="email" autocomplete="email" maxlength="254" required></div>
   </div>
-
   <div class="row">
-    <div>
-      <label for="phone">Cellulare *</label>
-      <input id="phone" type="tel" autocomplete="tel" maxlength="40" required>
-    </div>
+    <div><label for="phone">Cellulare *</label><input id="phone" type="tel" autocomplete="tel" maxlength="40" required></div>
     <div>
       <label for="service">Trattamento *</label>
       <select id="service" required>
@@ -117,132 +122,63 @@ textarea{min-height:80px;resize:vertical}
   <textarea id="otherHealth" maxlength="3000"></textarea>
 
   <h2>4. Informativa, consensi e firma</h2>
+  <p class="note">Per non occupare troppo spazio, i testi qui sotto sono chiusi. Tocca la piccola freccia accanto a ciascun titolo per leggerli. Le caselle di conferma restano visibili.</p>
 
-  <div class="panel" style="background:#fff9fa;box-shadow:none">
-    <h3>Informativa sul trattamento dei dati personali</h3>
+  <div class="consent-box">
+    <details>
+      <summary>Informativa sul trattamento dei dati personali (artt. 13-14 GDPR)</summary>
+      <div class="consent-text">
+        <p><strong>Titolare del trattamento:</strong> Samy Akira Cueva Rodriguez, titolare di Kiraz Nails Studio, Parma (Italia). <strong>Contatto:</strong> <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.</p>
 
-    <p>
-      <strong>Titolare del trattamento:</strong>
-      Samy Akira Cueva Rodriguez, titolare di Kiraz Nails Studio, Parma, Italia.
-      <strong>Contatto:</strong>
-      <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.
-    </p>
+        <p><strong>Quali dati raccogliamo.</strong> Dati identificativi e di contatto (nome, email, telefono), dettagli dell'appuntamento e del trattamento richiesto, note che decidi di inserire, eventuali informazioni su allergie, condizioni di salute e unghie, firma disegnata sullo schermo, nonché le registrazioni delle scelte di consenso.</p>
 
-    <p>
-      <strong>Quali dati raccogliamo.</strong>
-      Dati identificativi e di contatto (nome, email e telefono), dettagli
-      dell'appuntamento e del trattamento richiesto, note che decidi di
-      inserire, eventuali informazioni su allergie, condizioni di salute e
-      unghie, firma disegnata sullo schermo e registrazioni delle scelte
-      di consenso.
-    </p>
+        <p><strong>Finalità e basi giuridiche.</strong> I dati identificativi e di contatto sono trattati per gestire la richiesta, fissare e amministrare l'appuntamento e comunicare con te; la base giuridica prevista è l'esecuzione di misure precontrattuali richieste dall'interessata e, quando applicabile, l'esecuzione del servizio (art. 6, par. 1, lett. b GDPR). Le informazioni relative alla salute sono facoltative e saranno trattate soltanto per valutare le informazioni pertinenti alla sicurezza e all'esecuzione del trattamento richiesto, sulla base del tuo consenso esplicito (art. 9, par. 2, lett. a GDPR). La firma è raccolta per documentare la scheda e le dichiarazioni rese.</p>
 
-    <p>
-      <strong>Finalità e basi giuridiche.</strong>
-      I dati identificativi e di contatto sono trattati per gestire la
-      richiesta, fissare e amministrare l'appuntamento e comunicare con te.
-      La base giuridica prevista è l'esecuzione di misure precontrattuali
-      richieste dall'interessata e, quando applicabile, l'esecuzione del
-      servizio (art. 6, par. 1, lett. b GDPR).
-      Le informazioni relative alla salute sono facoltative e saranno
-      trattate soltanto per valutare le informazioni pertinenti alla
-      sicurezza e all'esecuzione del trattamento richiesto, sulla base
-      del tuo consenso esplicito (art. 9, par. 2, lett. a GDPR).
-      La firma è raccolta per documentare la scheda e le dichiarazioni rese.
-    </p>
+        <p><strong>Conferimento dei dati.</strong> Nome, recapito, trattamento, data e orario sono necessari per gestire la prenotazione; senza questi dati potremmo non riuscire a fissarla. Le informazioni sulla salute sono facoltative: non inserire dati non pertinenti. Il mancato consenso al trattamento dei dati sanitari non deve essere interpretato come consenso e può limitare la possibilità di valutare le informazioni che scegli di comunicare.</p>
 
-    <p>
-      <strong>Conferimento dei dati.</strong>
-      Nome, recapito, trattamento, data e orario sono necessari per gestire
-      la prenotazione; senza questi dati potremmo non riuscire a fissarla.
-      Le informazioni sulla salute sono facoltative: non inserire dati non
-      pertinenti. Il mancato consenso al trattamento dei dati sanitari non
-      deve essere interpretato come consenso e può limitare la possibilità
-      di valutare le informazioni che scegli di comunicare.
-    </p>
+        <p><strong>Destinatari e servizi.</strong> I dati possono essere trattati, nei limiti necessari, da fornitori tecnici che ospitano o rendono operativo il sito e il servizio di prenotazione, inclusa la piattaforma Supabase utilizzata per il database e le funzioni server, nonché da soggetti autorizzati dal titolare. Verifica e completa questa sezione con i fornitori effettivamente attivi, i relativi ruoli contrattuali e le informazioni aggiornate sulla localizzazione dei dati e sugli eventuali trasferimenti fuori dallo Spazio economico europeo.</p>
 
-    <p>
-      <strong>Destinatari e servizi.</strong>
-      I dati possono essere trattati, nei limiti necessari, da fornitori
-      tecnici che ospitano o rendono operativo il sito e il servizio di
-      prenotazione, inclusa la piattaforma Supabase utilizzata per il
-      database e le funzioni server, nonché da soggetti autorizzati dal
-      titolare. Prima della pubblicazione, verifica i fornitori effettivi,
-      i relativi ruoli contrattuali, la localizzazione dei dati e gli
-      eventuali trasferimenti fuori dallo Spazio economico europeo.
-    </p>
+        <p><strong>Conservazione.</strong> Il periodo previsto per i dati della prenotazione e della scheda è di 3 mesi dalla data dell'appuntamento o dalla data prevista dell'appuntamento se questo non si svolge, salvo necessità di conservazione più lunga per obblighi di legge o per accertare, esercitare o difendere un diritto. I backup tecnici possono seguire tempi di cancellazione propri del fornitore. Prima di usare il servizio, assicurati che questa durata sia compatibile con gli obblighi applicabili.</p>
 
-    <p>
-      <strong>Conservazione.</strong>
-      Il periodo previsto per i dati della prenotazione e della scheda è
-      di 3 mesi dalla data dell'appuntamento o dalla data prevista
-      dell'appuntamento se questo non si svolge, salvo necessità di
-      conservazione più lunga per obblighi di legge o per accertare,
-      esercitare o difendere un diritto. I backup tecnici possono seguire
-      tempi di cancellazione propri del fornitore. Verifica che questa
-      durata sia compatibile con gli obblighi applicabili.
-    </p>
+        <p><strong>I tuoi diritti.</strong> Nei casi previsti dal GDPR puoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità e opporti al trattamento. Puoi revocare in qualsiasi momento il consenso ai dati relativi alla salute, senza pregiudicare la liceità del trattamento precedente alla revoca. Per esercitare i diritti scrivi a <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>. Hai inoltre diritto di proporre reclamo al Garante per la protezione dei dati personali. Il trattamento non prevede decisioni automatizzate con effetti giuridici.</p>
 
-    <p>
-      <strong>I tuoi diritti.</strong>
-      Nei casi previsti dal GDPR puoi chiedere accesso, rettifica,
-      cancellazione, limitazione, portabilità e opporti al trattamento.
-      Puoi revocare in qualsiasi momento il consenso ai dati relativi alla
-      salute, senza pregiudicare la liceità del trattamento precedente
-      alla revoca. Per esercitare i diritti scrivi a
-      <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.
-      Hai inoltre diritto di proporre reclamo al Garante per la protezione
-      dei dati personali.
-    </p>
-
-    <p>
-      <strong>Sicurezza e aggiornamenti.</strong>
-      I dati personali e, in particolare, quelli relativi alla salute
-      devono essere accessibili soltanto a persone autorizzate e protetti
-      con misure adeguate. L'informativa deve essere verificata e
-      completata in base alla configurazione effettiva del sito, ai
-      fornitori e alle modalità di conservazione prima della raccolta
-      di dati reali.
-    </p>
+        <p><strong>Sicurezza e aggiornamenti.</strong> I dati personali e, in particolare, quelli relativi alla salute devono essere accessibili soltanto a persone autorizzate e protetti con misure adeguate. Questa informativa deve essere verificata e completata in base alla configurazione effettiva del sito, ai fornitori e alle modalità di conservazione prima della raccolta di dati reali.</p>
+      </div>
+    </details>
 
     <label class="check">
       <input id="privacy" type="checkbox" required>
-      <span>Dichiaro di aver letto l'informativa sul trattamento dei dati personali riportata sopra. *</span>
+      <span>Dichiaro di aver letto l'informativa sul trattamento dei dati personali. *</span>
     </label>
+  </div>
 
-    <hr style="border:0;border-top:1px solid #ead8de;margin:18px 0">
-
-    <h3>Consenso esplicito al trattamento dei dati relativi alla salute</h3>
-
-    <p>
-      I dati relativi ad allergie, condizioni di salute e condizioni delle
-      unghie possono rivelare informazioni sulla salute e sono dati
-      particolarmente protetti dal GDPR. Inserisci solo ciò che ritieni
-      pertinente al trattamento richiesto. Il consenso può essere revocato
-      scrivendo a
-      <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.
-    </p>
+  <div class="consent-box">
+    <details>
+      <summary>Consenso esplicito al trattamento dei dati relativi alla salute</summary>
+      <div class="consent-text">
+        <p>I dati relativi ad allergie, condizioni di salute e condizioni delle unghie possono rivelare informazioni sulla salute e sono dati particolarmente protetti dal GDPR.</p>
+        <p>Inserisci solo ciò che ritieni pertinente al trattamento richiesto. Il consenso è separato dalla prenotazione e può essere revocato scrivendo a <a href="mailto:a63195942@gmail.com">a63195942@gmail.com</a>.</p>
+        <p>Le informazioni sulla salute sono facoltative. Se non desideri fornirle, non inserirle nei campi appositi.</p>
+      </div>
+    </details>
 
     <label class="check">
       <input id="healthConsent" type="checkbox" required>
-      <span>
-        Presto il mio consenso esplicito al trattamento delle informazioni
-        relative alla salute che inserisco volontariamente, esclusivamente
-        per valutare le informazioni pertinenti alla sicurezza e
-        all'esecuzione del trattamento richiesto, secondo l'informativa
-        sopra riportata. *
-      </span>
+      <span>Presto il mio consenso esplicito al trattamento delle informazioni relative alla salute che inserisco volontariamente, esclusivamente per valutare le informazioni pertinenti alla sicurezza e all'esecuzione del trattamento richiesto, secondo l'informativa sopra riportata. *</span>
     </label>
+  </div>
 
-    <h3>Dichiarazione relativa al trattamento richiesto</h3>
+  <div class="consent-box">
+    <details>
+      <summary>Dichiarazione relativa al trattamento richiesto</summary>
+      <div class="consent-text">
+        <p>Questa dichiarazione conferma che le informazioni fornite sono, per quanto ne sai, corrette e pertinenti e che desideri procedere con la richiesta di appuntamento.</p>
+      </div>
+    </details>
 
     <label class="check">
       <input id="workConsent" type="checkbox" required>
-      <span>
-        Dichiaro che le informazioni che ho scelto di fornire sono, per
-        quanto a mia conoscenza, corrette e pertinenti e desidero procedere
-        con la richiesta di appuntamento. *
-      </span>
+      <span>Dichiaro che le informazioni che ho scelto di fornire sono, per quanto a mia conoscenza, corrette e pertinenti e desidero procedere con la richiesta di appuntamento. *</span>
     </label>
   </div>
 
@@ -251,10 +187,7 @@ textarea{min-height:80px;resize:vertical}
   <canvas id="signature" aria-label="Riquadro per firmare"></canvas>
   <button type="button" id="clearSignature" class="btn secondary">Cancella e rifai la firma</button>
 
-  <p class="note">
-    La firma raccolta qui è una firma elettronica disegnata sullo schermo;
-    non è automaticamente una firma digitale qualificata.
-  </p>
+  <p class="note">La firma raccolta qui è una firma elettronica disegnata sullo schermo; non è automaticamente una firma digitale qualificata. Il testo del consenso e l'informativa devono essere verificati prima di usare il sito con clienti reali.</p>
 
   <button id="submitBooking" type="submit" class="btn">Conferma appuntamento</button>
   <div id="bookingStatus" class="status" role="status" aria-live="polite"></div>
@@ -273,7 +206,6 @@ textarea{min-height:80px;resize:vertical}
 <section class="panel">
   <h2>Area studio · Amministratore</h2>
   <p class="note">Accedi con l'utente amministratore creato in Supabase Authentication.</p>
-
   <form id="adminLoginForm">
     <label for="adminEmail">Email amministratore</label>
     <input id="adminEmail" type="email" autocomplete="username" required>
@@ -282,7 +214,6 @@ textarea{min-height:80px;resize:vertical}
     <button id="adminLoginButton" type="submit" class="btn">Accedi</button>
     <div id="adminStatus" class="status" role="status" aria-live="polite"></div>
   </form>
-
   <div id="adminArea" class="hidden">
     <p id="adminWelcome" class="note"></p>
     <button id="refreshAdmin" class="btn secondary" type="button">Aggiorna appuntamenti</button>
@@ -290,7 +221,6 @@ textarea{min-height:80px;resize:vertical}
     <div id="adminBookings"></div>
   </div>
 </section>
-
 <p class="footer">Kiraz Nails Studio · Prenotazioni online</p>
 </div>
 
@@ -303,34 +233,29 @@ const FUNCTION_URL=SUPABASE_URL+"/functions/v1/manage-bookings";
 const $=id=>document.getElementById(id);
 const SLOTS=["10:00","15:00"];
 
-let supabaseClient=null;
-let session=null;
-let selectedDate=null;
-let selectedTime=null;
+let supabaseClient=null,session=null;
+let selectedDate=null,selectedTime=null;
 let unavailable=new Set();
-let lastBooking=null;
-let lastSignature=null;
-let lastConsentTime=null;
+let lastBooking=null,lastSignature=null,lastConsentTime=null;
 
 function todayString(){
   const d=new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
-
 function dateString(y,m,d){
   return `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
 }
-
 function isSunday(date){
   return new Date(date+"T12:00:00").getDay()===0;
 }
-
 function showMessage(id,text,show=true){
   const el=$(id);
   el.textContent=text||"";
   el.classList.toggle("show",show&&!!text);
 }
-
+function escapeHTML(v){
+  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
 function headers(){
   return {
     "Content-Type":"application/json",
@@ -338,34 +263,21 @@ function headers(){
     "Authorization":"Bearer "+(session?.access_token||SUPABASE_ANON_KEY)
   };
 }
-
 async function api(url,options={}){
   const response=await fetch(url,{
     ...options,
     headers:{...headers(),...(options.headers||{})}
   });
-
   const raw=await response.text();
   let data={};
-
-  try{
-    data=raw?JSON.parse(raw):{};
-  }catch{
-    data={message:raw};
-  }
-
-  if(!response.ok){
-    throw new Error(data.error||data.message||`Errore HTTP ${response.status}`);
-  }
-
+  try{data=raw?JSON.parse(raw):{};}catch{data={message:raw};}
+  if(!response.ok)throw new Error(data.error||data.message||`Errore HTTP ${response.status}`);
   return data;
 }
 
 function renderDays(){
-  const month=$("month").value;
-  const container=$("days");
+  const month=$("month").value,container=$("days");
   container.replaceChildren();
-
   if(!month)return;
 
   const [y,m]=month.split("-").map(Number);
@@ -374,28 +286,22 @@ function renderDays(){
   for(let d=1;d<=total;d++){
     const date=dateString(y,m,d);
     const b=document.createElement("button");
-
     b.type="button";
     b.className="day"+(date===selectedDate?" active":"");
     b.innerHTML=`${String(d).padStart(2,"0")}<small>${["Dom","Lun","Mar","Mer","Gio","Ven","Sab"][new Date(date+"T12:00:00").getDay()]}</small>`;
     b.disabled=date<todayString()||isSunday(date);
-
     b.addEventListener("click",()=>{
       selectedDate=date;
       selectedTime=null;
       renderDays();
       renderTimes();
     });
-
     container.appendChild(b);
   }
 }
 
 function renderTimes(){
-  $("chosenDate").textContent=selectedDate
-    ?"Data selezionata: "+selectedDate
-    :"Seleziona una data.";
-
+  $("chosenDate").textContent=selectedDate?"Data selezionata: "+selectedDate:"Seleziona una data.";
   const container=$("times");
   container.replaceChildren();
 
@@ -403,17 +309,13 @@ function renderTimes(){
     const b=document.createElement("button");
     b.type="button";
     b.className="slot"+(time===selectedTime?" selected":"");
-
     const busy=selectedDate&&unavailable.has(selectedDate+"|"+time);
-
     b.textContent=busy?time+" · Occupato":time;
     b.disabled=!selectedDate||!!busy;
-
     b.addEventListener("click",()=>{
       selectedTime=time;
       renderTimes();
     });
-
     container.appendChild(b);
   });
 }
@@ -423,7 +325,6 @@ async function loadAvailability(){
   if(!month)return;
 
   unavailable=new Set();
-
   const [y,m]=month.split("-").map(Number);
   const from=month+"-01";
   const to=dateString(y,m,new Date(y,m,0).getDate());
@@ -457,11 +358,10 @@ $("month").addEventListener("change",()=>{
   loadAvailability();
 });
 
-// Firma su canvas: supporta mouse e touchscreen.
+// Firma touch/mouse sul canvas.
 const canvas=$("signature");
 const ctx=canvas.getContext("2d");
-let drawing=false;
-let hasSignature=false;
+let drawing=false,hasSignature=false;
 
 function resizeCanvas(){
   const rect=canvas.getBoundingClientRect();
@@ -520,7 +420,6 @@ function endDraw(){
   drawing=false;
   ctx.beginPath();
 }
-
 canvas.addEventListener("pointerup",endDraw);
 canvas.addEventListener("pointercancel",endDraw);
 
@@ -533,25 +432,20 @@ window.addEventListener("resize",()=>{
   if(!$("confirmationPanel").classList.contains("hidden"))return;
   resizeCanvas();
 });
-
 requestAnimationFrame(resizeCanvas);
 
 function signatureDataURL(){
   if(!hasSignature)return null;
-
   const temp=document.createElement("canvas");
   temp.width=canvas.width;
   temp.height=canvas.height;
-
   const c=temp.getContext("2d");
   c.fillStyle="#ffffff";
   c.fillRect(0,0,temp.width,temp.height);
   c.drawImage(canvas,0,0);
-
   return temp.toDataURL("image/png");
 }
 
-// Invio della prenotazione.
 $("bookingForm").addEventListener("submit",async e=>{
   e.preventDefault();
 
@@ -561,12 +455,11 @@ $("bookingForm").addEventListener("submit",async e=>{
   }
 
   if(!$("privacy").checked||!$("healthConsent").checked||!$("workConsent").checked){
-    showMessage("bookingStatus","Leggi l'informativa e seleziona tutti i consensi richiesti.");
+    showMessage("bookingStatus","Leggi le informative con le frecce e seleziona tutti i consensi richiesti.");
     return;
   }
 
   const signature=signatureDataURL();
-
   if(!signature){
     showMessage("bookingStatus","Aggiungi la tua firma nel riquadro.");
     return;
@@ -575,7 +468,6 @@ $("bookingForm").addEventListener("submit",async e=>{
   const button=$("submitBooking");
   button.disabled=true;
   button.textContent="Salvataggio in corso…";
-
   const consentTime=new Date().toISOString();
 
   const payload={
@@ -601,16 +493,9 @@ $("bookingForm").addEventListener("submit",async e=>{
       body:JSON.stringify(payload)
     });
 
-    if(!result.success){
-      throw new Error("Il server non ha confermato la prenotazione.");
-    }
+    if(!result.success)throw new Error("Il server non ha confermato la prenotazione.");
 
-    lastBooking={
-      ...payload,
-      id:result.appointment?.id||"",
-      status:"booked"
-    };
-
+    lastBooking={...payload,id:result.appointment?.id||"",status:"booked"};
     lastSignature=signature;
     lastConsentTime=consentTime;
 
@@ -632,7 +517,6 @@ $("bookingForm").addEventListener("submit",async e=>{
     $("confirmationPanel").classList.remove("hidden");
     showMessage("bookingStatus","",false);
     $("confirmationPanel").scrollIntoView({behavior:"smooth",block:"start"});
-
     await loadAvailability();
   }catch(err){
     showMessage("bookingStatus","Prenotazione non confermata: "+err.message);
@@ -642,7 +526,7 @@ $("bookingForm").addEventListener("submit",async e=>{
   }
 });
 
-// PDF della scheda firmata, generato nel dispositivo della cliente.
+// PDF generato sul dispositivo dopo la conferma del server.
 $("downloadPdf").addEventListener("click",()=>{
   if(!lastBooking||!lastSignature){
     alert("Non c'è una prenotazione confermata da scaricare.");
@@ -650,29 +534,24 @@ $("downloadPdf").addEventListener("click",()=>{
   }
 
   const jsPDF=window.jspdf?.jsPDF;
-
   if(!jsPDF){
     alert("Il generatore PDF non è disponibile. Controlla la connessione e ricarica la pagina.");
     return;
   }
 
   const doc=new jsPDF({unit:"mm",format:"a4"});
-  const left=18;
-  const width=174;
+  const left=18,width=174;
   let y=20;
 
   function line(label,value){
     const text=doc.splitTextToSize(String(value||"Non indicato"),width-3);
-
     if(y+8+text.length*5>275){
       doc.addPage();
       y=20;
     }
-
     doc.setFont("helvetica","bold");
     doc.text(label,left,y);
     y+=6;
-
     doc.setFont("helvetica","normal");
     doc.text(text,left,y);
     y+=text.length*5+4;
@@ -682,11 +561,9 @@ $("downloadPdf").addEventListener("click",()=>{
   doc.setFontSize(19);
   doc.text("Kiraz Nails Studio",left,y);
   y+=10;
-
   doc.setFontSize(15);
   doc.text("Scheda cliente e prenotazione",left,y);
   y+=10;
-
   doc.setFontSize(10);
 
   line("Nome e cognome",lastBooking.customer_name);
@@ -731,23 +608,19 @@ $("downloadPdf").addEventListener("click",()=>{
 $("newBooking").addEventListener("click",()=>{
   $("confirmationPanel").classList.add("hidden");
   $("bookingForm").reset();
-
   selectedDate=null;
   selectedTime=null;
   lastBooking=null;
   lastSignature=null;
   lastConsentTime=null;
-
   ctx.clearRect(0,0,canvas.width,canvas.height);
   hasSignature=false;
-
   renderDays();
   renderTimes();
   window.scrollTo({top:0,behavior:"smooth"});
 });
 
-// AREA AMMINISTRATORE
-
+// Area amministratore
 function getRomeDateTime(){
   const parts=new Intl.DateTimeFormat("en-GB",{
     timeZone:"Europe/Rome",
@@ -781,10 +654,7 @@ function getAppointmentStatus(appointment){
   const date=appointment.appointment_date;
   const time=String(appointment.appointment_time||"").slice(0,5);
 
-  if(
-    date&&time&&
-    (date<now.date||(date===now.date&&time<=now.time.slice(0,5)))
-  ){
+  if(date&&time&&(date<now.date||(date===now.date&&time<=now.time.slice(0,5)))){
     return {label:"COMPLETATO",color:"#382a30"};
   }
 
@@ -799,7 +669,6 @@ async function loadAdminAppointments(){
   const result=await api(FUNCTION_URL+"?action=admin");
   const rows=result.appointments||[];
   const container=$("adminBookings");
-
   container.replaceChildren();
 
   if(!rows.length){
@@ -810,7 +679,6 @@ async function loadAdminAppointments(){
   rows.forEach(item=>{
     const card=document.createElement("div");
     card.className="booking-card";
-
     const status=getAppointmentStatus(item);
 
     const fields=[
@@ -863,8 +731,8 @@ async function loadAdminAppointments(){
       card.appendChild(img);
     }
 
-    // Il pulsante scompare quando l'appuntamento è COMPLETATO.
-    // Se è già annullato, rimane visibile ma disabilitato.
+    // Nasconde il pulsante quando l'appuntamento è completato.
+    // Gli appuntamenti annullati mantengono il pulsante disabilitato.
     if(status.label!=="COMPLETATO"){
       const cancelButton=document.createElement("button");
       cancelButton.type="button";
@@ -921,28 +789,21 @@ async function loadAdminAppointments(){
   });
 }
 
-// Aggiornamento automatico ogni 60 secondi.
+// Aggiorna gli appuntamenti Admin ogni minuto.
 setInterval(()=>{
-  if(
-    session?.access_token&&
-    $("adminArea")&&
-    !$("adminArea").classList.contains("hidden")
-  ){
+  if(session?.access_token&&$("adminArea")&&!$("adminArea").classList.contains("hidden")){
     loadAdminAppointments().catch(console.error);
   }
 },60000);
 
 $("adminLoginForm").addEventListener("submit",async e=>{
   e.preventDefault();
-
   const button=$("adminLoginButton");
   button.disabled=true;
   showMessage("adminStatus","");
 
   try{
-    if(!supabaseClient){
-      throw new Error("Supabase non è ancora disponibile.");
-    }
+    if(!supabaseClient)throw new Error("Supabase non è ancora disponibile.");
 
     const {data,error}=await supabaseClient.auth.signInWithPassword({
       email:$("adminEmail").value.trim(),
@@ -954,9 +815,7 @@ $("adminLoginForm").addEventListener("submit",async e=>{
     session=data.session;
     $("adminPassword").value="";
     $("adminArea").classList.remove("hidden");
-
     await loadAdminAppointments();
-
     $("adminWelcome").textContent="Accesso effettuato: "+(data.user?.email||"amministratore");
     showMessage("adminStatus","Accesso riuscito.");
   }catch(err){
@@ -980,7 +839,6 @@ $("adminLogout").addEventListener("click",async()=>{
   try{
     if(supabaseClient)await supabaseClient.auth.signOut();
   }catch{}
-
   session=null;
   $("adminArea").classList.add("hidden");
   $("adminLoginForm").reset();
@@ -993,17 +851,12 @@ async function initSupabase(){
       throw new Error("Libreria Supabase non disponibile.");
     }
 
-    supabaseClient=window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
-
+    supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
     const {data}=await supabaseClient.auth.getSession();
     session=data.session;
 
     if(session){
       $("adminArea").classList.remove("hidden");
-
       try{
         await loadAdminAppointments();
       }catch(err){
@@ -1025,11 +878,7 @@ async function initSupabase(){
 })();
 </script>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-  onload="initSupabase()"
-  onerror="document.getElementById('adminStatus').textContent='Errore nel caricamento di Supabase';document.getElementById('adminStatus').classList.add('show')">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="initSupabase()" onerror="document.getElementById('adminStatus').textContent='Errore nel caricamento di Supabase';document.getElementById('adminStatus').classList.add('show')"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
